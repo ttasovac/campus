@@ -8,7 +8,8 @@ import { config } from '@/cms/cms.config'
 const NetlifyCms = dynamic(
   async () => {
     // TODO: const Cms: CMS = await import('netlify-cms-app/dist/esm').then((mod) => mod.default)
-    const Cms = await import('netlify-cms-app').then((mod) => mod.default)
+    const { default: Cms } = await import('netlify-cms-app')
+    const { nanoid } = await import('nanoid')
 
     Cms.init({ config })
 
@@ -17,8 +18,14 @@ const NetlifyCms = dynamic(
       {
         name: 'preSave',
         handler({ entry }) {
-          // TODO:
-          return entry
+          const data = entry.get('data')
+          if (entry.get('collection') !== 'posts') {
+            return data
+          }
+          if (!data.get('uuid')) {
+            return data.set('uuid', nanoid())
+          }
+          return data
         },
       },
       {},
@@ -32,7 +39,7 @@ const NetlifyCms = dynamic(
   {
     loading({ error, isLoading, pastDelay, retry, timedOut }) {
       return (
-        <p className="grid place-items-center min-h-screen">
+        <p className="grid min-h-screen place-items-center">
           Loading CMS&hellip;
         </p>
       )
