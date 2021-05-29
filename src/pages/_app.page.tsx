@@ -1,12 +1,16 @@
 import 'tailwindcss/tailwind.css'
 import '@/styles/index.css'
 
+import ErrorBoundary from '@stefanprobst/next-error-boundary'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import type { ComponentType } from 'react'
 import { Fragment } from 'react'
+import { Favicons } from '@/assets/Favicons'
+import { WebManifest } from '@/assets/WebManifest'
 import { PageLayout } from '@/common/PageLayout'
 import { Providers } from '@/common/Providers'
+import { ClientError } from '@/error/ClientError'
 
 /**
  * Application shell, shared by all pages.

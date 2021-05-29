@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 import type { I18nProviderProps } from '@/i18n/I18n.context'
 import { I18nProvider } from '@/i18n/I18n.context'
 import { useLocale } from '@/i18n/useLocale'
-import { MetadataProvider } from '@/metadata/Metadata.context'
+import { SiteMetadataProvider } from '@/metadata/SiteMetadata.context'
 
 export interface ProvidersProps {
   children?: ReactNode
@@ -22,9 +22,9 @@ export function Providers(props: ProvidersProps): JSX.Element {
     <SSRProvider>
       <I18nProvider locale={locale} dictionary={props.dictionary}>
         <UiI18nProvider locale={locale}>
-          <MetadataProvider locale={locale}>
+          <SiteMetadataProvider>
             <OverlayProvider>{props.children}</OverlayProvider>
-          </MetadataProvider>
+          </SiteMetadataProvider>
         </UiI18nProvider>
       </I18nProvider>
     </SSRProvider>
