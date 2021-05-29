@@ -29,11 +29,15 @@
     "yarn": "1.x"
   },
   "dependencies": {
+    "@react-aria/i18n": "^3.3.1",
+    "@react-aria/overlays": "^3.6.3",
+    "@react-aria/ssr": "^3.0.2",
     "algoliasearch": "^4.9.1",
     "netlify-cms-app": "^2.15.11",
     "next": "^10.2.3",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "rosetta": "^1.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",

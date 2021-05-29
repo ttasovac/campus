@@ -1,0 +1,32 @@
+import { I18nProvider as UiI18nProvider } from '@react-aria/i18n'
+import { OverlayProvider } from '@react-aria/overlays'
+import { SSRProvider } from '@react-aria/ssr'
+import type { ReactNode } from 'react'
+import type { I18nProviderProps } from '@/i18n/I18n.context'
+import { I18nProvider } from '@/i18n/I18n.context'
+import { useLocale } from '@/i18n/useLocale'
+import { MetadataProvider } from '@/metadata/Metadata.context'
+
+export interface ProvidersProps {
+  children?: ReactNode
+  dictionary?: I18nProviderProps['dictionary']
+}
+
+/**
+ * Context providers.
+ */
+export function Providers(props: ProvidersProps): JSX.Element {
+  const { locale } = useLocale()
+
+  return (
+    <SSRProvider>
+      <I18nProvider locale={locale} dictionary={props.dictionary}>
+        <UiI18nProvider locale={locale}>
+          <MetadataProvider locale={locale}>
+            <OverlayProvider>{props.children}</OverlayProvider>
+          </MetadataProvider>
+        </UiI18nProvider>
+      </I18nProvider>
+    </SSRProvider>
+  )
+}
