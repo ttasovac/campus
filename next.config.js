@@ -47,6 +47,19 @@ const config = {
 /** @type {Array<(config: Config) => Config>} */
 const plugins = [
   /** @ts-expect-error Missing module declaration. */
+  require('@stefanprobst/next-svg')({
+    svgo: {
+      plugins: [
+        { prefixIds: true },
+        { removeDimensions: true },
+        { removeViewBox: false },
+      ],
+    },
+    svgr: {
+      titleProp: true,
+    },
+  }),
+  /** @ts-expect-error Missing module declaration. */
   require('@next/bundle-analyzer')({ enabled: process.env.ANALYZE === 'true' }),
   require('next-transpile-modules')([
     'xdm',
@@ -65,4 +78,6 @@ const plugins = [
   ]),
 ]
 
-module.exports = plugins.reduce((config, plugin) => plugin(config), config)
+module.exports = plugins.reduce((config, plugin) => {
+  return plugin(config)
+}, config)

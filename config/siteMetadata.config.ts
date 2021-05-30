@@ -8,13 +8,31 @@ export interface SiteMetadata {
   description: string
   favicon: {
     src: string
+    maskable?: boolean
   }
   image: {
     src: string
+    publicPath: string
     alt: string
   }
-  twitter?: {
-    handle: string
+  twitter?: string
+  creator?: {
+    name: string
+    affiliation?: string
+    website: string
+    address?: {
+      street: string
+      zip: string
+      city: string
+    }
+    image?: {
+      src: string
+      publicPath: string
+      alt: string
+    }
+    phone?: string
+    email?: string
+    twitter?: string
   }
 }
 
@@ -23,19 +41,19 @@ export interface SiteMetadata {
  */
 export const siteMetadata: Record<Locale, SiteMetadata> = {
   en: {
-    url: new URL('en', url).toString(),
+    url: String(new URL('en', url)),
     title: 'Campus',
     shortTitle: 'Campus',
     description: '',
     favicon: {
-      src: 'public/assets/images/logo.svg',
+      src: 'public/assets/images/logo-maskable.svg',
+      maskable: true,
     },
     image: {
-      src: '/android-chrome-512x512.png',
+      src: 'public/android-chrome-512x512.png',
+      publicPath: '/android-chrome-512x512.png',
       alt: '',
     },
-    twitter: {
-      handle: '',
-    },
+    twitter: '',
   },
 } as const

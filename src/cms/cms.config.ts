@@ -1,4 +1,5 @@
 import type { CmsConfig } from 'netlify-cms-core'
+import { url } from '~/config/site.config'
 
 /**
  * Netlify CMS config.
@@ -7,8 +8,8 @@ import type { CmsConfig } from 'netlify-cms-core'
  * @see https://www.netlifycms.org/docs/beta-features/
  */
 export const config: CmsConfig = {
-  // site_url: '',
-  // logo_url: '/assets/images/logo-with-text.svg',
+  site_url: url,
+  logo_url: '/assets/images/logo-with-text.svg',
   load_config_file: false,
   local_backend: process.env.NODE_ENV !== 'production',
   backend: {
@@ -17,7 +18,7 @@ export const config: CmsConfig = {
     branch: 'main',
     // base_url: '',
     auth_endpoint: 'api/auth/github',
-    auth_scope: 'repo', // 'public_repo'
+    auth_scope: 'repo', // TODO: 'public_repo'
     open_authoring: true,
     // always_fork: true,
     squash_merges: true,

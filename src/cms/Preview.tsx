@@ -11,7 +11,6 @@ export interface PreviewProps extends PreviewTemplateComponentProps {
  * Shared wrapper for CMS previews.
  */
 export function Preview(props: PreviewProps): JSX.Element {
-  // @ts-expect-error Missing in upstream type.
   const { document } = props
 
   useEffect(() => {
