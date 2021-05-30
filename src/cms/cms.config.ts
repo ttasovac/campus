@@ -36,7 +36,7 @@ export const config: CmsConfig = {
   editor: { preview: false },
   collections: [
     {
-      name: 'posts',
+      name: 'resources',
       label: 'Resources',
       label_singular: 'Resource',
       description: 'Resources',
@@ -49,6 +49,7 @@ export const config: CmsConfig = {
       public_folder: '{{public_folder}}/resources/{{slug}}',
       slug: '{{slug}}',
       preview_path: 'resources/{{slug}}',
+      editor: { preview: true },
       sortable_fields: ['commit_date', 'date', 'title', 'commit_author'],
       view_groups: [
         {
@@ -286,7 +287,7 @@ export const config: CmsConfig = {
       ],
     },
     {
-      name: 'collections',
+      name: 'resourceCollections',
       label: 'Curricula',
       label_singular: 'Curriculum',
       description: 'Collections of resources',
@@ -298,6 +299,7 @@ export const config: CmsConfig = {
       public_folder: '{{public_folder}}/curricula/{{slug}}',
       slug: '{{slug}}',
       preview_path: 'curricula/{{slug}}',
+      editor: { preview: true },
       sortable_fields: ['commit_date', 'date', 'title', 'commit_author'],
       view_groups: [
         {
@@ -329,7 +331,7 @@ export const config: CmsConfig = {
           default: '',
         },
         {
-          name: 'posts',
+          name: 'resources',
           label: 'Resources',
           label_singular: 'Resource',
           hint: 'Resources contained in this collection',
@@ -342,7 +344,7 @@ export const config: CmsConfig = {
             name: 'post',
             label: 'Resource',
             widget: 'relation',
-            collection: 'posts',
+            collection: 'resources',
             value_field: '{{slug}}',
             search_fields: ['title'],
             display_fields: ['title'],

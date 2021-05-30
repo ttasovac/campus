@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic'
 import { Fragment } from 'react'
 import { config } from '@/cms/cms.config'
+import { ResourceCollectionPreview } from '@/cms/previews/ResourceCollectionPreview'
+import { ResourcePreview } from '@/cms/previews/ResourcePreview'
 
 /**
  * Netlify CMS only runs client-side and does not correctly pre-render on the server.
@@ -36,8 +38,12 @@ const NetlifyCms = dynamic(
       {},
     )
 
-    // TODO:
-    // Cms.registerPreviewTemplate()
+    /** Register preview templates. */
+    Cms.registerPreviewTemplate('resources', ResourcePreview)
+    Cms.registerPreviewTemplate(
+      'resourceCollections',
+      ResourceCollectionPreview,
+    )
 
     return () => null
   },
@@ -59,7 +65,9 @@ const NetlifyCms = dynamic(
           <div>Loading CMS&hellip;</div>
         ) : null
 
-      return <p className="grid min-h-screen place-items-center">{message}</p>
+      return (
+        <div className="grid min-h-screen place-items-center">{message}</div>
+      )
     },
     ssr: false,
   },

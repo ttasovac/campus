@@ -1,0 +1,7 @@
+body {
+  font-family: 'Roboto', system-ui, sans-serif;
+  --tw-text-opacity: 1;
+  color: rgba(23, 23, 23, var(--tw-text-opacity));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
