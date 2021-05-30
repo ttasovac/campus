@@ -26,9 +26,9 @@ export default function App(props: AppProps): JSX.Element {
     <Fragment>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <Favicons />
-        <WebManifest />
       </Head>
+      <Favicons />
+      <WebManifest />
       <ErrorBoundary
         fallback={ClientError}
         resetOnChange={[props.router.asPath]}
