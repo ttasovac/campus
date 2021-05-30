@@ -42,12 +42,24 @@ const NetlifyCms = dynamic(
     return () => null
   },
   {
-    loading({ error, isLoading, pastDelay, retry, timedOut }) {
-      return (
-        <p className="grid min-h-screen place-items-center">
-          Loading CMS&hellip;
-        </p>
-      )
+    loading: function Loading(props) {
+      const { error, pastDelay, retry, timedOut } = props
+
+      const message =
+        error != null ? (
+          <div>
+            Failed to load CMS! <button onClick={retry}>Retry</button>
+          </div>
+        ) : timedOut === true ? (
+          <div>
+            Taking a long time to load CMS&hellip;{' '}
+            <button onClick={retry}>Retry</button>
+          </div>
+        ) : pastDelay === true ? (
+          <div>Loading CMS&hellip;</div>
+        ) : null
+
+      return <p className="grid min-h-screen place-items-center">{message}</p>
     },
     ssr: false,
   },
