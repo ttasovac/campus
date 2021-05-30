@@ -13,7 +13,6 @@ export interface PreviewProps extends PreviewTemplateComponentProps {
 export function Preview(props: PreviewProps): JSX.Element {
   // @ts-expect-error Missing in upstream type.
   const { document } = props
-  console.log(props)
 
   useEffect(() => {
     const roboto = document.createElement('link')
