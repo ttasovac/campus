@@ -1,6 +1,7 @@
 import type { NextRouter } from 'next/router'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
+
 import { useLocale } from '@/i18n/useLocale'
 import { useSiteMetadata } from '@/metadata/useSiteMetadata'
 import { createUrl } from '@/utils/createUrl'
@@ -25,7 +26,8 @@ export function useCanonicalUrl(query?: NextRouter['query']): string {
       path: pathname,
       query,
     })
-    return url.toString()
+
+    return String(url)
   }, [router, locale, siteUrl, query])
 
   return canonicalUrl

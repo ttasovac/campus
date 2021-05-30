@@ -1,4 +1,5 @@
 import type { CmsConfig } from 'netlify-cms-core'
+
 import { url } from '~/config/site.config'
 
 /**

@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { createContext, useEffect, useState } from 'react'
+
 import type { I18n } from '@/i18n/createI18n'
 import { createI18n } from '@/i18n/createI18n'
-
 import type { Locale } from '@/i18n/i18n.config'
 import type { Dictionary } from '@/i18n/loadDictionary'
 

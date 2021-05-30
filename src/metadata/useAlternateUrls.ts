@@ -30,7 +30,8 @@ export function useAlternateUrls(
         path: pathname,
         query,
       })
-      return { hrefLang: locale, href: url.toString() }
+
+      return { hrefLang: locale, href: String(url) }
     })
   }, [router, locales, siteUrl, query])
 

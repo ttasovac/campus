@@ -2,6 +2,7 @@ import { I18nProvider as UiI18nProvider } from '@react-aria/i18n'
 import { OverlayProvider } from '@react-aria/overlays'
 import { SSRProvider } from '@react-aria/ssr'
 import type { ReactNode } from 'react'
+
 import type { I18nProviderProps } from '@/i18n/I18n.context'
 import { I18nProvider } from '@/i18n/I18n.context'
 import { useLocale } from '@/i18n/useLocale'

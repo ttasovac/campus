@@ -1,4 +1,5 @@
 import { useError } from '@stefanprobst/next-error-boundary'
+
 import { Error } from '@/error/Error'
 
 /**

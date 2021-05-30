@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+
 import { MissingContextProviderError } from '@/error/MissingContextProviderError'
 import type { I18nService } from '@/i18n/I18n.context'
 import { I18nContext } from '@/i18n/I18n.context'

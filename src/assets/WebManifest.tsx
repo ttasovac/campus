@@ -1,4 +1,5 @@
 import Head from 'next/head'
+
 import { useLocale } from '@/i18n/useLocale'
 import { webManifest } from '~/config/site.config'
 

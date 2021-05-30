@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import { Fragment } from 'react'
+
 import { config } from '@/cms/cms.config'
 import { ResourceCollectionPreview } from '@/cms/previews/ResourceCollectionPreview'
 import { ResourcePreview } from '@/cms/previews/ResourcePreview'
@@ -29,7 +30,7 @@ const NetlifyCms = dynamic(
           if (entry.get('collection') !== 'posts') {
             return data
           }
-          if (!data.get('uuid')) {
+          if (data.get('uuid') == null) {
             return data.set('uuid', nanoid())
           }
           return data

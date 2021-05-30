@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import type { ComponentType } from 'react'
 import { Fragment } from 'react'
+
 import { Favicons } from '@/assets/Favicons'
 import { WebManifest } from '@/assets/WebManifest'
 import { PageLayout } from '@/common/PageLayout'

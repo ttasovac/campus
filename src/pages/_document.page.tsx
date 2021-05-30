@@ -1,4 +1,5 @@
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
+
 import { Fonts } from '@/assets/Fonts'
 
 /**

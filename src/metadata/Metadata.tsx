@@ -1,5 +1,6 @@
 import type { PageMetadataProps } from '@stefanprobst/next-page-metadata'
 import PageMetadata from '@stefanprobst/next-page-metadata'
+
 import { useLocale } from '@/i18n/useLocale'
 import { useSiteMetadata } from '@/metadata/useSiteMetadata'
 

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
+
 import type { LocaleConfig } from '@/i18n/getLocale'
 import { getLocale } from '@/i18n/getLocale'
 import type { Locale } from '@/i18n/i18n.config'

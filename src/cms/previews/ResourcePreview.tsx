@@ -1,4 +1,5 @@
 import type { PreviewTemplateComponentProps } from 'netlify-cms-core'
+
 import { Preview } from '@/cms/Preview'
 
 /**

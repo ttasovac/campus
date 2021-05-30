@@ -1,6 +1,7 @@
 import type { PreviewTemplateComponentProps } from 'netlify-cms-core'
 import type { ReactNode } from 'react'
 import { Fragment, useEffect } from 'react'
+
 import { Fonts } from '@/assets/Fonts'
 
 export interface PreviewProps extends PreviewTemplateComponentProps {

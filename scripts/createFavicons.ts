@@ -16,7 +16,7 @@ Promise.all(
         locale === defaultLocale ? 'public' : ['public', locale].join('/'),
       name: title,
       shortName: shortTitle,
-      maskable: true,
+      maskable: favicon.maskable,
       color: '#fff',
       manifestFileName: webManifest,
     }),

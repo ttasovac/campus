@@ -15,6 +15,16 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  // "eslint.options": {
+  //   "extensions": [".js", ".md", ".mdx", ".ts", ".tsx"]
+  // },
+  // "eslint.validate": [
+  //   "markdown",
+  //   "mdx",
+  //   "javascript",
+  //   "typescript",
+  //   "typescriptreact"
+  // ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "workbench.startupEditor": "readme",
   "[markdown,mdx]": {

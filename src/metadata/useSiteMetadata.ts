@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+
 import { MissingContextProviderError } from '@/error/MissingContextProviderError'
 import { SiteMetadataContext } from '@/metadata/SiteMetadata.context'
 import type { SiteMetadata } from '~/config/siteMetadata.config'
