@@ -7,7 +7,12 @@ import { config } from '@/cms/cms.config'
  */
 const NetlifyCms = dynamic(
   async () => {
-    // TODO: const Cms: CMS = await import('netlify-cms-app/dist/esm').then((mod) => mod.default)
+    /**
+     * We cannot use `netlify-cms-app/dist/esm` because Next.js does not allow
+     * importing css in node modules.
+     *
+     * TODO: Add custom webpack config to override this in `next.config.js`.
+     */
     const { default: Cms } = await import('netlify-cms-app')
     const { nanoid } = await import('nanoid')
 
@@ -52,14 +57,12 @@ const NetlifyCms = dynamic(
  * Admin page, loads Netlify CMS client-side.
  */
 export default function AdminPage(): JSX.Element {
-  // TODO:
-  // return (
-  //   <div id="nc-root">
-  //     <NetlifyCms />
-  //   </div>
-  // )
-
-  return <NetlifyCms />
+  return (
+    <Fragment>
+      <div id="nc-root" />
+      <NetlifyCms />
+    </Fragment>
+  )
 }
 
 AdminPage.Layout = Fragment
