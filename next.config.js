@@ -8,7 +8,6 @@ const config = {
   experimental: {
     enableBlurryPlaceholder: true,
     eslint: true,
-    turboMode: true,
   },
   future: {
     strictPostcssConfiguration: true,
@@ -34,14 +33,14 @@ const config = {
       },
     ]
   },
-  async rewrites() {
-    return [
-      { source: '/resources/:id/1', destination: '/resources/:id' },
-      { source: '/author/:id/1', destination: '/author/:id' },
-      { source: '/source/:id/1', destination: '/source/:id' },
-      { source: '/tag/:id/1', destination: '/tag/:id' },
-    ]
-  },
+  // async rewrites() {
+  //   return [
+  //     { source: '/resources/:id/1', destination: '/resources/:id' },
+  //     { source: '/author/:id/1', destination: '/author/:id' },
+  //     { source: '/source/:id/1', destination: '/source/:id' },
+  //     { source: '/tag/:id/1', destination: '/tag/:id' },
+  //   ]
+  // },
 }
 
 /** @type {Array<(config: Config) => Config>} */

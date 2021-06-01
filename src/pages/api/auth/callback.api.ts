@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import dedent from 'strip-indent'
 
 /**
  * OAuth2 callback for GitHub auth code flow.
@@ -55,6 +56,7 @@ function renderErrorTemplate(
 ) {
   response.status(statusCode)
   response.setHeader('Content-Type', 'text/html; charset=UTF-8')
+
   return response.send(`
     <!doctype html>
     <html>
@@ -81,6 +83,7 @@ function renderSuccessTemplate(
   const allowedOrigin = new URL(process.env.NEXT_PUBLIC_BASE_URL!).host
 
   response.setHeader('Content-Type', 'text/html; charset=UTF-8')
+
   /**
    * @see https://api.netlify.com/auth/done
    */

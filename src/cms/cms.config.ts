@@ -10,7 +10,7 @@ import { url } from '~/config/site.config'
  */
 export const config: CmsConfig = {
   site_url: url,
-  logo_url: '/assets/images/logo-with-text.svg',
+  logo_url: '/assets/images/logo-with-text.webp', // TODO: svg
   load_config_file: false,
   local_backend: process.env.NODE_ENV !== 'production',
   backend: {
@@ -142,7 +142,7 @@ export const config: CmsConfig = {
         },
         {
           name: 'tags',
-          label: 'Tags',
+          label: 'Topics',
           hint: '',
           widget: 'relation',
           collection: 'tags',
@@ -153,7 +153,7 @@ export const config: CmsConfig = {
         },
         {
           name: 'categories',
-          label: 'Categories',
+          label: 'Sources',
           hint: '',
           widget: 'relation',
           collection: 'categories',
@@ -161,7 +161,7 @@ export const config: CmsConfig = {
           value_field: '{{slug}}',
           search_fields: ['name'],
           display_fields: ['name'],
-          default: 'dariah',
+          default: ['dariah'],
         },
         {
           name: 'featuredImage',
@@ -227,7 +227,6 @@ export const config: CmsConfig = {
           hint: '',
           widget: 'relation',
           collection: 'content-types',
-          multiple: true,
           value_field: '{{slug}}',
           search_fields: ['name'],
           display_fields: ['name'],
@@ -239,7 +238,6 @@ export const config: CmsConfig = {
           hint: '',
           widget: 'relation',
           collection: 'licences',
-          multiple: true,
           value_field: '{{slug}}',
           search_fields: ['name'],
           display_fields: ['name'],

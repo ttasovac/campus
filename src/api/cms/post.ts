@@ -43,7 +43,7 @@ export interface PostFrontmatter {
   contributors?: Array<string>
   editors?: Array<string>
   version: string
-  licence: 'CCBY 4.0'
+  licence: 'ccby-4.0'
   featuredImage?: FilePath
   tags: Array<string>
   categories: Array<string>

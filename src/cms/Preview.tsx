@@ -1,8 +1,9 @@
 import type { PreviewTemplateComponentProps } from 'netlify-cms-core'
 import type { ReactNode } from 'react'
-import { Fragment, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { Fonts } from '@/assets/Fonts'
+import { I18nProvider } from '@/i18n/I18n.context'
 
 export interface PreviewProps extends PreviewTemplateComponentProps {
   children?: ReactNode
@@ -13,6 +14,7 @@ export interface PreviewProps extends PreviewTemplateComponentProps {
  */
 export function Preview(props: PreviewProps): JSX.Element {
   const { document } = props
+  const locale = props.entry.getIn(['data', 'lang'], 'en')
 
   useEffect(() => {
     const roboto = document.createElement('link')
@@ -32,5 +34,9 @@ export function Preview(props: PreviewProps): JSX.Element {
     document.head.append(styles)
   }, [document])
 
-  return <Fragment>{props.children}</Fragment>
+  return (
+    <I18nProvider locale={locale} dictionary={undefined}>
+      <div className="flex flex-col p-8">{props.children}</div>
+    </I18nProvider>
+  )
 }

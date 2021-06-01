@@ -1,11 +1,11 @@
 import type { FC } from 'react'
 
-import { ExternalResource } from '@/mdx/components/ExternalResource'
-import { Grid } from '@/mdx/components/Grid'
-import { Quiz } from '@/mdx/components/Quiz'
-import { SideNote } from '@/mdx/components/SideNote'
-import { VideoCard } from '@/mdx/components/VideoCard'
-import { YouTube } from '@/mdx/components/YouTube'
+import { YouTube } from '@/common/YouTube'
+import { ExternalResource } from '@/post/ExternalResource'
+import { Grid } from '@/post/Grid'
+import { SideNote } from '@/post/SideNote'
+import { VideoCard } from '@/post/VideoCard'
+import { Quiz } from '@/post/quiz/Quiz'
 
 // export type ComponentType =
 //   /** Layout wrapper. */

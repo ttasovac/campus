@@ -1,0 +1,13 @@
+{
+  "page": {
+    "about": "About",
+    "contact": "Contact",
+    "courseRegistry": "Course registry",
+    "home": "Home",
+    "resources": "Resources",
+    "sources": "Sources",
+    "topics": "Topics",
+    "notFound": "Not found",
+    "error": "Error"
+  }
+}

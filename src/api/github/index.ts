@@ -18,11 +18,11 @@ export async function getLastUpdatedTimestamp(
   })
 
   if (!response.ok) {
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error(
-        `[${response.status}] Failed to fetch last updated timestamp for ${filePath}.`,
-      )
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   throw new Error(
+    //     `[${response.status}] Failed to fetch last updated timestamp for ${filePath}.`,
+    //   )
+    // }
     return null
   }
 

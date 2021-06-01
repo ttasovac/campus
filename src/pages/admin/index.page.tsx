@@ -2,8 +2,7 @@ import dynamic from 'next/dynamic'
 import { Fragment } from 'react'
 
 import { config } from '@/cms/cms.config'
-import { ResourceCollectionPreview } from '@/cms/previews/ResourceCollectionPreview'
-import { ResourcePreview } from '@/cms/previews/ResourcePreview'
+import { Metadata } from '@/metadata/Metadata'
 
 /**
  * Netlify CMS only runs client-side and does not correctly pre-render on the server.
@@ -18,6 +17,10 @@ const NetlifyCms = dynamic(
      */
     const { default: Cms } = await import('netlify-cms-app')
     const { nanoid } = await import('nanoid')
+    const { ResourceCollectionPreview } = await import(
+      '@/cms/previews/ResourceCollectionPreview'
+    )
+    const { ResourcePreview } = await import('@/cms/previews/ResourcePreview')
 
     Cms.init({ config })
 
@@ -80,6 +83,7 @@ const NetlifyCms = dynamic(
 export default function AdminPage(): JSX.Element {
   return (
     <Fragment>
+      <Metadata noindex nofollow title="CMS" />
       <div id="nc-root" />
       <NetlifyCms />
     </Fragment>

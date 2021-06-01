@@ -8,11 +8,11 @@ export interface PageLayoutProps {
 }
 
 /**
- * Shared page layout.
+ * Page layout.
  */
 export function PageLayout(props: PageLayoutProps): JSX.Element {
   return (
-    <div className="min-h-screen grid grid-rows-page">
+    <div className="flex flex-col min-h-screen">
       <PageHeader />
       {props.children}
       <PageFooter />
