@@ -3,6 +3,7 @@ import '@reach/dialog/styles.css'
 import type { ParsedUrlQuery } from 'querystring'
 
 import { DialogContent, DialogOverlay } from '@reach/dialog'
+import { JsonLd } from '@stefanprobst/next-page-metadata'
 import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
@@ -53,7 +54,10 @@ export async function getStaticPaths(
       locales.map(async (locale) => {
         const ids = await getPostIds(locale)
         return ids.map((id) => {
-          return { params: { id }, locale }
+          return {
+            params: { id },
+            locale,
+          }
         })
       }),
     )
@@ -106,6 +110,12 @@ export default function PostPage(props: PostPageProps): JSX.Element {
         title={metadata.title}
         canonicalUrl={canonicalUrl}
         languageAlternates={languageAlternates}
+      />
+      <JsonLd
+        // TODO:
+        schema={{
+          '@type': 'Article',
+        }}
       />
       <PageContent className="grid px-10 py-16 mx-auto space-y-10 2xl:space-y-0 2xl:grid-cols-content 2xl:gap-x-10 w-full max-w-screen-lg 2xl:max-w-none">
         <aside

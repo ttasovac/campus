@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from 'querystring'
+
 import {
   Accordion,
   AccordionButton,
@@ -36,7 +38,7 @@ import { TagsList } from '@/post/TagsList'
 const pageSize = 10
 const tagsPageSize = 50
 
-export type PostsPageParams = {
+export interface PostsPageParams extends ParsedUrlQuery {
   page: string
 }
 

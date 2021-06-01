@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from 'querystring'
+
 import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
@@ -9,7 +11,7 @@ import { Fragment } from 'react'
 import type { PostPreview } from '@/api/cms/post'
 import { getPostPreviewsByTagId } from '@/api/cms/queries/post'
 import { getTagById, getTagIds } from '@/api/cms/tag'
-import type { Tag } from '@/api/cms/tag'
+import type { Tag as TagData } from '@/api/cms/tag'
 import { getPageRange, paginate } from '@/cms/paginate'
 import type { Page } from '@/cms/paginate'
 import { PageContent } from '@/common/PageContent'
@@ -24,14 +26,14 @@ import { PostsListNav } from '@/post/PostsListNav'
 
 const pageSize = 10
 
-export type TagPageParams = {
+export interface TagPageParams extends ParsedUrlQuery {
   id: string
   page: string
 }
 
 export interface TagPageProps {
   dictionary: Dictionary
-  tag: Tag
+  tag: TagData
   posts: Page<PostPreview>
 }
 

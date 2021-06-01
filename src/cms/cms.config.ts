@@ -119,7 +119,7 @@ export const config: CmsConfig = {
         {
           name: 'editors',
           label: 'Editors',
-          hint: '',
+          hint: 'Use this field if you had any editors in addition to authors',
           required: false,
           widget: 'relation',
           collection: 'people',
@@ -131,7 +131,7 @@ export const config: CmsConfig = {
         {
           name: 'contributors',
           label: 'Contributors',
-          hint: '',
+          hint: 'Use this field if you had any people who made contributions',
           required: false,
           widget: 'relation',
           collection: 'people',
@@ -173,7 +173,7 @@ export const config: CmsConfig = {
         {
           name: 'abstract',
           label: 'Abstract',
-          hint: '',
+          hint: 'Provide one or two sentences to briefly describe your resource',
           widget: 'text',
         },
         {
@@ -184,7 +184,7 @@ export const config: CmsConfig = {
         {
           name: 'domain',
           label: 'Domain',
-          hint: '',
+          hint: 'Please select the primary scholarly domain of this resource',
           required: false,
           widget: 'select',
           options: [
@@ -198,7 +198,7 @@ export const config: CmsConfig = {
         {
           name: 'targetGroup',
           label: 'Target group',
-          hint: '',
+          hint: 'Please indicate the PRIMARY audience of your resource',
           required: false,
           widget: 'select',
           options: [
@@ -224,7 +224,7 @@ export const config: CmsConfig = {
         {
           name: 'type',
           label: 'Content type',
-          hint: '',
+          hint: 'This generates an icon, please select the most appropriate for your resource',
           widget: 'relation',
           collection: 'content-types',
           value_field: '{{slug}}',

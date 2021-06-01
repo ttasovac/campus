@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from 'querystring'
+
 import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
@@ -7,7 +9,7 @@ import type {
 import { Fragment } from 'react'
 
 import { getCategoryById, getCategoryIds } from '@/api/cms/category'
-import type { Category } from '@/api/cms/category'
+import type { Category as CategoryData } from '@/api/cms/category'
 import type { PostPreview } from '@/api/cms/post'
 import { getPostPreviewsByCategoryId } from '@/api/cms/queries/post'
 import { getPageRange, paginate } from '@/cms/paginate'
@@ -24,14 +26,14 @@ import { PostsListNav } from '@/post/PostsListNav'
 
 const pageSize = 10
 
-export type CategoryPageParams = {
+export interface CategoryPageParams extends ParsedUrlQuery {
   id: string
   page: string
 }
 
 export interface CategoryPageProps {
   dictionary: Dictionary
-  category: Category
+  category: CategoryData
   posts: Page<PostPreview>
 }
 

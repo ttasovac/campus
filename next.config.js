@@ -22,6 +22,7 @@ const config = {
   async headers() {
     return [
       /** Disallow crawlers indexing the site. */
+      /** TODO: change for production deploy. */
       {
         source: '/:path*',
         headers: [
@@ -33,14 +34,18 @@ const config = {
       },
     ]
   },
-  // async rewrites() {
-  //   return [
-  //     { source: '/resources/:id/1', destination: '/resources/:id' },
-  //     { source: '/author/:id/1', destination: '/author/:id' },
-  //     { source: '/source/:id/1', destination: '/source/:id' },
-  //     { source: '/tag/:id/1', destination: '/tag/:id' },
-  //   ]
-  // },
+  async rewrites() {
+    return [
+      { source: '/about', destination: '/docs/about' },
+      { source: '/resources', destination: '/resources/1' },
+      { source: '/resource/:id', destination: '/resource/:id/1' },
+      { source: '/author/:id', destination: '/author/:id/1' },
+      { source: '/sources', destination: '/sources/1' },
+      { source: '/source/:id', destination: '/source/:id/1' },
+      { source: '/tags', destination: '/tags/1' },
+      { source: '/tag/:id', destination: '/tag/:id/1' },
+    ]
+  },
 }
 
 /** @type {Array<(config: Config) => Config>} */

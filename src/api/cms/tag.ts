@@ -49,10 +49,7 @@ export async function getTags(locale: Locale): Promise<Array<Tag>> {
 
   const data = await Promise.all(
     ids.map(async (id) => {
-      const file = await getTagFile(id, locale)
-      const data = await getTagData(file, locale)
-
-      return { id, ...data }
+      return getTagById(id, locale)
     }),
   )
 

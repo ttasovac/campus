@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from 'querystring'
+
 import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
@@ -24,7 +26,7 @@ import { routes } from '@/navigation/routes.config'
 
 const pageSize = 10
 
-export type CategoriesPageParams = {
+export interface CategoriesPageParams extends ParsedUrlQuery {
   page: string
 }
 

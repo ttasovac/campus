@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from 'querystring'
+
 import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
@@ -24,7 +26,7 @@ import { Svg as HeroImage } from '~/public/assets/images/study.svg'
 
 const pageSize = 50
 
-export type TagsPageParams = {
+export interface TagsPageParams extends ParsedUrlQuery {
   page: string
 }
 

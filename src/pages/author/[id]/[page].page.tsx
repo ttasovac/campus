@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from 'querystring'
+
 import type {
   GetStaticPathsContext,
   GetStaticPathsResult,
@@ -6,7 +8,7 @@ import type {
 } from 'next'
 import { Fragment } from 'react'
 
-import type { Person } from '@/api/cms/person'
+import type { Person as PersonData } from '@/api/cms/person'
 import { getPersonById, getPersonIds } from '@/api/cms/person'
 import type { PostPreview } from '@/api/cms/post'
 import { getPostPreviewsByAuthorId } from '@/api/cms/queries/post'
@@ -24,14 +26,14 @@ import { PostsListNav } from '@/post/PostsListNav'
 
 const pageSize = 10
 
-export type AuthorPageParams = {
+export interface AuthorPageParams extends ParsedUrlQuery {
   id: string
   page: string
 }
 
 export interface AuthorPageProps {
   dictionary: Dictionary
-  author: Person
+  author: PersonData
   posts: Page<PostPreview>
 }
 

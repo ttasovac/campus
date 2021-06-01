@@ -7,7 +7,6 @@ import withHeadingIds from 'rehype-slug'
 import withFootnotes from 'remark-footnotes'
 import withGitHubMarkdown from 'remark-gfm'
 import type { VFile } from 'vfile'
-import { compile } from 'xdm'
 
 import type { Category } from '@/api/cms/category'
 import { getCategoryById } from '@/api/cms/category'
@@ -129,6 +128,29 @@ export async function getPostById(id: string, locale: Locale): Promise<Post> {
 }
 
 /**
+ * Returns all posts, sorted by date.
+ */
+export async function getPosts(locale: Locale): Promise<Array<Post>> {
+  const ids = await getPostIds(locale)
+
+  const posts = await Promise.all(
+    ids.map(async (id) => {
+      return getPostById(id, locale)
+    }),
+  )
+
+  posts.sort((a, b) =>
+    a.data.metadata.date === b.data.metadata.date
+      ? 0
+      : a.data.metadata.date > b.data.metadata.date
+      ? -1
+      : 1,
+  )
+
+  return posts
+}
+
+/**
  * Returns metadata for all posts, sorted by date.
  */
 export async function getPostPreviews(
@@ -243,6 +265,8 @@ async function getPostFrontmatter(
  * Supports CommonMark, GitHub Markdown, and Pandoc Footnotes.
  */
 async function compileMdx(file: VFile): Promise<VFile> {
+  const { compile } = await import('xdm')
+
   return compile(file, {
     outputFormat: 'function-body',
     useDynamicImport: false,

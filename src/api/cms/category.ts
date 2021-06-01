@@ -54,10 +54,7 @@ export async function getCategories(locale: Locale): Promise<Array<Category>> {
 
   const data = await Promise.all(
     ids.map(async (id) => {
-      const file = await getCategoryFile(id, locale)
-      const data = await getCategoryData(file, locale)
-
-      return { id, ...data }
+      return getCategoryById(id, locale)
     }),
   )
 

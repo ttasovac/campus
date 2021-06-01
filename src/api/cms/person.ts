@@ -60,10 +60,7 @@ export async function getPersons(locale: Locale): Promise<Array<Person>> {
 
   const data = await Promise.all(
     ids.map(async (id) => {
-      const file = await getPersonFile(id, locale)
-      const data = await getPersonData(file, locale)
-
-      return { id, ...data }
+      return getPersonById(id, locale)
     }),
   )
 

@@ -2,7 +2,11 @@ import type { SearchIndex } from 'algoliasearch'
 import algoliasearch from 'algoliasearch'
 
 import { getPostPreviews } from '@/api/cms/post'
-import { apiKey, appId, indexName } from '~/config/algolia.config'
+import {
+  writeApiKey as apiKey,
+  appId,
+  indexName,
+} from '~/config/algolia.config'
 
 export function getSearchIndex(name = indexName): SearchIndex {
   if (appId === undefined) {
@@ -33,6 +37,7 @@ async function main() {
       authors: authors.map((author) => {
         return {
           name: [author.firstName, author.lastName].filter(Boolean).join(' '),
+          id: author.id,
         }
       }),
       date,
@@ -41,6 +46,7 @@ async function main() {
       tags: tags.map((tag) => {
         return {
           name: tag.name,
+          id: tag.id,
         }
       }),
       title,
