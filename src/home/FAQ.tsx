@@ -130,7 +130,7 @@ function Anchor(props: ComponentPropsWithoutRef<'a'>) {
       href={props.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="p-0.5 underline transition rounded text-primary-600 hover:no-underline focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+      className="p-0.5 underline transition rounded text-primary-600 hover:no-underline focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
     >
       {props.children}
     </a>
@@ -146,7 +146,7 @@ function AccordionHeader(props: AccordionHeaderProps): JSX.Element {
 
   return (
     <h3 className="flex flex-1">
-      <AccordionButton className="flex items-center justify-between flex-1 p-6 transition border border-neutral-100 rounded-xl shadow-card-md hover:shadow-card-lg text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+      <AccordionButton className="flex items-center justify-between flex-1 p-6 transition border border-neutral-100 rounded-xl shadow-card-md hover:shadow-card-lg text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
         <span>{props.children}</span>
         <Icon
           icon={ChevronIcon}

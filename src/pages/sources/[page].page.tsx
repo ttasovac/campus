@@ -139,10 +139,10 @@ export default function CategoriesPage(
                       <h2 className="font-bold text-2xl">{category.name}</h2>
                       <p className="leading-7">{category.description}</p>
                     </div>
-                    <footer className="flex items-center justify-between p-8 bg-neutral-100">
-                      <span className="px-2">{category.posts} Resources</span>
+                    <footer className="flex items-center justify-between px-10 py-8 bg-neutral-100">
+                      <span>{category.posts} Resources</span>
                       <Link href={routes.source(category.id)}>
-                        <a className="hover:text-primary-600 px-2 transition rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+                        <a className="hover:text-primary-600 transition rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
                           Read more &rarr;
                         </a>
                       </Link>

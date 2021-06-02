@@ -10,6 +10,7 @@ import type { VFile } from 'vfile'
 
 import type { Locale } from '@/i18n/i18n.config'
 import { extractFrontmatter } from '@/mdx/extractFrontmatter'
+import minify from '@/mdx/plugins/recma-minify'
 import withHeadingLinks from '@/mdx/plugins/rehype-heading-links'
 import withImageCaptions from '@/mdx/plugins/rehype-image-captions'
 import withLazyLoadingImages from '@/mdx/plugins/rehype-lazy-loading-images'
@@ -44,6 +45,8 @@ export interface Docs extends DocsId {
   /** Mdx compiled to function body. Must be hydrated on the client with `useMdx`. */
   code: string
 }
+
+export interface DocsPreview extends DocsId, DocsMetadata {}
 
 /**
  * Returns all docs ids (slugs).
@@ -89,6 +92,28 @@ export async function getDocs(locale: Locale): Promise<Array<Docs>> {
   docs.sort((a, b) => (a.data.metadata.order > b.data.metadata.order ? 1 : -1))
 
   return docs
+}
+
+/**
+ * Returns previews for all docs, sorted by order.
+ */
+export async function getDocsPreviews(
+  locale: Locale,
+): Promise<Array<DocsPreview>> {
+  const ids = await getDocsIds(locale)
+
+  const metadata = await Promise.all(
+    ids.map(async (id) => {
+      const file = await getDocsFile(id, locale)
+      const metadata = await getDocsMetadata(file, locale)
+
+      return { id, ...metadata }
+    }),
+  )
+
+  metadata.sort((a, b) => (a.order > b.order ? 1 : -1))
+
+  return metadata
 }
 
 /**
@@ -148,5 +173,6 @@ async function compileMdx(file: VFile): Promise<VFile> {
       withLazyLoadingImages,
       withImageCaptions,
     ],
+    // recmaPlugins: [minify], // FIXME:
   })
 }

@@ -1,5 +1,6 @@
 import { relative } from 'path'
 
+import { log } from '@/utils/log'
 import type { FilePath, ISODateString } from '@/utils/ts/aliases'
 
 /**
@@ -18,11 +19,11 @@ export async function getLastUpdatedTimestamp(
   })
 
   if (!response.ok) {
-    // if (process.env.NODE_ENV === 'production') {
-    //   throw new Error(
-    //     `[${response.status}] Failed to fetch last updated timestamp for ${filePath}.`,
-    //   )
-    // }
+    if (process.env.NODE_ENV === 'production') {
+      log.warn(
+        `[${response.status}] Failed to fetch last updated timestamp for ${filePath}.`,
+      )
+    }
     return null
   }
 

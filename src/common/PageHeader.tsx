@@ -34,7 +34,7 @@ export function PageHeader(): JSX.Element {
           <NavLink
             href={navigation.home.href}
             aria-label={t('common.page.home')}
-            className="inline-block rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+            className="inline-block rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
           >
             <Logo aria-hidden className="h-12 text-primary-600" />
           </NavLink>
@@ -66,7 +66,7 @@ function NavigationBar() {
             <li key={key}>
               <NavLink
                 href={link.href}
-                className="flex px-4 py-4 transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+                className="flex px-4 py-4 transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
               >
                 {t(`common.page.${key}`)}
               </NavLink>
@@ -80,7 +80,7 @@ function NavigationBar() {
           href={contact.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-1.5 text-sm font-medium border rounded-full border-primary-600 text-primary-600 transition hover:text-white hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+          className="px-3 py-1.5 text-sm font-medium border rounded-full border-primary-600 text-primary-600 transition hover:text-white hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
         >
           {t('common.page.contact')}
         </a>
@@ -111,7 +111,7 @@ function NavigationMenu() {
     <Fragment>
       <button
         onClick={state.toggle}
-        className="flex items-center space-x-2 text-sm transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+        className="flex items-center space-x-2 text-sm transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
       >
         <span>Menu</span>
         <Icon icon={MenuIcon} className="w-5 h-5" />
@@ -170,7 +170,7 @@ function NavigationMenu() {
  */
 function SearchButton() {
   return (
-    <button className="flex items-center p-4 space-x-1 text-sm font-medium transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+    <button className="flex items-center p-4 space-x-1 text-sm font-medium transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
       <Icon icon={SearchIcon} className="w-5 h-5" />
       <span>Search</span>
     </button>

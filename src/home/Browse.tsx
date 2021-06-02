@@ -46,7 +46,7 @@ export function Browse(): JSX.Element {
           return (
             <li key={card.path.pathname}>
               <Link href={card.path}>
-                <a className="flex flex-col items-center h-full p-12 space-y-2 text-center transition border shadow-card-md border-neutral-100 rounded-xl hover:shadow-card-lg focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+                <a className="flex flex-col items-center h-full p-12 space-y-2 text-center transition border shadow-card-md border-neutral-100 rounded-xl hover:shadow-card-lg focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
                   <Icon
                     icon={card.icon}
                     className="w-20 h-20 text-primary-600"

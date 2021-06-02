@@ -51,7 +51,7 @@ export function Post(props: PostProps): JSX.Element {
                               />
                             )}
                             <Link href={routes.author(author.id)}>
-                              <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+                              <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
                                 <span>
                                   {[author.firstName, author.lastName]
                                     .filter(Boolean)
@@ -90,7 +90,7 @@ export function Post(props: PostProps): JSX.Element {
                       return (
                         <li key={source.id} className="inline">
                           <Link href={routes.source(source.id)}>
-                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
                               <span>{source.name}</span>
                             </a>
                           </Link>
@@ -111,7 +111,7 @@ export function Post(props: PostProps): JSX.Element {
                       return (
                         <li key={tag.id} className="inline">
                           <Link href={routes.tag(tag.id)}>
-                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
                               <span
                                 className={index !== 0 ? 'ml-1' : undefined}
                               >
@@ -137,7 +137,11 @@ export function Post(props: PostProps): JSX.Element {
         {lastUpdatedAt != null ? (
           <p>
             <span>Last updated: </span>
-            <time dateTime={lastUpdatedAt}>{lastUpdatedAt}</time>
+            <time dateTime={lastUpdatedAt}>
+              {formatDate(new Date(lastUpdatedAt), undefined, {
+                dateStyle: 'medium',
+              })}
+            </time>
           </p>
         ) : null}
         {isPreview !== true ? (

@@ -23,7 +23,7 @@ export function PostsListNav(props: PostsListNavProps): JSX.Element {
         {hasPrevPage ? (
           <Link href={routes.resources(posts.page - 1)}>
             <a
-              className="p-2 transition rounded hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+              className="p-2 transition rounded hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
               rel="prev"
             >
               Previous Page
@@ -35,7 +35,7 @@ export function PostsListNav(props: PostsListNavProps): JSX.Element {
         {hasNextPage ? (
           <Link href={routes.resources(posts.page + 1)}>
             <a
-              className="p-2 transition rounded hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+              className="p-2 transition rounded hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
               rel="next"
             >
               Next Page

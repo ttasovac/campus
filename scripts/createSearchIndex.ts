@@ -2,6 +2,7 @@ import type { SearchIndex } from 'algoliasearch'
 import algoliasearch from 'algoliasearch'
 
 import { getPostPreviews } from '@/api/cms/post'
+import { log } from '@/utils/log'
 import {
   writeApiKey as apiKey,
   appId,
@@ -25,35 +26,39 @@ export function getSearchIndex(name = indexName): SearchIndex {
 }
 
 async function main() {
-  const index = getSearchIndex()
+  try {
+    const index = getSearchIndex()
 
-  const locale = 'en'
+    const locale = 'en'
 
-  const posts = (await getPostPreviews(locale)).map((post) => {
-    const { abstract, authors, date, id, tags, title } = post
+    const posts = (await getPostPreviews(locale)).map((post) => {
+      const { abstract, authors, date, id, tags, title } = post
 
-    return {
-      abstract,
-      authors: authors.map((author) => {
-        return {
-          name: [author.firstName, author.lastName].filter(Boolean).join(' '),
-          id: author.id,
-        }
-      }),
-      date,
-      id,
-      objectID: id,
-      tags: tags.map((tag) => {
-        return {
-          name: tag.name,
-          id: tag.id,
-        }
-      }),
-      title,
-    }
-  })
+      return {
+        abstract,
+        authors: authors.map((author) => {
+          return {
+            name: [author.firstName, author.lastName].filter(Boolean).join(' '),
+            id: author.id,
+          }
+        }),
+        date,
+        id,
+        objectID: id,
+        tags: tags.map((tag) => {
+          return {
+            name: tag.name,
+            id: tag.id,
+          }
+        }),
+        title,
+      }
+    })
 
-  index.saveObjects(posts)
+    index.saveObjects(posts)
+  } catch (error) {
+    log.warn(error)
+  }
 }
 
 main()

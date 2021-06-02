@@ -8,9 +8,6 @@ export const routes = {
   courseRegistry() {
     return { pathname: '/course-registry' }
   },
-  about() {
-    return { pathname: '/about' }
-  },
   docs(id: string) {
     return { pathname: `/docs/${id}` }
   },

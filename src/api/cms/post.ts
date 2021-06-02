@@ -16,6 +16,7 @@ import type { Tag } from '@/api/cms/tag'
 import { getTagById } from '@/api/cms/tag'
 import type { Locale } from '@/i18n/i18n.config'
 import { extractFrontmatter } from '@/mdx/extractFrontmatter'
+import minify from '@/mdx/plugins/recma-minify'
 import withHeadingLinks from '@/mdx/plugins/rehype-heading-links'
 import withImageCaptions from '@/mdx/plugins/rehype-image-captions'
 import withLazyLoadingImages from '@/mdx/plugins/rehype-lazy-loading-images'
@@ -280,5 +281,6 @@ async function compileMdx(file: VFile): Promise<VFile> {
       withLazyLoadingImages,
       withImageCaptions,
     ],
+    // recmaPlugins: [minify], // FIXME:
   })
 }

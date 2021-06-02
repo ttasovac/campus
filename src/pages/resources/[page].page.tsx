@@ -163,7 +163,7 @@ function TagsFilter(props: TagsFilterProps): JSX.Element | null {
       <Accordion collapsible>
         <AccordionItem>
           <h2 className="flex text-lg text-primary-600">
-            <AccordionButton className="flex items-center justify-between flex-1 px-5 py-5 space-x-2 transition border rounded-lg border-neutral-150 hover:shadow-card-md focus-visible:ring focus-visible:ring-primary-600 focus:outline-none">
+            <AccordionButton className="flex items-center justify-between flex-1 px-5 py-5 space-x-2 transition border rounded-lg border-neutral-150 hover:shadow-card-md focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus:outline-none">
               <span>Filter by topic</span>
               <Icon icon={ChevronIcon} className="flex-shrink-0 w-4 h-4" />
             </AccordionButton>

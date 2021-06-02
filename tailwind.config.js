@@ -2,7 +2,7 @@
 const colors = require('tailwindcss/colors')
 
 const config = {
-  // mode: 'jit',
+  mode: 'jit',
   purge: ['src/**/*.@(ts|tsx)'],
   darkMode: false,
   theme: {
@@ -40,14 +40,31 @@ const config = {
       maxWidth: {
         '80ch': '80ch',
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            /** Don't add quotes around `blockquote`. */
-            'blockquote p:first-of-type::before': null,
-            'blockquote p:last-of-type::after': null,
+      ringOffsetWidth: {
+        DEFAULT: '2px',
+      },
+      typography(/** @type {(key: string) => string)} */ theme) {
+        return {
+          DEFAULT: {
+            css: {
+              /** Don't add quotes around `blockquote`. */
+              'blockquote p:first-of-type::before': null,
+              'blockquote p:last-of-type::after': null,
+              a: {
+                '&:focus': {
+                  outline: 'none',
+                },
+                '&:focus-visible': {
+                  borderRadius: theme('borderRadius.DEFAULT'),
+                  color: theme('colors.primary.600'),
+                  boxShadow: `white 0px 0px 0px 2px, ${theme(
+                    'colors.primary.600',
+                  )} 0px 0px 0px 5px`,
+                },
+              },
+            },
           },
-        },
+        }
       },
     },
   },

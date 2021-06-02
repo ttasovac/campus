@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+// TODO: move to config to avoid including rehype-heading-links in client bundle
 import { headingAnchorClassName } from '@/mdx/plugins/rehype-heading-links'
 
 /**

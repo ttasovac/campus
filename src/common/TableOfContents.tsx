@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { Svg as ChevronIcon } from '@/assets/icons/chevron.svg'
 import { Icon } from '@/common/Icon'
-import { useTableOfContentsHighlight } from '@/post/useTableOfContentsHighlight'
+import { useTableOfContentsHighlight } from '@/common/useTableOfContentsHighlight'
 
 export interface TableOfContentsProps {
   /**
@@ -76,8 +76,8 @@ function TableOfContentsLevel(
               <Link href={{ hash: heading.id }}>
                 <a
                   className={cx(
-                    'flex transition hover:text-primary-600 relative',
-                    isHighlighted ? 'font-bold' : undefined,
+                    'flex transition hover:text-primary-600 relative focus:outline-none rounded focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2',
+                    isHighlighted ? 'font-bold pointer-events-none' : undefined,
                   )}
                 >
                   {isHighlighted ? (

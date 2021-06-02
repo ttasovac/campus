@@ -1,8 +1,5 @@
-import '@reach/dialog/styles.css'
-
 import type { ParsedUrlQuery } from 'querystring'
 
-import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { JsonLd } from '@stefanprobst/next-page-metadata'
 import type {
   GetStaticPathsContext,
@@ -16,10 +13,9 @@ import { Fragment } from 'react'
 import type { Post as PostData } from '@/api/cms/post'
 import { getPostById, getPostFilePath, getPostIds } from '@/api/cms/post'
 import { getLastUpdatedTimestamp } from '@/api/github'
-import { Svg as MenuIcon } from '@/assets/icons/menu.svg'
-import { Icon } from '@/common/Icon'
+import { FloatingTableOfContentsButton } from '@/common/FloatingTableOfContentsButton'
 import { PageContent } from '@/common/PageContent'
-import { useDialogState } from '@/common/useDialogState'
+import { TableOfContents } from '@/common/TableOfContents'
 import { getLocale } from '@/i18n/getLocale'
 import type { Dictionary } from '@/i18n/loadDictionary'
 import { loadDictionary } from '@/i18n/loadDictionary'
@@ -27,8 +23,6 @@ import { Metadata } from '@/metadata/Metadata'
 import { useAlternateUrls } from '@/metadata/useAlternateUrls'
 import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
 import { Post } from '@/post/Post'
-import type { TableOfContentsProps } from '@/post/TableOfContents'
-import { TableOfContents } from '@/post/TableOfContents'
 import type { ISODateString } from '@/utils/ts/aliases'
 
 export interface PostPageParams extends ParsedUrlQuery {
@@ -119,7 +113,7 @@ export default function PostPage(props: PostPageProps): JSX.Element {
       />
       <PageContent className="grid px-10 py-16 mx-auto space-y-10 2xl:space-y-0 2xl:grid-cols-content 2xl:gap-x-10 w-full max-w-screen-lg 2xl:max-w-none">
         <aside
-          className="sticky hidden max-h-screen px-10 space-y-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
+          className="max-w-xs sticky hidden max-h-screen px-10 space-y-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
           style={{ maxHeight: 'calc(100vh - 100px)' }}
         >
           <CiteAs metadata={metadata} />
@@ -129,7 +123,7 @@ export default function PostPage(props: PostPageProps): JSX.Element {
         {metadata.toc === true && toc.length > 0 ? (
           <Fragment>
             <aside
-              className="sticky hidden max-h-screen px-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
+              className="max-w-xs sticky hidden max-h-screen px-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
               style={{ maxHeight: 'calc(100vh - 100px)' }}
             >
               <TableOfContents
@@ -144,49 +138,6 @@ export default function PostPage(props: PostPageProps): JSX.Element {
           </Fragment>
         ) : null}
       </PageContent>
-    </Fragment>
-  )
-}
-
-interface FloatingTableOfContentsButtonProps {
-  toc: TableOfContentsProps['toc']
-}
-
-/**
- * Floating table of contents.
- */
-function FloatingTableOfContentsButton(
-  props: FloatingTableOfContentsButtonProps,
-) {
-  const state = useDialogState()
-
-  return (
-    <Fragment>
-      <button
-        onClick={state.toggle}
-        className="fixed p-4 text-white transition rounded-full bottom-5 right-5 hover:bg-primary-700 bg-primary-600 2xl:hidden focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
-      >
-        <Icon icon={MenuIcon} className="w-5 h-5" />
-        <span className="sr-only">Table of contents</span>
-      </button>
-      <DialogOverlay
-        isOpen={state.isOpen}
-        onDismiss={state.close}
-        className="z-10"
-      >
-        <DialogContent
-          aria-label="Table of contents"
-          className="rounded-xl shadow-card"
-        >
-          <TableOfContents
-            toc={props.toc}
-            title={
-              <h2 className="text-sm font-bold tracking-wide uppercase text-neutral-600">{`Table of contents`}</h2>
-            }
-            className="space-y-2"
-          />
-        </DialogContent>
-      </DialogOverlay>
     </Fragment>
   )
 }
@@ -213,7 +164,7 @@ function CiteAs(props: CiteAsProps) {
       <p>{citation}</p>
       <button
         onClick={onClick}
-        className="px-3 py-1 text-xs font-medium transition border rounded-full border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+        className="px-3 py-1 text-xs font-medium transition border rounded-full border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
       >
         Copy citation
       </button>

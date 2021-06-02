@@ -20,7 +20,7 @@ export const navigation = {
     href: routes.courseRegistry(),
   },
   about: {
-    href: routes.about(),
+    href: routes.docs('about'),
   },
   contact: {
     href: `https://www.dariah.eu/helpdesk/`,
