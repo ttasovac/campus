@@ -150,7 +150,7 @@ export default function PostsPage(props: PostsPageProps): JSX.Element {
         canonicalUrl={canonicalUrl}
         languageAlternates={languageAlternates}
       />
-      <PageContent className="flex flex-col max-w-screen-xl px-10 py-16 mx-auto space-y-10 w-full">
+      <PageContent className="flex flex-col w-full max-w-screen-xl px-10 py-16 mx-auto space-y-10">
         <h1 className="text-4.5xl font-bold text-center">Resources</h1>
         <TagsFilter tags={tags} />
         <section>

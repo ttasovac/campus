@@ -468,10 +468,19 @@ function createContentTypes() {
   })
 }
 
+/**
+ * Migrate events.
+ *
+ * TODO: probably easier to just do manually.
+ */
+function migrateEvents() {
+  fs.mkdirSync(join(targetFolder, 'events'))
+}
+
 function main() {
   migratePersons()
   migratePosts()
-  // TODO: migrateEvents()
+  migrateEvents()
   migrateTags()
   migrateCategories()
 

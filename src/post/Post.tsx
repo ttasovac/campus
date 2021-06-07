@@ -25,7 +25,7 @@ export function Post(props: PostProps): JSX.Element {
   const { formatDate } = useI18n()
 
   return (
-    <article className="space-y-16 max-w-80ch w-full mx-auto">
+    <article className="w-full mx-auto space-y-16 max-w-80ch">
       <header className="space-y-10">
         <h1 className="font-bold text-4.5xl text-center">{title}</h1>
         <dl className="grid grid-cols-2 text-sm text-neutral-500">
@@ -70,6 +70,8 @@ export function Post(props: PostProps): JSX.Element {
                 </dd>
               </div>
             ) : null}
+          </div>
+          <div className="space-y-1 text-right">
             {date != null &&
             (typeof date === 'string'
               ? date.length > 0
@@ -86,8 +88,6 @@ export function Post(props: PostProps): JSX.Element {
                 </dd>
               </div>
             ) : null}
-          </div>
-          <div className="text-right space-y-1">
             {sources.length > 0 ? (
               <div className="space-x-2">
                 <dt className="inline">Sources:</dt>
@@ -142,7 +142,7 @@ export function Post(props: PostProps): JSX.Element {
       </div>
       <footer>
         {lastUpdatedAt != null ? (
-          <p className="text-right text-sm text-neutral-500">
+          <p className="text-sm text-right text-neutral-500">
             <span>Last updated: </span>
             <time dateTime={lastUpdatedAt}>
               {formatDate(new Date(lastUpdatedAt), undefined, {

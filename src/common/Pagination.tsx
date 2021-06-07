@@ -18,15 +18,15 @@ export function Pagination(props: PaginationProps): JSX.Element {
   const hasNextPage = page < pages
 
   return (
-    <nav aria-label={label}>
+    <nav aria-label={label} className="flex items-center justify-between my-12">
       <div>
         {hasPrevPage ? (
           <Link href={href(page - 1)}>
             <a
-              className="p-2 transition rounded hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+              className="p-2 transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
               rel="prev"
             >
-              Previous Page
+              &larr; Previous Page
             </a>
           </Link>
         ) : null}
@@ -35,10 +35,10 @@ export function Pagination(props: PaginationProps): JSX.Element {
         {hasNextPage ? (
           <Link href={href(page + 1)}>
             <a
-              className="p-2 transition rounded hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+              className="p-2 transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
               rel="next"
             >
-              Next Page
+              Next Page &rarr;
             </a>
           </Link>
         ) : null}

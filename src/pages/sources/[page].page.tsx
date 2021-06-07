@@ -119,30 +119,41 @@ export default function CategoriesPage(
         canonicalUrl={canonicalUrl}
         languageAlternates={languageAlternates}
       />
-      <PageContent className="flex flex-col max-w-screen-xl px-10 py-16 mx-auto space-y-10 w-full">
+      <PageContent className="flex flex-col w-full max-w-screen-xl px-10 py-16 mx-auto space-y-10">
         <h1 className="text-4.5xl font-bold text-center">Sources</h1>
-        <p className="text-neutral-500 text-lg text-center">
+        <p className="text-lg text-center text-neutral-500">
           DARIAH learning resources don&apos;t all live in one place. Here you
           can explore our materials based on the context in which they were
           produced.
         </p>
         <section>
-          <ul className="grid lg:grid-cols-2">
+          <ul className="grid lg:grid-cols-2 lg:gap-8">
             {categories.items.map((category) => {
               return (
                 <li key={category.id}>
-                  <article className="rounded-xl shadow-card-md overflow-hidden">
+                  <article className="flex flex-col h-full overflow-hidden rounded-xl shadow-card-md">
                     {category.image !== undefined ? (
-                      <img src={category.image} alt="" loading="lazy" />
+                      <img
+                        src={category.image}
+                        alt=""
+                        loading="lazy"
+                        className="object-cover w-full h-96"
+                      />
                     ) : null}
-                    <div className="p-10 space-y-4">
-                      <h2 className="font-bold text-2xl">{category.name}</h2>
+                    <div className="flex-1 p-10 space-y-4">
+                      <Link href={routes.source(category.id)}>
+                        <a className="transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+                          <h2 className="text-2xl font-bold">
+                            {category.name}
+                          </h2>
+                        </a>
+                      </Link>
                       <p className="leading-7">{category.description}</p>
                     </div>
                     <footer className="flex items-center justify-between px-10 py-8 bg-neutral-100">
                       <span>{category.posts} Resources</span>
                       <Link href={routes.source(category.id)}>
-                        <a className="hover:text-primary-600 transition rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+                        <a className="transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
                           Read more &rarr;
                         </a>
                       </Link>

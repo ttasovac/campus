@@ -22,9 +22,9 @@ const contentTypeIcons: Record<
   event: EventIcon,
   pathfinder: PathfinderIcon,
   slides: BookIcon,
-  'training module': BookIcon,
+  'training-module': BookIcon,
   video: VideoIcon,
-  'webinar recording': BookIcon,
+  'webinar-recording': BookIcon,
   website: GlobeIcon,
 }
 
@@ -66,7 +66,7 @@ function PostPreviewCard(props: PostPreviewCardProps): JSX.Element {
   const icon = contentTypeIcons[post.type.id]
 
   return (
-    <article className="flex flex-col border rounded-xl overflow-hidden hover:shadow-card-md shadow-card-sm border-neutral-150">
+    <article className="flex flex-col overflow-hidden border rounded-xl hover:shadow-card-md shadow-card-sm border-neutral-150">
       <div className="flex flex-col px-10 py-10 space-y-5">
         <h2 className="text-2xl font-semibold">
           <Link href={href}>

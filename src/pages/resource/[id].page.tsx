@@ -134,9 +134,9 @@ export default function PostPage(props: PostPageProps): JSX.Element {
           '@type': 'Article',
         }}
       />
-      <PageContent className="grid px-10 py-16 mx-auto space-y-10 2xl:space-y-0 2xl:grid-cols-content 2xl:gap-x-10 w-full max-w-screen-lg 2xl:max-w-none">
+      <PageContent className="grid w-full max-w-screen-lg px-10 py-16 mx-auto space-y-10 2xl:space-y-0 2xl:grid-cols-content 2xl:gap-x-10 2xl:max-w-none">
         <aside
-          className="w-full 2xl:justify-self-end max-w-xs sticky hidden max-h-screen px-10 space-y-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
+          className="sticky hidden w-full max-w-xs max-h-screen px-10 space-y-10 overflow-y-auto text-sm 2xl:justify-self-end top-24 2xl:block text-neutral-500"
           style={{ maxHeight: 'calc(100vh - 100px)' }}
         >
           <CiteAs id={post.id} metadata={metadata} />
@@ -146,7 +146,7 @@ export default function PostPage(props: PostPageProps): JSX.Element {
         {metadata.toc === true && toc.length > 0 ? (
           <Fragment>
             <aside
-              className="max-w-xs sticky hidden max-h-screen px-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
+              className="sticky hidden max-w-xs max-h-screen px-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
               style={{ maxHeight: 'calc(100vh - 100px)' }}
             >
               <TableOfContents

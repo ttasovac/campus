@@ -1,6 +1,6 @@
 import { range } from '@/utils/range'
 
-const defaultPageSize = 10
+const defaultPageSize = 12
 
 export interface Page<T> {
   items: Array<T>
@@ -19,7 +19,7 @@ export function paginate<T>(
 
   return pages.map((page) => {
     return {
-      items: items.slice((page - 1) * pageSize, pageSize),
+      items: items.slice((page - 1) * pageSize, page * pageSize),
       page,
       pages: pages.length,
     }
