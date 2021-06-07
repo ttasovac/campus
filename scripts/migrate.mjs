@@ -34,7 +34,7 @@ import { remarkMdx as withMdx } from 'xdm/lib/plugin/remark-mdx.js'
 const publicFolder = join(process.cwd(), 'public')
 const sourceFolder = join(process.cwd(), '_contents')
 const dataFolder = join(sourceFolder, 'data')
-const targetFolder = join(process.cwd(), 'contents')
+const targetFolder = join(process.cwd(), 'content')
 
 const personIds = new Map()
 const postIds = new Map()
@@ -443,9 +443,9 @@ function createLicences() {
  * Creates content types.
  */
 function createContentTypes() {
-  const targetLicencesPath = join(targetFolder, 'licences')
-  if (!fs.existsSync(targetLicencesPath)) {
-    fs.mkdirSync(targetLicencesPath, { recursive: true })
+  const targetContentTypesPath = join(targetFolder, 'content-types')
+  if (!fs.existsSync(targetContentTypesPath)) {
+    fs.mkdirSync(targetContentTypesPath, { recursive: true })
   }
 
   const contentTypes = [
@@ -461,7 +461,7 @@ function createContentTypes() {
 
   contentTypes.forEach(([fileName, contentType]) => {
     fs.writeFileSync(
-      join(targetLicencesPath, fileName + '.yml'),
+      join(targetContentTypesPath, fileName + '.yml'),
       YAML.dump(contentType, { schema: CORE_SCHEMA }),
       { encoding: 'utf-8' },
     )
