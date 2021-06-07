@@ -32,8 +32,9 @@ import { remarkMarkAndUnravel as withUnraveledJsxChildren } from 'xdm/lib/plugin
 import { remarkMdx as withMdx } from 'xdm/lib/plugin/remark-mdx.js'
 
 const publicFolder = join(process.cwd(), 'public')
-const contentsFolder = join(process.cwd(), 'contents')
-const dataFolder = join(contentsFolder, 'data')
+const sourceFolder = join(process.cwd(), '_contents')
+const dataFolder = join(sourceFolder, 'data')
+const targetFolder = join(process.cwd(), 'contents')
 
 const personIds = new Map()
 const postIds = new Map()
@@ -199,13 +200,15 @@ function migratePosts() {
     .use(withMigratedImagePaths)
     .use(withMigratedVideCardImagePaths)
 
+  const postsFolder = join(sourceFolder, 'resources')
+  const postFolderNames = fs.readdirSync(postsFolder)
+
   const assetsFolder = join(publicFolder, 'assets', 'images', 'cms', 'posts')
   if (!fs.existsSync(assetsFolder)) {
     fs.mkdirSync(assetsFolder, { recursive: true })
   }
 
-  const postsFolder = join(contentsFolder, 'resources')
-  const postFolderNames = fs.readdirSync(postsFolder)
+  const targetPostsFolder = join(targetFolder, 'resources')
 
   postFolderNames.forEach((folderName) => {
     const filePath = join(postsFolder, folderName, 'index.mdx')
@@ -223,7 +226,7 @@ function migratePosts() {
     postIds.set(folderName, uuid)
 
     fs.writeFileSync(
-      join(postsFolder, folderName + '.mdx'),
+      join(targetPostsFolder, folderName + '.mdx'),
       String(processedFile),
       { encoding: 'utf-8' },
     )
@@ -256,12 +259,12 @@ function migratePersons() {
   const contents = fs.readFileSync(personsFile, { encoding: 'utf-8' })
   const persons = YAML.load(contents, { schema: YAML.CORE_SCHEMA })
 
-  const personsFolder = join(contentsFolder, 'persons')
-  if (!fs.existsSync(personsFolder)) {
-    fs.mkdirSync(personsFolder, { recursive: true })
+  const targetPersonsFolder = join(targetFolder, 'people')
+  if (!fs.existsSync(targetPersonsFolder)) {
+    fs.mkdirSync(targetPersonsFolder, { recursive: true })
   }
 
-  const assetsFolder = join(publicFolder, 'assets', 'images', 'cms', 'persons')
+  const assetsFolder = join(publicFolder, 'assets', 'images', 'cms', 'people')
   if (!fs.existsSync(assetsFolder)) {
     fs.mkdirSync(assetsFolder, { recursive: true })
   }
@@ -309,7 +312,7 @@ function migratePersons() {
     /**
      * Write persons into individual files.
      */
-    const filePath = join(personsFolder, slug + '.yml')
+    const filePath = join(targetPersonsFolder, slug + '.yml')
     fs.writeFileSync(filePath, YAML.dump(person, { schema: CORE_SCHEMA }), {
       encoding: 'utf-8',
     })
@@ -318,7 +321,7 @@ function migratePersons() {
   /**
    * Move images.
    */
-  fs.renameSync(join(contentsFolder, 'images', 'authors'), assetsFolder)
+  fs.renameSync(join(sourceFolder, 'images', 'authors'), assetsFolder)
 
   /**
    * Write out redirects.
@@ -339,9 +342,9 @@ function migrateTags() {
   const contents = fs.readFileSync(tagsFile, { encoding: 'utf-8' })
   const tags = YAML.load(contents, { schema: YAML.CORE_SCHEMA })
 
-  const tagsFolder = join(contentsFolder, 'tags')
-  if (!fs.existsSync(tagsFolder)) {
-    fs.mkdirSync(tagsFolder, { recursive: true })
+  const targetTagsFolder = join(targetFolder, 'tags')
+  if (!fs.existsSync(targetTagsFolder)) {
+    fs.mkdirSync(targetTagsFolder, { recursive: true })
   }
 
   tags.forEach((tag) => {
@@ -350,7 +353,7 @@ function migrateTags() {
     /**
      * Write tags into individual files.
      */
-    const filePath = join(tagsFolder, slug + '.yml')
+    const filePath = join(targetTagsFolder, slug + '.yml')
     fs.writeFileSync(filePath, YAML.dump(tag, { schema: CORE_SCHEMA }), {
       encoding: 'utf-8',
     })
@@ -366,9 +369,9 @@ function migrateCategories() {
   const contents = fs.readFileSync(categoriesFile, { encoding: 'utf-8' })
   const categories = YAML.load(contents, { schema: YAML.CORE_SCHEMA })
 
-  const categoriesFolder = join(contentsFolder, 'categories')
-  if (!fs.existsSync(categoriesFolder)) {
-    fs.mkdirSync(categoriesFolder, { recursive: true })
+  const targetCategoriesFolder = join(targetFolder, 'categories')
+  if (!fs.existsSync(targetCategoriesFolder)) {
+    fs.mkdirSync(targetCategoriesFolder, { recursive: true })
   }
 
   const assetsFolder = join(
@@ -398,7 +401,7 @@ function migrateCategories() {
     /**
      * Write categories into individual files.
      */
-    const filePath = join(categoriesFolder, slug + '.yml')
+    const filePath = join(targetCategoriesFolder, slug + '.yml')
     fs.writeFileSync(filePath, YAML.dump(category, { schema: CORE_SCHEMA }), {
       encoding: 'utf-8',
     })
@@ -407,7 +410,7 @@ function migrateCategories() {
   /**
    * Move images.
    */
-  fs.renameSync(join(contentsFolder, 'images', 'categories'), assetsFolder)
+  fs.renameSync(join(sourceFolder, 'images', 'categories'), assetsFolder)
 }
 
 function main() {
