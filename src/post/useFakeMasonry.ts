@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useDebouncedState } from '@/common/useDebouncedState'
 
 /**
- * Sorts items into columns (which should be rendered into css columns or css grid with auto-flow column).
+ * Sorts items into columns (buckets).
  */
 export function useFakeMasonry<T>(items: Array<T>): Array<Array<T>> | null {
   const [columnCount, setColumnCount] = useState<number | null>(null)

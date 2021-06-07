@@ -16,6 +16,8 @@ import { Icon } from '@/common/Icon'
 import { routes } from '@/navigation/routes.config'
 import { getFullName } from '@/utils/getFullName'
 
+const MAX_AUTHORS = 3
+
 const contentTypeIcons: Record<
   PostPreview['type']['id'],
   FC<SVGProps<SVGSVGElement> & { title?: string }>
@@ -44,10 +46,10 @@ export function PostsList(props: PostsListProps): JSX.Element {
 
   if (columns != null) {
     return (
-      <ul className="space-x-4" style={{ columnCount: columns.length }}>
+      <ul className="space-x-6 flex">
         {columns.map((posts, index) => {
           return (
-            <div key={index} className="space-y-8">
+            <div key={index} className="space-y-6 flex-1">
               {posts.map((post) => {
                 return (
                   <li key={post.id}>
@@ -113,7 +115,7 @@ function PostPreviewCard(props: PostPreviewCardProps): JSX.Element {
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex items-center space-x-1">
-                  {authors.map((author) => {
+                  {authors.slice(0, MAX_AUTHORS).map((author) => {
                     return (
                       <li key={author.id}>
                         <span className="sr-only">

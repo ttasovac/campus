@@ -25,12 +25,12 @@ export function PageHeader(): JSX.Element {
   return (
     <header
       className={cx(
-        'fixed inset-x-0 z-10 bg-white',
+        'fixed inset-x-0 z-10 bg-white flex items-center',
         isShadowVisible && 'shadow',
       )}
       style={{ minHeight: 'var(--page-header-height)' }}
     >
-      <nav className="flex items-center justify-between px-4 py-4 space-x-4 text-neutral-800">
+      <nav className="flex flex-1 items-center justify-between px-4 py-4 space-x-4 text-neutral-800">
         <div>
           <NavLink
             href={navigation.home.href}

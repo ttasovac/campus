@@ -1354,6 +1354,10 @@ video {
   height: 14rem;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
 .h-full {
   height: 100%;
 }
@@ -1409,6 +1413,11 @@ video {
 
 .list-decimal {
   list-style-type: decimal;
+}
+
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .mx-auto {
@@ -1476,6 +1485,10 @@ video {
   min-height: 100vh;
 }
 
+.object-cover {
+  object-fit: cover;
+}
+
 .opacity-0 {
   opacity: 0;
 }
@@ -1527,6 +1540,11 @@ video {
 
 .p-0\.5 {
   padding: 0.125rem;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .py-1 {
@@ -1607,6 +1625,11 @@ video {
 .py-24 {
   padding-top: 6rem;
   padding-bottom: 6rem;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .py-1\.5 {
@@ -2079,6 +2102,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:gap-8 {
+    gap: 2rem;
+  }
+
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
