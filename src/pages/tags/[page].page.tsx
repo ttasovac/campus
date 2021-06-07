@@ -48,6 +48,7 @@ export async function getStaticPaths(
       locales.map(async (locale) => {
         const ids = await getTagIds(locale)
         const pages = getPageRange(ids, pageSize)
+
         return pages.map((page) => {
           return {
             params: { page: String(page) },

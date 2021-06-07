@@ -18,6 +18,7 @@ import type { EventPreview } from '@/api/cms/event'
 import { getEventIds, getEventPreviews } from '@/api/cms/event'
 import type { PostPreview } from '@/api/cms/post'
 import { getPostIds, getPostPreviews } from '@/api/cms/post'
+import { getEventPreviewsByTagId } from '@/api/cms/queries/event'
 import { getPostPreviewsByTagId } from '@/api/cms/queries/post'
 import type { Tag } from '@/api/cms/tag'
 import { getTags } from '@/api/cms/tag'
@@ -66,6 +67,7 @@ export async function getStaticPaths(
         const eventIds = await getEventIds(locale)
         const ids = [...postIds, ...eventIds]
         const pages = getPageRange(ids, pageSize)
+
         return pages.map((page) => {
           return {
             params: { page: String(page) },
@@ -108,10 +110,11 @@ export async function getStaticProps(
     await Promise.all(
       tags.map(async (tag) => {
         const postsWithTag = await getPostPreviewsByTagId(tag.id, locale)
-        // FIXME: const eventsWithTag = await getEventPreviewsByTagId(tag.id, locale)
+        const eventsWithTag = await getEventPreviewsByTagId(tag.id, locale)
+
         return {
           ...tag,
-          posts: postsWithTag.length,
+          posts: postsWithTag.length + eventsWithTag.length,
         }
       }),
     )

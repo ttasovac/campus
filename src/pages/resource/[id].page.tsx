@@ -88,6 +88,9 @@ export async function getStaticProps(
    * It means we could have id clashes, and also requires this conditional
    * acrobatics (because we cannot pass `type` from `getStaticPaths`).
    *
+   * Alternatively, generate rewrites in a postbuild script from /resource/some-id to /resource/events/some-id,
+   * and put events in a separate src/pages/resources/events/[id].tsx.
+   *
    * Better would be `/resource/:content-type/:id`, which would also make it more clear
    * where "events" fit into the data-model (currently they are both content-type and category/source).
    */

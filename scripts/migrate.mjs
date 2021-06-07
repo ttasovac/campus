@@ -143,16 +143,18 @@ function migratePosts() {
       function onImage(node) {
         const url = node.url
         if (typeof url === 'string' && url.startsWith('images/')) {
-          node.url = relative(
-            publicFolder,
-            join(assetsFolder, file.data.folderName, basename(url)),
-          )
+          node.url =
+            '/' +
+            relative(
+              publicFolder,
+              join(assetsFolder, file.data.folderName, basename(url)),
+            )
         }
       }
     }
   }
 
-  function withMigratedVideCardImagePaths() {
+  function withMigratedVideoCardImagePaths() {
     return transformer
 
     function transformer(tree, file) {
@@ -162,14 +164,16 @@ function migratePosts() {
         if (node.name === 'VideoCard') {
           node.attributes = node.attributes.map((attribute) => {
             if (attribute.name === 'image' && attribute.value != null) {
-              attribute.value = relative(
-                publicFolder,
-                join(
-                  assetsFolder,
-                  file.data.folderName,
-                  basename(attribute.value),
-                ),
-              )
+              attribute.value =
+                '/' +
+                relative(
+                  publicFolder,
+                  join(
+                    assetsFolder,
+                    file.data.folderName,
+                    basename(attribute.value),
+                  ),
+                )
             }
             return attribute
           })
@@ -198,7 +202,7 @@ function migratePosts() {
     .use(withFootnotes)
     .use(withMigratedMetadata)
     .use(withMigratedImagePaths)
-    .use(withMigratedVideCardImagePaths)
+    .use(withMigratedVideoCardImagePaths)
 
   const postsFolder = join(sourceFolder, 'resources')
   const postFolderNames = fs.readdirSync(postsFolder)
@@ -306,10 +310,9 @@ function migratePersons() {
      * Update avatar path.
      */
     if (person.avatar != null) {
-      person.avatar = relative(
-        publicFolder,
-        join(assetsFolder, basename(person.avatar)),
-      )
+      person.avatar =
+        '/' +
+        relative(publicFolder, join(assetsFolder, basename(person.avatar)))
     }
 
     /**
@@ -395,10 +398,9 @@ function migrateCategories() {
      * Update image path.
      */
     if (category.image != null) {
-      category.image = relative(
-        publicFolder,
-        join(assetsFolder, basename(category.image)),
-      )
+      category.image =
+        '/' +
+        relative(publicFolder, join(assetsFolder, basename(category.image)))
     }
 
     /**
@@ -416,11 +418,65 @@ function migrateCategories() {
   fs.renameSync(join(sourceFolder, 'images', 'categories'), assetsFolder)
 }
 
+/**
+ * Creates licences.
+ */
+function createLicences() {
+  const targetLicencesPath = join(targetFolder, 'licences')
+  if (!fs.existsSync(targetLicencesPath)) {
+    fs.mkdirSync(targetLicencesPath, { recursive: true })
+  }
+
+  const ccby = {
+    name: 'CCBY 4.0',
+    url: 'https://creativecommons.org/licenses/by/4.0/',
+  }
+
+  fs.writeFileSync(
+    join(targetLicencesPath, 'ccby-4.0.yml'),
+    YAML.dump(ccby, { schema: CORE_SCHEMA }),
+    { encoding: 'utf-8' },
+  )
+}
+
+/**
+ * Creates content types.
+ */
+function createContentTypes() {
+  const targetLicencesPath = join(targetFolder, 'licences')
+  if (!fs.existsSync(targetLicencesPath)) {
+    fs.mkdirSync(targetLicencesPath, { recursive: true })
+  }
+
+  const contentTypes = [
+    ['audio', { name: 'Audio' }],
+    ['event', { name: 'Event' }],
+    ['pathfinder', { name: 'Pathfinder' }],
+    ['slides', { name: 'Slides' }],
+    ['training-module', { name: 'Training module' }],
+    ['video', { name: 'Video' }],
+    ['webinar-recording', { name: 'Webinar recording' }],
+    ['website', { name: 'Website' }],
+  ]
+
+  contentTypes.forEach(([fileName, contentType]) => {
+    fs.writeFileSync(
+      join(targetLicencesPath, fileName + '.yml'),
+      YAML.dump(contentType, { schema: CORE_SCHEMA }),
+      { encoding: 'utf-8' },
+    )
+  })
+}
+
 function main() {
   migratePersons()
   migratePosts()
+  // TODO: migrateEvents()
   migrateTags()
   migrateCategories()
+
+  createLicences()
+  createContentTypes()
 }
 
 main()

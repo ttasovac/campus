@@ -8,7 +8,9 @@ import type {
 } from 'next'
 import { Fragment } from 'react'
 
+import type { EventPreview } from '@/api/cms/event'
 import type { PostPreview } from '@/api/cms/post'
+import { getEventPreviewsByTagId } from '@/api/cms/queries/event'
 import { getPostPreviewsByTagId } from '@/api/cms/queries/post'
 import { getTagById, getTagIds } from '@/api/cms/tag'
 import type { Tag as TagData } from '@/api/cms/tag'
@@ -35,7 +37,7 @@ export interface TagPageParams extends ParsedUrlQuery {
 export interface TagPageProps {
   dictionary: Dictionary
   tag: TagData
-  posts: Page<PostPreview>
+  resources: Page<PostPreview | EventPreview>
 }
 
 /**
@@ -54,7 +56,10 @@ export async function getStaticPaths(
           await Promise.all(
             ids.map(async (id) => {
               const posts = await getPostPreviewsByTagId(id, locale)
-              const pages = getPageRange(posts, pageSize)
+              const events = await getEventPreviewsByTagId(id, locale)
+              const resources = [...posts, ...events]
+
+              const pages = getPageRange(resources, pageSize)
               return pages.map((page) => {
                 return {
                   params: { id, page: String(page) },
@@ -89,14 +94,21 @@ export async function getStaticProps(
   const tag = await getTagById(id, locale)
 
   const page = Number(context.params?.page)
+  const posts = await getPostPreviewsByTagId(id, locale)
+  const events = await getEventPreviewsByTagId(id, locale)
+  const sortedResources: Array<PostPreview | EventPreview> = [
+    ...posts,
+    ...events,
+  ].sort((a, b) => (a.date > b.date ? -1 : 1))
+
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const posts = paginate(await getPostPreviewsByTagId(id, locale))[page - 1]!
+  const resources = paginate(sortedResources)[page - 1]!
 
   return {
     props: {
       dictionary,
       tag,
-      posts,
+      resources,
     },
   }
 }
@@ -105,7 +117,7 @@ export async function getStaticProps(
  * Tag page.
  */
 export default function TagPage(props: TagPageProps): JSX.Element {
-  const { tag, posts } = props
+  const { tag, resources: posts } = props
 
   const canonicalUrl = useCanonicalUrl()
   const languageAlternates = useAlternateUrls()
