@@ -2,7 +2,7 @@
 const colors = require('tailwindcss/colors')
 
 const config = {
-  mode: 'jit',
+  // mode: 'jit',
   purge: ['src/**/*.@(ts|tsx)'],
   darkMode: false,
   theme: {
@@ -43,7 +43,7 @@ const config = {
       ringOffsetWidth: {
         DEFAULT: '2px',
       },
-      typography(/** @type {(key: string) => string)} */ theme) {
+      typography(/** @type {(key: string) => string} */ theme) {
         return {
           DEFAULT: {
             css: {
@@ -61,6 +61,9 @@ const config = {
                     'colors.primary.600',
                   )} 0px 0px 0px 5px`,
                 },
+              },
+              strong: {
+                color: 'inherit',
               },
             },
           },

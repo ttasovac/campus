@@ -2,6 +2,40 @@
 # yarn lockfile v1
 
 
+"@algolia/autocomplete-core@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@algolia/autocomplete-core/-/autocomplete-core-1.1.0.tgz#774ab85c1ad8f0b64db5b1d44bb3ad8d65553cc5"
+  integrity sha512-Pb1NAG6jdM+0U1Wns2uMgJFqCdkpl+fLUIVOOnXpb/wc3+aqbSepOsA+cwYE/xe/EhO0gIm/F+NKwycHJtSUdg==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.1.0"
+
+"@algolia/autocomplete-js@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@algolia/autocomplete-js/-/autocomplete-js-1.1.0.tgz#61297589969ef7e13c1737ec5f43dcdf95d98393"
+  integrity sha512-6JeISjNbSbGtAMHG3jdI7mNcvpuYIB+/9PropHE8XY9ZkkTLzoqmo/rSeHSlyn02QXmniOhwrJAQc5R3to5n6Q==
+  dependencies:
+    "@algolia/autocomplete-core" "1.1.0"
+    "@algolia/autocomplete-preset-algolia" "1.1.0"
+    "@algolia/autocomplete-shared" "1.1.0"
+    preact "^10.0.0"
+
+"@algolia/autocomplete-preset-algolia@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.1.0.tgz#4cdf53de2c3e3ba1c9be8199d36742f99681eb8a"
+  integrity sha512-ouCw2as1QXUw09jEj09oMp371vRuygm+40QJMcHB0T1gbY2wELvHPM0tqug10NTA6OpM8atmV2nALLiIqCJs4w==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.1.0"
+
+"@algolia/autocomplete-shared@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@algolia/autocomplete-shared/-/autocomplete-shared-1.1.0.tgz#d66ef20e26cb417b7fa4119de27ce042819395c5"
+  integrity sha512-rnuXLIisuzPn84OMg4/AIivzxX1nbPLtcVBriSZtde0L3Hn+cwQHQ8necC5SaOvUVjKW60G44LjqbJuGaL2ZUQ==
+
+"@algolia/autocomplete-theme-classic@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@algolia/autocomplete-theme-classic/-/autocomplete-theme-classic-1.1.0.tgz#24b4545442e94dd3d90d6066b437e9aea3de5246"
+  integrity sha512-usbOwwPydJEzUlMjLAip/CtMqKy2PzsnhkFfWoBPBr9I74uBNYa4+NJBg0b31KmNLSUH0nWFlhiIKwNBjoMTzg==
+
 "@algolia/cache-browser-local-storage@4.9.1":
   version "4.9.1"
   resolved "https://registry.yarnpkg.com/@algolia/cache-browser-local-storage/-/cache-browser-local-storage-4.9.1.tgz#784e91580dcca00a8280b0905197f5abbbdf4b48"
@@ -2031,6 +2065,14 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.15.tgz#6a9d143f7f4f49db2d782f9e1c8839a29b43ae23"
   integrity sha512-15spi3V28QdevleWBNXE4pIls3nFZmBbUGrW9IVPwiQczuSb9n76TCB4bsk8TSel+I1OkHEdPhu5QKMfY6rQHA==
 
+"@prettier/plugin-xml@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.npmjs.org/@prettier/plugin-xml/-/plugin-xml-0.12.0.tgz#975522ac9216e66b0f5d240b4b5a8109c423d427"
+  integrity sha512-196oXlmim2SiqeG1jQO5aS/nChI85DvyfIQTBkOiVHHev2j15x4TVxOMGAWHkqdlD8pmCg/KmX8SfFIyT2L7tA==
+  dependencies:
+    "@xml-tools/parser" "^1.0.2"
+    prettier ">=1.10"
+
 "@primer/octicons-react@^14.2.1":
   version "14.2.1"
   resolved "https://registry.yarnpkg.com/@primer/octicons-react/-/octicons-react-14.2.1.tgz#03a2a68a48e67317c5363078b4847c2cb33582d3"
@@ -2379,6 +2421,18 @@
   dependencies:
     react-schemaorg "^1.3.1"
     schema-dts "^0.8.2"
+
+"@stefanprobst/next-sitemap@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@stefanprobst/next-sitemap/-/next-sitemap-1.0.5.tgz#03eb473a9aacab232e8af0a2f8af1686427e5a79"
+  integrity sha512-5Y9j3PofkKNcjrQM39Gdq6Ba0etHkY3S9RlWjv2500Ux7LO/ReUTZEfuapgpLUN/7ytw7X10bY2wptxfEXMe0w==
+  dependencies:
+    "@prettier/plugin-xml" "^0.12.0"
+    mri "^1.1.6"
+    prettier "^2.1.2"
+    unist-builder "^2.0.3"
+    xast-util-to-xml "^2.0.0"
+    xastscript "^2.0.0"
 
 "@stefanprobst/next-svg@^1.1.3":
   version "1.1.3"
@@ -2847,6 +2901,13 @@
     anymatch "^3.0.0"
     source-map "^0.6.0"
 
+"@types/xast@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@types/xast/-/xast-1.0.1.tgz#a884d98e4d4932c03e8554df2bc67fa9caa1fbd0"
+  integrity sha512-lFlvzaId+iqXW4YvFpfQTYYThtOOrCO+lyd6BPGa8JmU5g4LfmR6q87eMogAvYcm7dG1hV7w4TOIsq46Hfb1CA==
+  dependencies:
+    "@types/unist" "*"
+
 "@types/yargs-parser@*":
   version "20.2.0"
   resolved "https://registry.yarnpkg.com/@types/yargs-parser/-/yargs-parser-20.2.0.tgz#dd3e6699ba3237f0348cd085e4698780204842f9"
@@ -2948,6 +3009,13 @@
   integrity sha512-mwEVBDUVODlsQQ5dfuLUS5/Tf7jqUKyhKYHmVi4fPB6bDMOfWvUPJmKgS1Z7Za/sOI3vzWt4+O7yCiL/70MogA==
   dependencies:
     tslib "^1.9.3"
+
+"@xml-tools/parser@^1.0.2":
+  version "1.0.10"
+  resolved "https://registry.npmjs.org/@xml-tools/parser/-/parser-1.0.10.tgz#d1dd3a4323d713fcca5279005c96b37058ccbc33"
+  integrity sha512-9oRb68wEKT+MRB7e2GwTiKicRKVXKzquBDGgH6YcGafvnSYXorWi2oaTVtbv2109RlGiQSnoXaQFUXCnHwFS7Q==
+  dependencies:
+    chevrotain "7.1.1"
 
 JSONStream@^1.0.4:
   version "1.3.5"
@@ -3973,6 +4041,13 @@ check-links@^1.1.8:
     is-relative-url "^2.0.0"
     p-map "^2.0.0"
     p-memoize "^2.1.0"
+
+chevrotain@7.1.1:
+  version "7.1.1"
+  resolved "https://registry.npmjs.org/chevrotain/-/chevrotain-7.1.1.tgz#5122814eafd1585a9601f9180a7be9c42d5699c6"
+  integrity sha512-wy3mC1x4ye+O+QkEinVJkPf5u2vsrDIYW9G7ZuwFl6v/Yu0LwUuT2POsb+NUWApebyxfkQq6+yDfRExbnI5rcw==
+  dependencies:
+    regexp-to-ast "0.5.0"
 
 chokidar@3.5.1, chokidar@^3.3.0, chokidar@^3.5.1:
   version "3.5.1"
@@ -9956,6 +10031,11 @@ postcss@^8.1.6, postcss@^8.2.1, postcss@^8.3.0:
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
 
+preact@^10.0.0:
+  version "10.5.13"
+  resolved "https://registry.npmjs.org/preact/-/preact-10.5.13.tgz#85f6c9197ecd736ce8e3bec044d08fd1330fa019"
+  integrity sha512-q/vlKIGNwzTLu+jCcvywgGrt+H/1P/oIRSD6mV4ln3hmlC+Aa34C7yfPI4+5bzW8pONyVXYS7SvXosy2dKKtWQ==
+
 prebuild-install@^6.0.0:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-6.1.2.tgz#6ce5fc5978feba5d3cbffedca0682b136a0b5bff"
@@ -9991,7 +10071,7 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier@^2.3.0:
+prettier@>=1.10, prettier@^2.1.2, prettier@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.0.tgz#b6a5bf1284026ae640f17f7ff5658a7567fc0d18"
   integrity sha512-kXtO4s0Lz/DW/IJ9QdWhAf7/NmPWQXkFr/r/WkR3vyI+0v8amTDxiaQSLzs8NBlytfLWX/7uQUMIW677yLKl4w==
@@ -10765,6 +10845,11 @@ regenerator-transform@^0.14.2:
   integrity sha512-eOf6vka5IO151Jfsw2NO9WpGX58W6wWmefK3I1zEGr0lOD0u8rwPaNqQL1aRxUaxLeKO3ArNh3VYg1KbaD+FFw==
   dependencies:
     "@babel/runtime" "^7.8.4"
+
+regexp-to-ast@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.npmjs.org/regexp-to-ast/-/regexp-to-ast-0.5.0.tgz#56c73856bee5e1fef7f73a00f1473452ab712a24"
+  integrity sha512-tlbJqcMHnPKI9zSrystikWKwHkBqu2a/Sgw01h3zFjvYrMxEDYHzzoMZnUrbIfpTFEsoRnnviOXNCzFiSc54Qw==
 
 regexp.prototype.flags@^1.3.1:
   version "1.3.1"
@@ -11606,6 +11691,13 @@ remark-stringify@^8.1.1:
     unherit "^1.0.4"
     xtend "^4.0.1"
 
+remark-stringify@^9.0.0:
+  version "9.0.1"
+  resolved "https://registry.npmjs.org/remark-stringify/-/remark-stringify-9.0.1.tgz#576d06e910548b0a7191a71f27b33f1218862894"
+  integrity sha512-mWmNg3ZtESvZS8fv5PTvaPckdL4iNlCHTt8/e/8oN08nArHRHjNZMKzA/YW3+p7/lYqIw4nx1XsjCBo/AxNChg==
+  dependencies:
+    mdast-util-to-markdown "^0.6.0"
+
 remark-validate-links@^10.0.4:
   version "10.0.4"
   resolved "https://registry.yarnpkg.com/remark-validate-links/-/remark-validate-links-10.0.4.tgz#a2711fa794f691c944faf8126767152dcfee0c47"
@@ -11618,6 +11710,15 @@ remark-validate-links@^10.0.4:
     to-vfile "^6.0.0"
     trough "^1.0.0"
     unist-util-visit "^2.0.0"
+
+remark@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.npmjs.org/remark/-/remark-13.0.0.tgz#d15d9bf71a402f40287ebe36067b66d54868e425"
+  integrity sha512-HDz1+IKGtOyWN+QgBiAT0kn+2s6ovOxHyPAFGKVE81VSzJ+mq7RwHFledEvB5F1p4iJvOah/LOKdFuzvRnNLCA==
+  dependencies:
+    remark-parse "^9.0.0"
+    remark-stringify "^9.0.0"
+    unified "^9.1.0"
 
 repeat-string@^1.0.0, repeat-string@^1.5.4, repeat-string@^1.6.1:
   version "1.6.1"
@@ -13215,7 +13316,7 @@ unified@^7.1.0:
     vfile "^3.0.0"
     x-is-string "^0.1.0"
 
-unified@^9.0.0, unified@^9.2.1:
+unified@^9.0.0, unified@^9.1.0, unified@^9.2.1:
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/unified/-/unified-9.2.1.tgz#ae18d5674c114021bfdbdf73865ca60f410215a3"
   integrity sha512-juWjuI8Z4xFg8pJbnEZ41b5xjGUWGHqXALmBZ3FC3WX0PIx1CZBIIJ6mXbYMcf6Yw4Fi0rFUTA1cdz/BglbOhA==
@@ -13234,7 +13335,7 @@ unist-builder@^1.0.1, unist-builder@^1.0.3:
   dependencies:
     object-assign "^4.1.0"
 
-unist-builder@^2.0.0:
+unist-builder@^2.0.0, unist-builder@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/unist-builder/-/unist-builder-2.0.3.tgz#77648711b5d86af0942f334397a33c5e91516436"
   integrity sha512-f98yt5pnlMWlzP539tPc4grGMsFaQQlP/vM396b00jngsiINumNmsY8rkXjfoi1c6QaM8nQ3vaGDuoKWbe/1Uw==
@@ -13902,6 +14003,22 @@ x-is-string@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/x-is-string/-/x-is-string-0.1.0.tgz#474b50865af3a49a9c4657f05acd145458f77d82"
   integrity sha1-R0tQhlrzpJqcRlfwWs0UVFj3fYI=
+
+xast-util-to-xml@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/xast-util-to-xml/-/xast-util-to-xml-2.0.1.tgz#0d2f471fc0d5f380cf7fc860aadda6720ed6e730"
+  integrity sha512-XG4/kd4SSvg6P5a6Zltq9xb34KSZJg8O/UDcyR7SSEAhIpbGUhZEr3osPAzkQBSFLeVYO7lbSnEcch6Tw983ew==
+  dependencies:
+    "@types/xast" "^1.0.0"
+    ccount "^1.0.0"
+    stringify-entities "^3.1.0"
+
+xastscript@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/xastscript/-/xastscript-2.1.1.tgz#455db13d3271446b2ac76a752f4b919171424290"
+  integrity sha512-xJZcwLVdP3Rpgf6EyzSdnkjy0z0iMLhYjZ+TM/YCuICpP+wl8QtmXIDNtbokSp1qCLwMUgoQ3MN11nXhOfmrug==
+  dependencies:
+    "@types/xast" "^1.0.0"
 
 xdm@^1.11.0:
   version "1.11.0"

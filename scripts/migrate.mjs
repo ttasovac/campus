@@ -17,10 +17,11 @@
  */
 
 import * as fs from 'fs'
+import { basename, join, relative } from 'path'
+
 import * as YAML from 'js-yaml'
 import { CORE_SCHEMA } from 'js-yaml'
 import { nanoid } from 'nanoid'
-import { basename, join, relative } from 'path'
 import remark from 'remark'
 import withFootnotes from 'remark-footnotes'
 import withFrontmatter from 'remark-frontmatter'

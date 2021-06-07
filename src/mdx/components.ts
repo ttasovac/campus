@@ -1,11 +1,20 @@
-import type { FC } from 'react'
+import dynamic from 'next/dynamic'
+import { createElement } from 'react'
+import type { ComponentType } from 'react'
 
 import { YouTube } from '@/common/YouTube'
 import { ExternalResource } from '@/post/ExternalResource'
 import { Grid } from '@/post/Grid'
 import { SideNote } from '@/post/SideNote'
 import { VideoCard } from '@/post/VideoCard'
-import { Quiz } from '@/post/quiz/Quiz'
+
+/**
+ * Lazy-load Quit component, since it won't be used on most pages.
+ */
+const Quiz = dynamic(async () => {
+  const { Quiz } = await import('@/post/quiz/Quiz')
+  return Quiz
+})
 
 // export type ComponentType =
 //   /** Layout wrapper. */
@@ -39,11 +48,12 @@ import { Quiz } from '@/post/quiz/Quiz'
 //   | 'tr'
 
 // export type ComponentMap = {
-//   [key in ComponentType]?: JSX.IntrinsicElements | FC
+//   [key in ComponentType]?: JSX.IntrinsicElements | ComponentType
 // }
 
 export type ComponentMap = {
-  [name: string]: JSX.IntrinsicElements | FC<never>
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  [name: string]: JSX.IntrinsicElements | ComponentType<any>
 }
 
 /**
@@ -51,6 +61,9 @@ export type ComponentMap = {
  */
 const legacy: ComponentMap = {
   CTA: ExternalResource,
+  Panel: function Panel(props) {
+    return createElement(SideNote, { type: 'info', ...props })
+  },
   Youtube: YouTube,
 }
 
@@ -59,14 +72,10 @@ const legacy: ComponentMap = {
  */
 export const components: ComponentMap = {
   ...legacy,
-  // Abbreviation,
-  // Accordion,
-  // Disclosure, // Details,
   ExternalResource,
   Grid,
   Quiz,
-  SideNote, // CallOut,
-  // Tabs,
+  SideNote,
   VideoCard,
   YouTube,
 }

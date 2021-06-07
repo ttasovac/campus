@@ -15,6 +15,8 @@ export interface CategoryId {
   id: string
 }
 
+type ID = CategoryId['id']
+
 export interface CategoryData {
   name: string
   description: string
@@ -37,7 +39,7 @@ export async function getCategoryIds(_locale: Locale): Promise<Array<string>> {
  * Returns category data.
  */
 export async function getCategoryById(
-  id: string,
+  id: ID,
   locale: Locale,
 ): Promise<Category> {
   const file = await getCategoryFile(id, locale)
@@ -66,7 +68,7 @@ export async function getCategories(locale: Locale): Promise<Array<Category>> {
 /**
  * Reads category file.
  */
-async function getCategoryFile(id: string, locale: Locale): Promise<VFile> {
+async function getCategoryFile(id: ID, locale: Locale): Promise<VFile> {
   const filePath = getCategoryFilePath(id, locale)
   const file = await readFile(filePath)
 
@@ -76,14 +78,14 @@ async function getCategoryFile(id: string, locale: Locale): Promise<VFile> {
 /**
  * Returns file path for category.
  */
-export function getCategoryFilePath(id: string, _locale: Locale): FilePath {
+export function getCategoryFilePath(id: ID, _locale: Locale): FilePath {
   const filePath = join(categoryFolder, id + categoryExtension)
 
   return filePath
 }
 
 /**
- * Returns person data.
+ * Returns category data.
  */
 async function getCategoryData(
   file: VFile,

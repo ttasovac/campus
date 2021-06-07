@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css'
+import '@algolia/autocomplete-theme-classic'
 import '@/styles/index.css'
 
 import ErrorBoundary from '@stefanprobst/next-error-boundary'
@@ -7,6 +8,7 @@ import Head from 'next/head'
 import type { ComponentType } from 'react'
 import { Fragment } from 'react'
 
+import { useAnalytics } from '@/analytics/useAnalytics'
 import { Favicons } from '@/assets/Favicons'
 import { WebManifest } from '@/assets/WebManifest'
 import { PageLayout } from '@/common/PageLayout'
@@ -22,6 +24,8 @@ export default function App(props: AppProps): JSX.Element {
   }
 
   const Layout = Component.Layout ?? PageLayout
+
+  useAnalytics()
 
   return (
     <Fragment>

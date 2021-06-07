@@ -3,6 +3,7 @@ import '@reach/dialog/styles.css'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { Fragment } from 'react'
 
+import { Svg as CloseIcon } from '@/assets/icons/close.svg'
 import { Svg as MenuIcon } from '@/assets/icons/menu.svg'
 import { Icon } from '@/common/Icon'
 import type { TableOfContentsProps } from '@/common/TableOfContents'
@@ -25,7 +26,7 @@ export function FloatingTableOfContentsButton(
     <Fragment>
       <button
         onClick={state.toggle}
-        className="fixed p-4 text-white transition rounded-full bottom-5 right-5 hover:bg-primary-700 bg-primary-600 2xl:hidden focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+        className="fixed p-4 text-white transition rounded-full bottom-5 right-5 hover:bg-primary-700 bg-primary-600 2xl:hidden focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
       >
         <Icon icon={MenuIcon} className="w-5 h-5" />
         <span className="sr-only">Table of contents</span>
@@ -37,8 +38,15 @@ export function FloatingTableOfContentsButton(
       >
         <DialogContent
           aria-label="Table of contents"
-          className="rounded-xl shadow-card"
+          className="rounded-xl shadow-card flex flex-col space-y-2"
         >
+          <button
+            onClick={state.close}
+            aria-label="Close"
+            className="self-end rounded-full p-2 transition hover:bg-neutral-100 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+          >
+            <Icon icon={CloseIcon} className="w-6 h-6" />
+          </button>
           <TableOfContents
             toc={props.toc}
             title={

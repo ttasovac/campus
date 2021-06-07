@@ -8,11 +8,13 @@ import withFootnotes from 'remark-footnotes'
 import withGitHubMarkdown from 'remark-gfm'
 import type { VFile } from 'vfile'
 
-import type { Category } from '@/api/cms/category'
+import type { Category, CategoryId } from '@/api/cms/category'
 import { getCategoryById } from '@/api/cms/category'
-import type { Person } from '@/api/cms/person'
+import type { ContentType } from '@/api/cms/contentType'
+import { getContentTypeById } from '@/api/cms/contentType'
+import type { Person, PersonId } from '@/api/cms/person'
 import { getPersonById } from '@/api/cms/person'
-import type { Tag } from '@/api/cms/tag'
+import type { Tag, TagId } from '@/api/cms/tag'
 import { getTagById } from '@/api/cms/tag'
 import type { Locale } from '@/i18n/i18n.config'
 import { extractFrontmatter } from '@/mdx/extractFrontmatter'
@@ -33,20 +35,22 @@ export interface PostId {
   id: string
 }
 
+type ID = PostId['id']
+
 export interface PostFrontmatter {
   uuid: string
   title: string
   shortTitle?: string
   lang: 'en' | 'de'
   date: ISODateString
-  authors: Array<string>
-  contributors?: Array<string>
-  editors?: Array<string>
+  authors: Array<PersonId['id']>
+  contributors?: Array<PersonId['id']>
+  editors?: Array<PersonId['id']>
   version: string
   licence: 'ccby-4.0'
   featuredImage?: FilePath
-  tags: Array<string>
-  categories: Array<string>
+  tags: Array<TagId['id']>
+  categories: Array<CategoryId['id']>
   abstract: string
   domain?: 'Social Sciences and Humanities'
   targetGroup?:
@@ -54,8 +58,8 @@ export interface PostFrontmatter {
     | 'Domain researchers'
     | 'Data service engineers'
     | 'Data scientists/analysts'
-  type:
-    | 'audio'
+  type: // ContentTypeId['id']
+  | 'audio'
     | 'event'
     | 'slides'
     | 'training module'
@@ -74,13 +78,14 @@ export interface PostFrontmatter {
 export interface PostMetadata
   extends Omit<
     PostFrontmatter,
-    'authors' | 'editors' | 'contributors' | 'tags' | 'categories'
+    'authors' | 'editors' | 'contributors' | 'tags' | 'categories' | 'type'
   > {
   authors: Array<Person>
   contributors?: Array<Person>
   editors?: Array<Person>
   tags: Array<Tag>
   categories: Array<Category>
+  type: ContentType
 }
 
 export interface PostData {
@@ -111,7 +116,7 @@ export async function getPostIds(_locale: Locale): Promise<Array<string>> {
 /**
  * Returns post content, table of contents, and metadata.
  */
-export async function getPostById(id: string, locale: Locale): Promise<Post> {
+export async function getPostById(id: ID, locale: Locale): Promise<Post> {
   const file = await getPostFile(id, locale)
   const metadata = await getPostMetadata(file, locale)
   const code = String(await compileMdx(file))
@@ -152,6 +157,19 @@ export async function getPosts(locale: Locale): Promise<Array<Post>> {
 }
 
 /**
+ * Returns metadata for post.
+ */
+export async function getPostPreviewById(
+  id: ID,
+  locale: Locale,
+): Promise<PostPreview> {
+  const file = await getPostFile(id, locale)
+  const metadata = await getPostMetadata(file, locale)
+
+  return { id, ...metadata }
+}
+
+/**
  * Returns metadata for all posts, sorted by date.
  */
 export async function getPostPreviews(
@@ -161,10 +179,7 @@ export async function getPostPreviews(
 
   const metadata = await Promise.all(
     ids.map(async (id) => {
-      const file = await getPostFile(id, locale)
-      const metadata = await getPostMetadata(file, locale)
-
-      return { id, ...metadata }
+      return getPostPreviewById(id, locale)
     }),
   )
 
@@ -176,7 +191,7 @@ export async function getPostPreviews(
 /**
  * Reads post file.
  */
-async function getPostFile(id: string, locale: Locale): Promise<VFile> {
+async function getPostFile(id: ID, locale: Locale): Promise<VFile> {
   const filePath = getPostFilePath(id, locale)
   const file = await readFile(filePath)
 
@@ -186,7 +201,7 @@ async function getPostFile(id: string, locale: Locale): Promise<VFile> {
 /**
  * Returns file path for post.
  */
-export function getPostFilePath(id: string, _locale: Locale): FilePath {
+export function getPostFilePath(id: ID, _locale: Locale): FilePath {
   const filePath = join(postsFolder, id + postExtension)
 
   return filePath
@@ -238,6 +253,7 @@ async function getPostMetadata(
           }),
         )
       : [],
+    type: await getContentTypeById(matter.type, locale),
   }
 
   return metadata

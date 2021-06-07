@@ -10,6 +10,7 @@ import type {
 import Link from 'next/link'
 import { Fragment } from 'react'
 
+import type { Person } from '@/api/cms/person'
 import type { Post as PostData } from '@/api/cms/post'
 import { getPostById, getPostFilePath, getPostIds } from '@/api/cms/post'
 import { getLastUpdatedTimestamp } from '@/api/github'
@@ -22,8 +23,11 @@ import { loadDictionary } from '@/i18n/loadDictionary'
 import { Metadata } from '@/metadata/Metadata'
 import { useAlternateUrls } from '@/metadata/useAlternateUrls'
 import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
+import { routes } from '@/navigation/routes.config'
 import { Post } from '@/post/Post'
+import { getFullName } from '@/utils/getFullName'
 import type { ISODateString } from '@/utils/ts/aliases'
+import { url as siteUrl } from '~/config/site.config'
 
 export interface PostPageParams extends ParsedUrlQuery {
   id: string
@@ -113,10 +117,10 @@ export default function PostPage(props: PostPageProps): JSX.Element {
       />
       <PageContent className="grid px-10 py-16 mx-auto space-y-10 2xl:space-y-0 2xl:grid-cols-content 2xl:gap-x-10 w-full max-w-screen-lg 2xl:max-w-none">
         <aside
-          className="max-w-xs sticky hidden max-h-screen px-10 space-y-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
+          className="w-full 2xl:justify-self-end max-w-xs sticky hidden max-h-screen px-10 space-y-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
           style={{ maxHeight: 'calc(100vh - 100px)' }}
         >
-          <CiteAs metadata={metadata} />
+          <CiteAs id={post.id} metadata={metadata} />
           <ReUseConditions />
         </aside>
         <Post post={post} lastUpdatedAt={lastUpdatedAt} />
@@ -143,6 +147,7 @@ export default function PostPage(props: PostPageProps): JSX.Element {
 }
 
 interface CiteAsProps {
+  id: PostData['id']
   metadata: PostData['data']['metadata']
 }
 
@@ -150,7 +155,7 @@ interface CiteAsProps {
  * Citation.
  */
 function CiteAs(props: CiteAsProps) {
-  const citation = getCitation(props.metadata)
+  const citation = getCitation(props.id, props.metadata)
 
   function onClick() {
     navigator.clipboard.writeText(citation)
@@ -164,7 +169,7 @@ function CiteAs(props: CiteAsProps) {
       <p>{citation}</p>
       <button
         onClick={onClick}
-        className="px-3 py-1 text-xs font-medium transition border rounded-full border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+        className="px-3 py-1 text-xs font-medium transition border rounded-full border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
       >
         Copy citation
       </button>
@@ -172,8 +177,62 @@ function CiteAs(props: CiteAsProps) {
   )
 }
 
-function getCitation(metadata: PostData['data']['metadata']) {
-  return metadata.title
+/**
+ * Returns citation.
+ */
+function getCitation(
+  id: PostData['id'],
+  metadata: PostData['data']['metadata'],
+) {
+  function createNameList(persons: Array<Person>) {
+    return persons
+      .map((person) => getFullName(person.firstName, person.lastName))
+      .join(', ')
+      .replace(/,(?!.*,)/gim, ' and')
+  }
+
+  const authors = createNameList([
+    ...metadata.authors,
+    ...(metadata.contributors ?? []),
+  ])
+
+  const editors =
+    Array.isArray(metadata.editors) && metadata.editors.length > 0
+      ? `Edited by ${createNameList(metadata.editors)}. `
+      : ''
+
+  const date =
+    metadata.remote?.date !== undefined && metadata.remote.date.length > 0
+      ? metadata.remote.date
+      : metadata.date
+  const year = ` (${new Date(date).getFullYear()}). `
+
+  const title = metadata.title.slice(-1).match(/[!?]/)
+    ? metadata.title + ' '
+    : metadata.title + '. '
+
+  const version = metadata.version ? `Version ${metadata.version}. ` : ''
+
+  const publisher =
+    metadata.remote?.publisher !== undefined
+      ? metadata.remote.publisher + '. '
+      : metadata.remote?.url !== undefined
+      ? metadata.categories
+          .filter((cat) => cat.id !== 'dariah')
+          .map((cat) => cat.host) + '. '
+      : 'DARIAH-Campus. '
+
+  const contentType = `[${metadata.type.name}]. `
+
+  const url =
+    metadata.remote?.url !== undefined
+      ? metadata.remote.url
+      : String(new URL(routes.resource(id).pathname, siteUrl))
+
+  const citation =
+    authors + year + title + version + editors + publisher + contentType + url
+
+  return citation
 }
 
 /**
@@ -187,7 +246,7 @@ function ReUseConditions() {
       </h2>
       <p>
         Resources hosted on DARIAH-Campus are subjects to the{' '}
-        <Link href={{ pathname: '/docs/dariah-campus-reuse-charter' }}>
+        <Link href={routes.docs('dariah-campus-reuse-charter')}>
           <a className="transition text-primary-600 hover:text-primary-700">
             DARIAH-Campus Training Materials Reuse Charter
           </a>

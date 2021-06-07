@@ -47,7 +47,7 @@ function VideoCard(props: VideoCardProps) {
     <Fragment>
       <button
         onClick={lightbox.open}
-        className="flex flex-col items-center p-6 space-y-4 transition rounded-xl shadow-card-md text-neutral-800 hover:shadow-card-lg focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus:outline-none"
+        className="flex flex-col items-center p-6 space-y-4 transition rounded-xl shadow-card-md text-neutral-800 hover:shadow-card-lg focus-visible:ring focus-visible:ring-primary-600 focus:outline-none"
       >
         <img src={props.image} alt="" loading="lazy" className="w-full" />
         <Icon icon={PlayIcon} className="w-12 h-12 text-primary-600" />

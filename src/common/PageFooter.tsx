@@ -19,11 +19,11 @@ export function PageFooter(): JSX.Element {
         <ul className="flex flex-col items-center justify-center space-y-3 md:space-y-0 md:space-x-6 md:flex-row">
           {Object.entries(navigation).map(([key, link]) => {
             return (
-              <li key={key}>
+              <li key={key} className="inline-flex">
                 <NavLink
                   href={link.href}
                   activeClassName="text-white"
-                  className="p-2 rounded focus:outline-none focus-visible:ring focus-visible:ring-neutral-400"
+                  className="text-center p-2 rounded focus:outline-none focus-visible:ring focus-visible:ring-neutral-400"
                 >
                   {t(`common.page.${key}`)}
                 </NavLink>

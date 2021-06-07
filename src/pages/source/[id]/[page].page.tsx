@@ -15,14 +15,15 @@ import { getPostPreviewsByCategoryId } from '@/api/cms/queries/post'
 import { getPageRange, paginate } from '@/cms/paginate'
 import type { Page } from '@/cms/paginate'
 import { PageContent } from '@/common/PageContent'
+import { Pagination } from '@/common/Pagination'
 import { getLocale } from '@/i18n/getLocale'
 import type { Dictionary } from '@/i18n/loadDictionary'
 import { loadDictionary } from '@/i18n/loadDictionary'
 import { Metadata } from '@/metadata/Metadata'
 import { useAlternateUrls } from '@/metadata/useAlternateUrls'
 import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
+import { routes } from '@/navigation/routes.config'
 import { PostsList } from '@/post/PostsList'
-import { PostsListNav } from '@/post/PostsListNav'
 
 const pageSize = 10
 
@@ -125,8 +126,12 @@ export default function CategoryPage(props: CategoryPageProps): JSX.Element {
         </p>
         <section className="space-y-5">
           <h2 className="sr-only">Posts</h2>
-          <PostsList posts={posts} />
-          <PostsListNav posts={posts} />
+          <PostsList posts={posts.items} />
+          <Pagination
+            page={posts.page}
+            pages={posts.pages}
+            href={(page) => routes.source(category.id, page)}
+          />
         </section>
       </PageContent>
     </Fragment>

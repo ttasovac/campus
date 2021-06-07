@@ -15,6 +15,8 @@ export interface PersonId {
   id: string
 }
 
+type ID = PersonId['id']
+
 export interface PersonData {
   firstName: string
   lastName: string
@@ -42,10 +44,7 @@ export async function getPersonIds(_locale: Locale): Promise<Array<string>> {
 /**
  * Returns person data.
  */
-export async function getPersonById(
-  id: string,
-  locale: Locale,
-): Promise<Person> {
+export async function getPersonById(id: ID, locale: Locale): Promise<Person> {
   const file = await getPersonFile(id, locale)
   const data = await getPersonData(file, locale)
 
@@ -72,7 +71,7 @@ export async function getPersons(locale: Locale): Promise<Array<Person>> {
 /**
  * Reads person file.
  */
-async function getPersonFile(id: string, locale: Locale): Promise<VFile> {
+async function getPersonFile(id: ID, locale: Locale): Promise<VFile> {
   const filePath = getPersonFilePath(id, locale)
   const file = await readFile(filePath)
 
@@ -82,7 +81,7 @@ async function getPersonFile(id: string, locale: Locale): Promise<VFile> {
 /**
  * Returns file path for person.
  */
-export function getPersonFilePath(id: string, _locale: Locale): FilePath {
+export function getPersonFilePath(id: ID, _locale: Locale): FilePath {
   const filePath = join(personFolder, id + personExtension)
 
   return filePath

@@ -1,5 +1,6 @@
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 
+import { Analytics } from '@/analytics/Analytics'
 import { Fonts } from '@/assets/Fonts'
 
 /**
@@ -11,6 +12,7 @@ export default class Document extends NextDocument {
       <Html>
         <Head>
           <Fonts />
+          <Analytics />
         </Head>
         <body>
           <Main />

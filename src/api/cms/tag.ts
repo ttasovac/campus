@@ -15,6 +15,8 @@ export interface TagId {
   id: string
 }
 
+type ID = TagId['id']
+
 export interface TagData {
   name: string
   description: string
@@ -34,7 +36,7 @@ export async function getTagIds(_locale: Locale): Promise<Array<string>> {
 /**
  * Returns tag data.
  */
-export async function getTagById(id: string, locale: Locale): Promise<Tag> {
+export async function getTagById(id: ID, locale: Locale): Promise<Tag> {
   const file = await getTagFile(id, locale)
   const data = await getTagData(file, locale)
 
@@ -61,7 +63,7 @@ export async function getTags(locale: Locale): Promise<Array<Tag>> {
 /**
  * Reads tag file.
  */
-async function getTagFile(id: string, locale: Locale): Promise<VFile> {
+async function getTagFile(id: ID, locale: Locale): Promise<VFile> {
   const filePath = getTagFilePath(id, locale)
   const file = await readFile(filePath)
 
@@ -71,14 +73,14 @@ async function getTagFile(id: string, locale: Locale): Promise<VFile> {
 /**
  * Returns file path for tag.
  */
-export function getTagFilePath(id: string, _locale: Locale): FilePath {
+export function getTagFilePath(id: ID, _locale: Locale): FilePath {
   const filePath = join(tagFolder, id + tagExtension)
 
   return filePath
 }
 
 /**
- * Returns person data.
+ * Returns tag data.
  */
 async function getTagData(file: VFile, _locale: Locale): Promise<TagData> {
   const data = YAML.load(String(file), { schema: YAML.CORE_SCHEMA }) as TagData

@@ -14,6 +14,8 @@ import type {
 } from 'next'
 import { Fragment } from 'react'
 
+import type { EventPreview } from '@/api/cms/event'
+import { getEventIds, getEventPreviews } from '@/api/cms/event'
 import type { PostPreview } from '@/api/cms/post'
 import { getPostIds, getPostPreviews } from '@/api/cms/post'
 import { getPostPreviewsByTagId } from '@/api/cms/queries/post'
@@ -24,6 +26,7 @@ import type { Page } from '@/cms/paginate'
 import { getPageRange, paginate } from '@/cms/paginate'
 import { Icon } from '@/common/Icon'
 import { PageContent } from '@/common/PageContent'
+import { Pagination } from '@/common/Pagination'
 import { getLocale } from '@/i18n/getLocale'
 import type { Dictionary } from '@/i18n/loadDictionary'
 import { loadDictionary } from '@/i18n/loadDictionary'
@@ -31,8 +34,8 @@ import { useI18n } from '@/i18n/useI18n'
 import { Metadata } from '@/metadata/Metadata'
 import { useAlternateUrls } from '@/metadata/useAlternateUrls'
 import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
+import { routes } from '@/navigation/routes.config'
 import { PostsList } from '@/post/PostsList'
-import { PostsListNav } from '@/post/PostsListNav'
 import { TagsList } from '@/post/TagsList'
 
 const pageSize = 10
@@ -44,12 +47,12 @@ export interface PostsPageParams extends ParsedUrlQuery {
 
 export interface PostsPageProps {
   dictionary: Dictionary
-  posts: Page<PostPreview>
+  resources: Page<PostPreview | EventPreview>
   tags: Array<Tag & { posts: number }>
 }
 
 /**
- * Creates posts pages.
+ * Creates resource (posts and events) pages.
  */
 export async function getStaticPaths(
   context: GetStaticPathsContext,
@@ -59,7 +62,9 @@ export async function getStaticPaths(
   const paths = (
     await Promise.all(
       locales.map(async (locale) => {
-        const ids = await getPostIds(locale)
+        const postIds = await getPostIds(locale)
+        const eventIds = await getEventIds(locale)
+        const ids = [...postIds, ...eventIds]
         const pages = getPageRange(ids, pageSize)
         return pages.map((page) => {
           return {
@@ -78,7 +83,7 @@ export async function getStaticPaths(
 }
 
 /**
- * Provides metadata and translations for posts page.
+ * Provides metadata and translations for resource (posts and events) page.
  */
 export async function getStaticProps(
   context: GetStaticPropsContext<PostsPageParams>,
@@ -88,14 +93,22 @@ export async function getStaticProps(
   const dictionary = await loadDictionary(locale, ['common'])
 
   const page = Number(context.params?.page)
+  const allPosts = await getPostPreviews(locale)
+  const allEvents = await getEventPreviews(locale)
+  const sortedResources: Array<PostPreview | EventPreview> = [
+    ...allPosts,
+    ...allEvents,
+  ].sort((a, b) => (a.date > b.date ? -1 : 1))
+
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const posts = paginate(await getPostPreviews(locale))[page - 1]!
+  const resources = paginate(sortedResources)[page - 1]!
 
   const tags = await getTags(locale)
   const tagsWithPostCount = (
     await Promise.all(
       tags.map(async (tag) => {
         const postsWithTag = await getPostPreviewsByTagId(tag.id, locale)
+        // FIXME: const eventsWithTag = await getEventPreviewsByTagId(tag.id, locale)
         return {
           ...tag,
           posts: postsWithTag.length,
@@ -111,7 +124,7 @@ export async function getStaticProps(
   return {
     props: {
       dictionary,
-      posts,
+      resources,
       tags: tagsWithPostCount,
     },
   }
@@ -121,7 +134,7 @@ export async function getStaticProps(
  * Posts page.
  */
 export default function PostsPage(props: PostsPageProps): JSX.Element {
-  const { posts, tags } = props
+  const { resources: posts, tags } = props
 
   const { t } = useI18n()
   const canonicalUrl = useCanonicalUrl()
@@ -138,8 +151,12 @@ export default function PostsPage(props: PostsPageProps): JSX.Element {
         <h1 className="text-4.5xl font-bold text-center">Resources</h1>
         <TagsFilter tags={tags} />
         <section>
-          <PostsList posts={posts} />
-          <PostsListNav posts={posts} />
+          <PostsList posts={posts.items} />
+          <Pagination
+            page={posts.page}
+            pages={posts.pages}
+            href={routes.resources}
+          />
         </section>
       </PageContent>
     </Fragment>
@@ -163,7 +180,7 @@ function TagsFilter(props: TagsFilterProps): JSX.Element | null {
       <Accordion collapsible>
         <AccordionItem>
           <h2 className="flex text-lg text-primary-600">
-            <AccordionButton className="flex items-center justify-between flex-1 px-5 py-5 space-x-2 transition border rounded-lg border-neutral-150 hover:shadow-card-md focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2 focus:outline-none">
+            <AccordionButton className="flex items-center justify-between flex-1 px-5 py-5 space-x-2 transition border rounded-lg border-neutral-150 hover:shadow-card-md focus-visible:ring focus-visible:ring-primary-600 focus:outline-none">
               <span>Filter by topic</span>
               <Icon icon={ChevronIcon} className="flex-shrink-0 w-4 h-4" />
             </AccordionButton>

@@ -42,9 +42,10 @@ export interface SiteMetadata {
 export const siteMetadata: Record<Locale, SiteMetadata> = {
   en: {
     url: String(new URL('en', url)),
-    title: 'Campus',
-    shortTitle: 'Campus',
-    description: '',
+    title: 'DARIAH-Campus',
+    shortTitle: 'DARIAH-Campus',
+    description:
+      'DARIAH-CAMPUS is a discovery framework and hosting platform for DARIAH learning resources.',
     favicon: {
       src: 'public/assets/images/logo-maskable.svg',
       maskable: true,
@@ -54,6 +55,6 @@ export const siteMetadata: Record<Locale, SiteMetadata> = {
       publicPath: '/android-chrome-512x512.png',
       alt: '',
     },
-    twitter: '',
+    twitter: 'dariaheu',
   },
 } as const

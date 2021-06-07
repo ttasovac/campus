@@ -10,6 +10,9 @@ export const navigation = {
   resources: {
     href: routes.resources(),
   },
+  collections: {
+    href: routes.collections(),
+  },
   topics: {
     href: routes.tags(),
   },

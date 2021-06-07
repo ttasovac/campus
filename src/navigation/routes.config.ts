@@ -22,6 +22,13 @@ export const routes = {
     return { pathname: `/resources/${page}` }
   },
 
+  collection(id: string) {
+    return { pathname: `/curriculum/${id}` }
+  },
+  collections(page = 1) {
+    return { pathname: `/curricula/${page}` }
+  },
+
   tag(id: string, page = 1) {
     return { pathname: `/tag/${id}/${page}` }
   },

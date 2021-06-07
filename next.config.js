@@ -38,7 +38,7 @@ const config = {
     return [
       { source: '/about', destination: '/docs/about' },
       { source: '/resources', destination: '/resources/1' },
-      { source: '/resource/:id', destination: '/resource/:id/1' },
+      { source: '/curricula', destination: '/curricula/1' },
       { source: '/author/:id', destination: '/author/:id/1' },
       { source: '/sources', destination: '/sources/1' },
       { source: '/source/:id', destination: '/source/:id/1' },

@@ -142,7 +142,7 @@ export default function CategoriesPage(
                     <footer className="flex items-center justify-between px-10 py-8 bg-neutral-100">
                       <span>{category.posts} Resources</span>
                       <Link href={routes.source(category.id)}>
-                        <a className="hover:text-primary-600 transition rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
+                        <a className="hover:text-primary-600 transition rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
                           Read more &rarr;
                         </a>
                       </Link>

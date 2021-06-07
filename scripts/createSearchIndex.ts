@@ -2,6 +2,7 @@ import type { SearchIndex } from 'algoliasearch'
 import algoliasearch from 'algoliasearch'
 
 import { getPostPreviews } from '@/api/cms/post'
+import { getFullName } from '@/utils/getFullName'
 import { log } from '@/utils/log'
 import {
   writeApiKey as apiKey,
@@ -35,10 +36,11 @@ async function main() {
       const { abstract, authors, date, id, tags, title } = post
 
       return {
+        kind: 'resource',
         abstract,
         authors: authors.map((author) => {
           return {
-            name: [author.firstName, author.lastName].filter(Boolean).join(' '),
+            name: getFullName(author.firstName, author.lastName),
             id: author.id,
           }
         }),
@@ -55,9 +57,11 @@ async function main() {
       }
     })
 
+    // TODO: index events and curricula
+
     index.saveObjects(posts)
   } catch (error) {
-    log.warn(error)
+    log.warn(error.message)
   }
 }
 

@@ -27,6 +27,8 @@ export interface DocsId {
   id: string
 }
 
+type ID = DocsId['id']
+
 export interface DocsMetadata {
   title: string
   order: number
@@ -60,7 +62,7 @@ export async function getDocsIds(_locale: Locale): Promise<Array<string>> {
 /**
  * Returns docs content, table of contents, and metadata.
  */
-export async function getDocsById(id: string, locale: Locale): Promise<Docs> {
+export async function getDocsById(id: ID, locale: Locale): Promise<Docs> {
   const file = await getDocsFile(id, locale)
   const metadata = await getDocsMetadata(file, locale)
   const code = String(await compileMdx(file))
@@ -95,6 +97,19 @@ export async function getDocs(locale: Locale): Promise<Array<Docs>> {
 }
 
 /**
+ * Returns metadata for docs.
+ */
+export async function getDocsPreviewById(
+  id: ID,
+  locale: Locale,
+): Promise<DocsPreview> {
+  const file = await getDocsFile(id, locale)
+  const metadata = await getDocsMetadata(file, locale)
+
+  return { id, ...metadata }
+}
+
+/**
  * Returns previews for all docs, sorted by order.
  */
 export async function getDocsPreviews(
@@ -104,10 +119,7 @@ export async function getDocsPreviews(
 
   const metadata = await Promise.all(
     ids.map(async (id) => {
-      const file = await getDocsFile(id, locale)
-      const metadata = await getDocsMetadata(file, locale)
-
-      return { id, ...metadata }
+      return getDocsPreviewById(id, locale)
     }),
   )
 
@@ -119,7 +131,7 @@ export async function getDocsPreviews(
 /**
  * Reads docs file.
  */
-async function getDocsFile(id: string, locale: Locale): Promise<VFile> {
+async function getDocsFile(id: ID, locale: Locale): Promise<VFile> {
   const filePath = getDocsFilePath(id, locale)
   const file = await readFile(filePath)
 
@@ -129,7 +141,7 @@ async function getDocsFile(id: string, locale: Locale): Promise<VFile> {
 /**
  * Returns file path for docs.
  */
-export function getDocsFilePath(id: string, _locale: Locale): FilePath {
+export function getDocsFilePath(id: ID, _locale: Locale): FilePath {
   const filePath = join(docsFolder, id + docsExtension)
 
   return filePath

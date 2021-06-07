@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { FC, SVGProps } from 'react'
 
+import type { EventPreview } from '@/api/cms/event'
 import type { PostPreview } from '@/api/cms/post'
 import { Svg as AudioIcon } from '@/assets/icons/audio.svg'
 import { Svg as DefaultAvatar } from '@/assets/icons/avatar.svg'
@@ -9,12 +10,12 @@ import { Svg as EventIcon } from '@/assets/icons/event.svg'
 import { Svg as GlobeIcon } from '@/assets/icons/globe.svg'
 import { Svg as PathfinderIcon } from '@/assets/icons/pathfinder.svg'
 import { Svg as VideoIcon } from '@/assets/icons/video.svg'
-import type { Page } from '@/cms/paginate'
 import { Icon } from '@/common/Icon'
 import { routes } from '@/navigation/routes.config'
+import { getFullName } from '@/utils/getFullName'
 
 const contentTypeIcons: Record<
-  PostPreview['type'],
+  PostPreview['type']['id'],
   FC<SVGProps<SVGSVGElement> & { title?: string }>
 > = {
   audio: AudioIcon,
@@ -28,7 +29,7 @@ const contentTypeIcons: Record<
 }
 
 export interface PostsListProps {
-  posts: Page<PostPreview>
+  posts: Array<PostPreview | EventPreview>
 }
 
 /**
@@ -39,7 +40,7 @@ export function PostsList(props: PostsListProps): JSX.Element {
 
   return (
     <ul className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      {posts.items.map((post) => {
+      {posts.map((post) => {
         return (
           <li key={post.id}>
             <PostPreviewCard post={post} />
@@ -51,7 +52,7 @@ export function PostsList(props: PostsListProps): JSX.Element {
 }
 
 interface PostPreviewCardProps {
-  post: PostsListProps['posts']['items'][number]
+  post: PostsListProps['posts'][number]
 }
 
 /**
@@ -59,9 +60,10 @@ interface PostPreviewCardProps {
  */
 function PostPreviewCard(props: PostPreviewCardProps): JSX.Element {
   const { post } = props
+  const authors = 'authors' in post ? post.authors : undefined
 
   const href = routes.resource(post.id)
-  const icon = contentTypeIcons[post.type]
+  const icon = contentTypeIcons[post.type.id]
 
   return (
     <article className="flex flex-col border rounded-xl overflow-hidden hover:shadow-card-md shadow-card-sm border-neutral-150">
@@ -82,33 +84,37 @@ function PostPreviewCard(props: PostPreviewCardProps): JSX.Element {
       </div>
       <footer className="flex items-center justify-between px-10 py-5 bg-neutral-100">
         <dl>
-          <dt className="sr-only">Authors</dt>
-          <dd>
-            <ul className="flex items-center space-x-1">
-              {post.authors.map((author) => {
-                return (
-                  <li key={author.id}>
-                    <span className="sr-only">
-                      {[author.firstName, author.lastName].join(' ')}
-                    </span>
-                    {author.avatar !== undefined ? (
-                      <img
-                        src={author.avatar}
-                        alt=""
-                        loading="lazy"
-                        className="w-8 h-8 rounded-full"
-                      />
-                    ) : (
-                      <Icon
-                        icon={DefaultAvatar}
-                        className="w-8 h-8 rounded-full text-primary-600"
-                      />
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          </dd>
+          {Array.isArray(authors) && authors.length > 0 ? (
+            <div>
+              <dt className="sr-only">Authors</dt>
+              <dd>
+                <ul className="flex items-center space-x-1">
+                  {authors.map((author) => {
+                    return (
+                      <li key={author.id}>
+                        <span className="sr-only">
+                          {getFullName(author.firstName, author.lastName)}
+                        </span>
+                        {author.avatar !== undefined ? (
+                          <img
+                            src={author.avatar}
+                            alt=""
+                            loading="lazy"
+                            className="w-8 h-8 rounded-full"
+                          />
+                        ) : (
+                          <Icon
+                            icon={DefaultAvatar}
+                            className="w-8 h-8 rounded-full text-primary-600"
+                          />
+                        )}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </dd>
+            </div>
+          ) : null}
         </dl>
         <Link href={href}>
           <a className="transition hover:text-primary-600">Read more &rarr;</a>

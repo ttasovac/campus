@@ -76,7 +76,7 @@ function TableOfContentsLevel(
               <Link href={{ hash: heading.id }}>
                 <a
                   className={cx(
-                    'flex transition hover:text-primary-600 relative focus:outline-none rounded focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2',
+                    'flex transition hover:text-primary-600 relative focus:outline-none rounded focus-visible:ring focus-visible:ring-primary-600',
                     isHighlighted ? 'font-bold pointer-events-none' : undefined,
                   )}
                 >

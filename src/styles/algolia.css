@@ -1,0 +1,13 @@
+:root {
+  /** Media query to decide between showing as modal or fullscreen */
+  --aa-detached-modal-media-query: (min-width: 500px);
+  --aa-font-family: 'Roboto', system-ui, sans-serif;
+  --aa-font-size: 0.875rem;
+  --aa-primary-color-rgb: 0, 102, 153;
+  --aa-muted-color-rgb: 115, 115, 115;
+  --aa-selected-color-rgb: 235, 235, 235;
+}
+
+.aa-DetachedSearchButton {
+  padding-right: 16px;
+}

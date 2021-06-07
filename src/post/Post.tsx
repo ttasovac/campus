@@ -7,6 +7,8 @@ import { Icon } from '@/common/Icon'
 import { useI18n } from '@/i18n/useI18n'
 import { Mdx as PostContent } from '@/mdx/Mdx'
 import { routes } from '@/navigation/routes.config'
+import { EditLink } from '@/post/EditLink'
+import { getFullName } from '@/utils/getFullName'
 import type { ISODateString } from '@/utils/ts/aliases'
 
 export interface PostProps {
@@ -51,11 +53,12 @@ export function Post(props: PostProps): JSX.Element {
                               />
                             )}
                             <Link href={routes.author(author.id)}>
-                              <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
+                              <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
                                 <span>
-                                  {[author.firstName, author.lastName]
-                                    .filter(Boolean)
-                                    .join(' ')}
+                                  {getFullName(
+                                    author.firstName,
+                                    author.lastName,
+                                  )}
                                 </span>
                               </a>
                             </Link>
@@ -67,7 +70,11 @@ export function Post(props: PostProps): JSX.Element {
                 </dd>
               </div>
             ) : null}
-            {date != null && date.length > 0 ? (
+            {date != null &&
+            (typeof date === 'string'
+              ? date.length > 0
+              : /* @ts-expect-error CMS preview template provides `Date`. */
+                date instanceof Date) ? (
               <div>
                 <dt className="sr-only">Publish date</dt>
                 <dd>
@@ -90,7 +97,7 @@ export function Post(props: PostProps): JSX.Element {
                       return (
                         <li key={source.id} className="inline">
                           <Link href={routes.source(source.id)}>
-                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
+                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
                               <span>{source.name}</span>
                             </a>
                           </Link>
@@ -111,7 +118,7 @@ export function Post(props: PostProps): JSX.Element {
                       return (
                         <li key={tag.id} className="inline">
                           <Link href={routes.tag(tag.id)}>
-                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
+                            <a className="transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
                               <span
                                 className={index !== 0 ? 'ml-1' : undefined}
                               >
@@ -131,11 +138,11 @@ export function Post(props: PostProps): JSX.Element {
         </dl>
       </header>
       <div className="prose max-w-none">
-        <PostContent {...props.post} />
+        <PostContent {...post} />
       </div>
       <footer>
         {lastUpdatedAt != null ? (
-          <p>
+          <p className="text-right text-sm text-neutral-500">
             <span>Last updated: </span>
             <time dateTime={lastUpdatedAt}>
               {formatDate(new Date(lastUpdatedAt), undefined, {
@@ -145,12 +152,14 @@ export function Post(props: PostProps): JSX.Element {
           </p>
         ) : null}
         {isPreview !== true ? (
-          <Link href={{ ...routes.cms(), hash: `/edit/resources/${post.id}` }}>
-            <a className="text-sm flex justify-end items-center space-x-1.5 text-neutral-500">
-              <Icon icon={PencilIcon} className="w-4 h-4" />
-              <span className="text-right">Suggest changes to resource</span>
-            </a>
-          </Link>
+          <EditLink
+            collection="resources"
+            id={post.id}
+            className="text-sm flex justify-end items-center space-x-1.5 text-neutral-500"
+          >
+            <Icon icon={PencilIcon} className="w-4 h-4" />
+            <span className="text-right">Suggest changes to resource</span>
+          </EditLink>
         ) : null}
       </footer>
     </article>

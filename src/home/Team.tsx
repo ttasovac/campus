@@ -1,5 +1,6 @@
 import { Section } from '@/common/Section'
 import type { HomePageProps } from '@/pages/index.page'
+import { getFullName } from '@/utils/getFullName'
 
 export interface TeamProps {
   team: HomePageProps['team']
@@ -27,7 +28,7 @@ export function Team(props: TeamProps): JSX.Element {
                 className="w-24 h-24 mb-2 rounded-full"
               />
               <h3 className="font-bold">
-                {[person.firstName, person.lastName].join(' ')}
+                {getFullName(person.firstName, person.lastName)}
               </h3>
               <p className="text-sm text-neutral-500">{person.title}</p>
             </li>

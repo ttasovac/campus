@@ -8,6 +8,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { Svg as CloseIcon } from '@/assets/icons/close.svg'
 import { Svg as MenuIcon } from '@/assets/icons/menu.svg'
 import { Svg as SearchIcon } from '@/assets/icons/search.svg'
+import { AlgoliaAutocomplete } from '@/common/AlgoliaAutocomplete'
 import { Icon } from '@/common/Icon'
 import { Logo } from '@/common/Logo'
 import { NavLink } from '@/common/NavLink'
@@ -34,7 +35,7 @@ export function PageHeader(): JSX.Element {
           <NavLink
             href={navigation.home.href}
             aria-label={t('common.page.home')}
-            className="inline-block rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+            className="inline-block rounded focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
           >
             <Logo aria-hidden className="h-12 text-primary-600" />
           </NavLink>
@@ -66,7 +67,7 @@ function NavigationBar() {
             <li key={key}>
               <NavLink
                 href={link.href}
-                className="flex px-4 py-4 transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+                className="flex px-4 py-4 transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
               >
                 {t(`common.page.${key}`)}
               </NavLink>
@@ -80,7 +81,7 @@ function NavigationBar() {
           href={contact.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-1.5 text-sm font-medium border rounded-full border-primary-600 text-primary-600 transition hover:text-white hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+          className="px-3 py-1.5 text-sm font-medium border rounded-full border-primary-600 text-primary-600 transition hover:text-white hover:bg-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
         >
           {t('common.page.contact')}
         </a>
@@ -111,7 +112,7 @@ function NavigationMenu() {
     <Fragment>
       <button
         onClick={state.toggle}
-        className="flex items-center space-x-2 text-sm transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2"
+        className="flex items-center space-x-2 text-sm transition hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
       >
         <span>Menu</span>
         <Icon icon={MenuIcon} className="w-5 h-5" />
@@ -150,14 +151,21 @@ function NavigationMenu() {
             })}
           </ul>
           <div>
-            <a
-              href={contact.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-4 py-4 transition rounded hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-neutral-400"
-            >
-              {t('common.page.contact')}
-            </a>
+            {/* Close nav menu before opening search overlay (otherwise search input does not receive key events). */}
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+            <div onClick={state.close}>
+              <AlgoliaAutocomplete />
+            </div>
+            <div>
+              <a
+                href={contact.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-4 transition rounded hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-neutral-400"
+              >
+                {t('common.page.contact')}
+              </a>
+            </div>
           </div>
         </DialogContent>
       </DialogOverlay>
@@ -170,10 +178,11 @@ function NavigationMenu() {
  */
 function SearchButton() {
   return (
-    <button className="flex items-center p-4 space-x-1 text-sm font-medium transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600 focus-visible:ring-offset-2">
-      <Icon icon={SearchIcon} className="w-5 h-5" />
-      <span>Search</span>
-    </button>
+    // <button className="flex items-center p-4 space-x-1 text-sm font-medium transition rounded hover:text-primary-600 focus:outline-none focus-visible:ring focus-visible:ring-primary-600">
+    //   <Icon icon={SearchIcon} className="w-5 h-5" />
+    //   <span>Search</span>
+    // </button>
+    <AlgoliaAutocomplete />
   )
 }
 
