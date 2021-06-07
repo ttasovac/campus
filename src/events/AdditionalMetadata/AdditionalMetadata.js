@@ -11,19 +11,21 @@ const AdditionalMetadata = ({ metadata }) => (
     {metadata.title && <span>Title: {metadata.title}</span>}
     {metadata.authors && (
       <span>
-        Author(s): {metadata.authors.map(author => author.name).join(', ')}
+        Author(s): {metadata.authors.map((author) => author.name).join(', ')}
       </span>
     )}
     {metadata.contributors && (
       <span>
         Contributor(s):{' '}
-        {metadata.contributors.map(contributor => contributor.name).join(', ')}
+        {metadata.contributors
+          .map((contributor) => contributor.name)
+          .join(', ')}
       </span>
     )}
     {metadata.domain && <span>Domain: {metadata.domain}</span>}
     {metadata.editors && (
       <span>
-        Editor(s): {metadata.editors.map(editor => editor.name).join(', ')}
+        Editor(s): {metadata.editors.map((editor) => editor.name).join(', ')}
       </span>
     )}
     {metadata.lang && <span>Language: {metadata.lang}</span>}
@@ -49,12 +51,13 @@ const AdditionalMetadata = ({ metadata }) => (
     {metadata.type && <span>Resource type: {metadata.type.name}</span>}
     {metadata.categories && (
       <span>
-        Sources: {metadata.categories.map(category => category.name).join(', ')}
+        Sources:{' '}
+        {metadata.categories.map((category) => category.name).join(', ')}
       </span>
     )}
     {metadata.targetGroup && <span>Target group: {metadata.targetGroup}</span>}
     {metadata.tags && (
-      <span>Topics: {metadata.tags.map(tag => tag.name).join(', ')}</span>
+      <span>Topics: {metadata.tags.map((tag) => tag.name).join(', ')}</span>
     )}
     {metadata.version && <span>Version: {metadata.version}</span>}
   </div>

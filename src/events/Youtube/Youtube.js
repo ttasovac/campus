@@ -65,10 +65,10 @@ const Youtube = ({
   )
 }
 
-const toSeconds = str => {
+const toSeconds = (str) => {
   const hoursMinutesSeconds = str.match(/(\d{2})/g)
   return hoursMinutesSeconds.reduceRight(
-    (seconds, digits, i) => seconds + parseInt(digits, 10) * Math.pow(60, i)
+    (seconds, digits, i) => seconds + parseInt(digits, 10) * Math.pow(60, i),
   )
 }
 

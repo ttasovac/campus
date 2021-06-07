@@ -54,7 +54,7 @@ class Masonry extends React.Component {
     React.Children.forEach(this.props.children, (child, i) => {
       const col = i % this.state.columnCount
       this.columns[col] = this.columns[col].concat(
-        React.cloneElement(child, { className: styles.item })
+        React.cloneElement(child, { className: styles.item }),
       )
     })
 

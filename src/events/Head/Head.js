@@ -86,12 +86,12 @@ const Head = ({ article, type = 'website', ...page }) => {
 
         const tags =
           (isArticle && article.tags
-            ? article.tags.map(tag => tag.name)
+            ? article.tags.map((tag) => tag.name)
             : page.keywords) || site.keywords
         const keywords = tags ? tags.join(', ') : ''
 
         const siteTwitter = site.social.find(
-          account => account.name === 'twitter'
+          (account) => account.name === 'twitter',
         )
         const siteTwitterHandle = siteTwitter && siteTwitter.key
 
@@ -106,12 +106,12 @@ const Head = ({ article, type = 'website', ...page }) => {
           site.logo.image.fixed
 
         const googleSiteVerification = site.siteVerification.find(
-          account => account.name === 'google'
+          (account) => account.name === 'google',
         )
         const googleId = googleSiteVerification && googleSiteVerification.key
 
         const fbApp = site.siteVerification.find(
-          account => account.name === 'facebook'
+          (account) => account.name === 'facebook',
         )
         const fbAppId = fbApp && fbApp.key
 
@@ -123,7 +123,7 @@ const Head = ({ article, type = 'website', ...page }) => {
               <title>{title}</title>
               <meta name="description" content={description} />
               <meta name="keywords" content={keywords} />
-              {authors.map(author => (
+              {authors.map((author) => (
                 <meta key={author.slug} name="author" content={author.name} />
               ))}
               <link rel="canonical" href={canonicalUrl} />
@@ -131,14 +131,14 @@ const Head = ({ article, type = 'website', ...page }) => {
               <meta name="twitter:card" content="summary_large_image" />
               <meta name="twitter:site" content={siteTwitterHandle} />
               {authors
-                .map(author =>
+                .map((author) =>
                   author.twitter ? (
                     <meta
                       key={author.slug}
                       name="twitter:creator"
                       content={author.twitter}
                     />
-                  ) : null
+                  ) : null,
                 )
                 .filter(Boolean)}
 
@@ -165,7 +165,7 @@ const Head = ({ article, type = 'website', ...page }) => {
               ) : null}
 
               {isArticle
-                ? (article.authors || []).map(author => (
+                ? (article.authors || []).map((author) => (
                     <meta
                       key={author.slug}
                       property="article:author"
@@ -175,7 +175,7 @@ const Head = ({ article, type = 'website', ...page }) => {
                 : null}
 
               {isArticle
-                ? (article.tags || []).map(tag => (
+                ? (article.tags || []).map((tag) => (
                     <meta
                       key={tag.slug}
                       property="article:tag"

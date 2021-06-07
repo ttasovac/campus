@@ -14,7 +14,7 @@ import { getBasePath } from 'utils/get-base-path'
 
 import styles from './Header.module.css'
 
-const NavLink = props => (
+const NavLink = (props) => (
   <Link
     activeClassName={styles.activeNavLink}
     className={styles.navLink}
@@ -68,7 +68,7 @@ const Nav = () => {
           <li className={styles.navItem}>
             <button
               onClick={() =>
-                setSearchBarVisible(searchBarVisible => !searchBarVisible)
+                setSearchBarVisible((searchBarVisible) => !searchBarVisible)
               }
               className={styles.searchBarToggle}
             >
@@ -90,7 +90,7 @@ const Nav = () => {
   )
 }
 
-const MobileNavLink = props => (
+const MobileNavLink = (props) => (
   <Link
     activeClassName={styles.mobileActiveNavLink}
     className={styles.mobileNavLink}
@@ -167,7 +167,7 @@ const MobileNav = () => {
               opacity: isVisible ? 1 : 0,
             }}
             onClick={() => setOverlayInvisible()}
-            onKeyDown={e => {
+            onKeyDown={(e) => {
               if (e.key === 'Escape') {
                 setOverlayInvisible()
               }

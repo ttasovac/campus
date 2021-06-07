@@ -50,7 +50,7 @@ const Help = ({ className }) => {
         questions
       </LeadIn>
       <div className={styles.container}>
-        {authors.nodes.map(author => (
+        {authors.nodes.map((author) => (
           <div key={author.id} className={styles.author}>
             <Image
               fixed={author.avatar.image.fixed}

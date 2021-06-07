@@ -30,7 +30,7 @@ const Lightbox = ({ children, className, overlay }) => {
   const overlayContainer = (
     <div
       className={styles.container}
-      onClick={event => {
+      onClick={(event) => {
         event.preventDefault()
         event.stopPropagation()
       }}

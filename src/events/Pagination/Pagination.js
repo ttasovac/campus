@@ -28,7 +28,7 @@ const Pagination = ({
           to={createPath(
             basePath,
             slug,
-            currentPage > 2 ? currentPage - 1 : null
+            currentPage > 2 ? currentPage - 1 : null,
           )}
         >
           &larr; Previous

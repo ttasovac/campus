@@ -33,7 +33,7 @@ const EventSession = ({ session, downloads }) => {
                 {children}
               </h3>
             ),
-            p: props => (
+            p: (props) => (
               <p
                 {...props}
                 style={{
@@ -42,29 +42,29 @@ const EventSession = ({ session, downloads }) => {
                 }}
               />
             ),
-            ul: props => (
+            ul: (props) => (
               <ul
                 {...props}
                 className="list-standard"
                 style={{ color: '#1e396c' }}
               />
             ),
-            ol: props => (
+            ol: (props) => (
               <ol
                 {...props}
                 className="list-ordered"
                 style={{ color: '#1e396c' }}
               />
             ),
-            Download: props => (
+            Download: (props) => (
               <EventSessionDownload {...props} downloads={downloads} />
             ),
             Heading: EventSessionHeading,
             Link: EventSessionLink,
-            Speaker: props => (
+            Speaker: (props) => (
               <EventSessionSpeaker {...props} speakers={speakers} />
             ),
-            Speakers: props => (
+            Speakers: (props) => (
               <EventSessionSpeakers {...props} speakers={speakers} />
             ),
             Title: EventSessionTitle,

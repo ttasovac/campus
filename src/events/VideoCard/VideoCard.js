@@ -25,7 +25,7 @@ const VideoCard = ({
   // The `images` prop holds the injected images in the `images` folder of a post
   if (typeof image === 'string') {
     const fileName = image.replace(/^[./]*images\//, '')
-    const resourceImage = images.find(img => img.base === fileName)
+    const resourceImage = images.find((img) => img.base === fileName)
     placeholderImage = resourceImage && resourceImage.image.fluid
   } else if (image) {
     placeholderImage = image.fluid

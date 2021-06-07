@@ -68,7 +68,7 @@ const PostPreview = ({ className, excerpt, frontmatter, next, previous }) => {
         {frontmatter.authors
           ? frontmatter.authors
               .filter((i, index) => index < 3)
-              .map(author =>
+              .map((author) =>
                 author.avatar ? (
                   <Image
                     key={author.slug}
@@ -77,7 +77,7 @@ const PostPreview = ({ className, excerpt, frontmatter, next, previous }) => {
                   />
                 ) : (
                   <DefaultAvatar className={styles.authorImage} />
-                )
+                ),
               )
           : null}
         <Link className={styles.readMoreLink} to={path}>

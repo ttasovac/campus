@@ -6,7 +6,7 @@ const EventSessionDownload = ({ children, download, downloads = [] }) => {
 
   if (typeof download === 'string') {
     const fileName = download.replace(/^[./]*docs\//, '')
-    file = downloads.find(d => d.base === fileName)
+    file = downloads.find((d) => d.base === fileName)
   } else {
     file = download
   }

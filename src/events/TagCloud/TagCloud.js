@@ -33,7 +33,7 @@ const TagCloud = () => {
 
   return (
     <div className={styles.tags}>
-      {tags.nodes.map(tag => (
+      {tags.nodes.map((tag) => (
         <Button
           as={Link}
           className={styles.tag}

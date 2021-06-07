@@ -23,7 +23,7 @@ import styles from './SearchBar.module.css'
 
 const searchClient = algoliasearch(
   process.env.GATSBY_ALGOLIA_APP_ID,
-  process.env.GATSBY_ALGOLIA_SEARCH_API_KEY
+  process.env.GATSBY_ALGOLIA_SEARCH_API_KEY,
 )
 
 const AutoComplete = ({
@@ -37,8 +37,8 @@ const AutoComplete = ({
 }) => (
   <Combobox
     className={clsx(styles.searchBar, className)}
-    onSelect={item => {
-      const matchedPost = searchResults.find(post => post.title === item)
+    onSelect={(item) => {
+      const matchedPost = searchResults.find((post) => post.title === item)
       if (matchedPost && matchedPost.slug) {
         setSearchTerm('')
         navigate(createPath(basePath, matchedPost.slug))
@@ -48,7 +48,7 @@ const AutoComplete = ({
     <ComboboxInput
       aria-label="Search"
       className={styles.searchBarInput}
-      onChange={e => setSearchTerm(e.target.value)}
+      onChange={(e) => setSearchTerm(e.target.value)}
       placeholder="Search..."
       ref={inputRef}
       selectOnClick
@@ -61,7 +61,7 @@ const AutoComplete = ({
         persistSelection
         className={styles.searchResults}
       >
-        {searchResults.map(post => (
+        {searchResults.map((post) => (
           <ComboboxOption
             key={post.objectID}
             value={post.title}

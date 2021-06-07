@@ -10,7 +10,7 @@ const Docs = ({ docs }) => (
   <MDXProvider
     components={{
       h1: () => null,
-      h2: props => <Heading level="1" className={styles.h1} {...props} />,
+      h2: (props) => <Heading level="1" className={styles.h1} {...props} />,
     }}
   >
     <MDXRenderer>{docs}</MDXRenderer>

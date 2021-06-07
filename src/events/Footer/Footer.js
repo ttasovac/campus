@@ -12,7 +12,7 @@ import { getBasePath } from 'utils/get-base-path'
 
 import styles from './Footer.module.css'
 
-const NavLink = props => (
+const NavLink = (props) => (
   <Link
     activeClassName={styles.activeNavLink}
     className={styles.navLink}

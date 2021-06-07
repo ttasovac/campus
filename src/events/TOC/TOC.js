@@ -7,7 +7,7 @@ import styles from './TOC.module.css'
 
 export const createTocItems = (items, depth = 0, prefix) => (
   <ul className={clsx(!depth && styles.border, styles.items)}>
-    {items.map(item => (
+    {items.map((item) => (
       <li key={item.url} className={styles.item}>
         {prefix ? (
           <Link to={`${prefix}${item.url}`}>{item.title}</Link>

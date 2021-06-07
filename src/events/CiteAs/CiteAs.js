@@ -17,8 +17,8 @@ const CiteAs = ({ children, className, left, title, frontmatter }) => {
   function implicitPublisher() {
     return frontmatter.remoteUrl
       ? frontmatter.categories
-          .filter(cat => cat.slug !== 'dariah')
-          .map(cat => cat.host) + '. '
+          .filter((cat) => cat.slug !== 'dariah')
+          .map((cat) => cat.host) + '. '
       : 'DARIAH-Campus. '
   }
 
@@ -28,14 +28,14 @@ const CiteAs = ({ children, className, left, title, frontmatter }) => {
     : frontmatter.authors
 
   const citedAuthors = comboAuthors
-    .map(author => author.name)
+    .map((author) => author.name)
     .join(', ')
     .replace(/,(?!.*,)/gim, ' and')
 
   const citedEditors = frontmatter.editors
     ? 'Edited by ' +
       frontmatter.editors
-        .map(editor => editor.name)
+        .map((editor) => editor.name)
         .join(', ')
         .replace(/,(?!.*,)/gim, ' and') +
       '. '
@@ -87,7 +87,7 @@ const CiteAs = ({ children, className, left, title, frontmatter }) => {
       className={clsx(
         styles.container,
         left && styles.containerLeft,
-        className
+        className,
       )}
     >
       <div className={styles.citeAs}>

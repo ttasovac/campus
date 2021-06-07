@@ -14,7 +14,7 @@ const Annotator = ({ children }) => {
 
     return () => {
       const client = document.querySelector(
-        'link[type="application/annotator+html"]'
+        'link[type="application/annotator+html"]',
       )
       if (client) {
         client.dispatchEvent(new Event('destroy'))
@@ -22,14 +22,14 @@ const Annotator = ({ children }) => {
 
       ;[
         ...document.head.querySelectorAll(
-          `link[type^="application/annotator"]`
+          `link[type^="application/annotator"]`,
         ),
-      ].forEach(el => document.head.removeChild(el))
+      ].forEach((el) => document.head.removeChild(el))
       ;[...document.head.querySelectorAll(`link[href^="${cdnUrl}"]`)].forEach(
-        el => document.head.removeChild(el)
+        (el) => document.head.removeChild(el),
       )
       ;[...document.head.querySelectorAll(`script[src^="${cdnUrl}"]`)].forEach(
-        el => document.head.removeChild(el)
+        (el) => document.head.removeChild(el),
       )
     }
   }, [])

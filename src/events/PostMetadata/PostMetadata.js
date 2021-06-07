@@ -20,7 +20,7 @@ const PostMetadata = ({ className, metadata }) => (
         {metadata.authors && metadata.authors.length
           ? metadata.authors
               .filter((i, index) => index < 3)
-              .map(author =>
+              .map((author) =>
                 author.avatar ? (
                   <Image
                     key={author.id}
@@ -29,7 +29,7 @@ const PostMetadata = ({ className, metadata }) => (
                   />
                 ) : (
                   <DefaultAvatar className={styles.metadataImage} />
-                )
+                ),
               )
           : null}
       </div>
@@ -42,7 +42,7 @@ const PostMetadata = ({ className, metadata }) => (
           <div>
             {createLinks(
               metadata.authors.filter((i, index) => index < 3),
-              getBasePath('author')
+              getBasePath('author'),
             )}
 
             {metadata.authors.length > 3 ? ' et al.' : null}

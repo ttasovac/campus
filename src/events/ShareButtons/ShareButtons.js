@@ -13,9 +13,9 @@ const ShareButtons = ({ className, metadata }) => (
       <div className={clsx(styles.container, className)}>
         <Link
           to={`https://www.twitter.com/intent/tweet?text=${encodeURIComponent(
-            metadata.title
+            metadata.title,
           )}&url=${[location.origin, location.pathname].join(
-            ''
+            '',
           )}&via=DARIAHeu&related=https://twitter.com/dariaheu`}
         >
           <FaTwitter />

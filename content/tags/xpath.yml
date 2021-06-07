@@ -1,3 +1,4 @@
 name: XPath
 slug: xpath
-description: XPath is a standard query language for selecting nodes from XML documents
+description:
+  XPath is a standard query language for selecting nodes from XML documents

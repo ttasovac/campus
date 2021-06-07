@@ -9,7 +9,7 @@ import styles from './EventSessionSpeaker.module.css'
 const EventSessionSpeaker = ({ children, speaker, speakers }) => {
   const person =
     typeof speaker === 'string'
-      ? speakers.find(person => person.slug === speaker)
+      ? speakers.find((person) => person.slug === speaker)
       : speaker
 
   if (!person) return null

@@ -4,7 +4,7 @@ import EventSession from 'components/EventSession/EventSession'
 
 const EventSessions = ({ sessions, downloads }) => (
   <div className="pos-r sticky-position-container">
-    {sessions.map(session => (
+    {sessions.map((session) => (
       <EventSession
         key={session.frontmatter.number}
         session={session}

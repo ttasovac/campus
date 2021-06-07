@@ -28,7 +28,7 @@ const pick = (posts, n) => {
 const RelatedPosts = ({ byCategory, byTag, className }) => {
   const related = useMemo(
     () => pick([...byCategory, ...byTag], RELATED_POSTS_COUNT),
-    [byCategory, byTag]
+    [byCategory, byTag],
   )
 
   if (!related.length) {
@@ -39,7 +39,7 @@ const RelatedPosts = ({ byCategory, byTag, className }) => {
     <div className={clsx(styles.container, className)}>
       <Heading>Related posts</Heading>
       <ul className={styles.relatedPosts}>
-        {related.map(post => (
+        {related.map((post) => (
           <li className={styles.relatedPost} key={post.id}>
             <Link to={createPath(getBasePath('post'), post.frontmatter.slug)}>
               &rarr; {post.frontmatter.title}
