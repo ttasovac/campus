@@ -1,13 +1,16 @@
 import { autocomplete, getAlgoliaResults } from '@algolia/autocomplete-js'
 import type { AutocompleteComponents } from '@algolia/autocomplete-js'
+import { useRouter } from 'next/router'
 import React, { createElement, Fragment, useEffect, useRef } from 'react'
 // @ts-expect-error Needs types package.
 import { render } from 'react-dom'
 
 import { getSearchClient } from '@/api/algolia'
-import type { PostMetadata } from '@/api/cms/post'
+import type { PostPreview } from '@/api/cms/post'
+import { routes } from '@/navigation/routes.config'
 import { getFullName } from '@/utils/getFullName'
 import { indexName } from '~/config/algolia.config'
+import { url as siteUrl } from '~/config/site.config'
 
 export interface AlgoliaAutocompleteProps {
   openOnFocus?: boolean
@@ -26,6 +29,7 @@ export function AlgoliaAutocomplete(
   props: AlgoliaAutocompleteProps,
 ): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
     if (containerRef.current === null) return
@@ -34,7 +38,7 @@ export function AlgoliaAutocomplete(
 
     const searchClient = getSearchClient()
 
-    const search = autocomplete({
+    const search = autocomplete<PostPreview & { [key: string]: unknown }>({
       container: containerRef.current,
       renderer: { createElement, Fragment },
       render({ children }, root) {
@@ -61,8 +65,16 @@ export function AlgoliaAutocomplete(
                 return <Match hit={item} components={components} />
               },
             },
+            getItemUrl({ item }) {
+              return String(new URL(routes.resource(item.id).pathname, siteUrl))
+            },
           },
         ]
+      },
+      navigator: {
+        navigate({ itemUrl }) {
+          router.push(itemUrl)
+        },
       },
       /** Always show in detached mode (modal or fullscreen). */
       detachedMediaQuery: '',
@@ -72,13 +84,13 @@ export function AlgoliaAutocomplete(
     return () => {
       search.destroy()
     }
-  }, [props])
+  }, [props, router])
 
   return <div ref={containerRef} />
 }
 
 interface MatchProps {
-  hit: PostMetadata
+  hit: PostPreview
   components: AutocompleteComponents
 }
 
