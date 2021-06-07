@@ -34,6 +34,18 @@ const config = {
       },
     ]
   },
+  async redirects() {
+    const events = require('./redirects.events.json')
+    const persons = require('./redirects.persons.json')
+    const posts = require('./redirects.posts.json')
+    return [
+      ...Object.entries(events),
+      ...Object.entries(persons),
+      ...Object.entries(posts),
+    ].map(([source, destination]) => {
+      return { source, destination, permanent: true }
+    })
+  },
   async rewrites() {
     return [
       { source: '/about', destination: '/docs/about' },

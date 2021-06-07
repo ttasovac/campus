@@ -31,22 +31,22 @@ import { getFullName } from '@/utils/getFullName'
 import type { ISODateString } from '@/utils/ts/aliases'
 import { url as siteUrl } from '~/config/site.config'
 
-export interface PostPageParams extends ParsedUrlQuery {
+export interface ResourcePageParams extends ParsedUrlQuery {
   id: string
 }
 
-export interface PostPageProps {
+export interface ResourcePageProps {
   dictionary: Dictionary
-  post: PostData | EventData
+  resource: PostData | EventData
   lastUpdatedAt: ISODateString | null
 }
 
 /**
- * Creates page for every post.
+ * Creates page for every resource (post or event).
  */
 export async function getStaticPaths(
   context: GetStaticPathsContext,
-): Promise<GetStaticPathsResult<PostPageParams>> {
+): Promise<GetStaticPathsResult<ResourcePageParams>> {
   const { locales } = getLocale(context)
 
   const paths = (
@@ -73,16 +73,16 @@ export async function getStaticPaths(
 }
 
 /**
- * Provides post content, metadata and translations for post page.
+ * Provides resource (post or event) content and metadata, and translations for resource (post or event) page.
  */
 export async function getStaticProps(
-  context: GetStaticPropsContext<PostPageParams>,
-): Promise<GetStaticPropsResult<PostPageProps>> {
+  context: GetStaticPropsContext<ResourcePageParams>,
+): Promise<GetStaticPropsResult<ResourcePageProps>> {
   const { locale } = getLocale(context)
 
   const dictionary = await loadDictionary(locale, ['common'])
 
-  const { id } = context.params as PostPageParams
+  const { id } = context.params as ResourcePageParams
   /**
    * FIXME: We map both posts and events to `/resource/:id`, which is not great.
    * It means we could have id clashes, and also requires this conditional
@@ -94,7 +94,7 @@ export async function getStaticProps(
    * Better would be `/resource/:content-type/:id`, which would also make it more clear
    * where "events" fit into the data-model (currently they are both content-type and category/source).
    */
-  const post =
+  const resource =
     /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
     (await getPostById(id, locale)) ?? (await getEventById(id, locale))
 
@@ -105,17 +105,64 @@ export async function getStaticProps(
   return {
     props: {
       dictionary,
-      post,
+      resource,
       lastUpdatedAt,
     },
   }
 }
 
 /**
+ * Resource page.
+ */
+export default function ResourcePage(props: ResourcePageProps): JSX.Element {
+  if (props.resource.data.metadata.type.id === 'event') {
+    return <EventPage {...(props as EventPageProps)} />
+  }
+
+  return <PostPage {...(props as PostPageProps)} />
+}
+
+type EventPageProps = Exclude<ResourcePageProps, 'resource'> & {
+  resource: EventData
+}
+
+/**
+ * Event page.
+ */
+function EventPage(props: EventPageProps) {
+  const { resource: event, lastUpdatedAt } = props
+  const { metadata, toc } = event.data
+
+  const canonicalUrl = useCanonicalUrl()
+  const languageAlternates = useAlternateUrls()
+
+  return (
+    <Fragment>
+      <Metadata
+        title={metadata.title}
+        canonicalUrl={canonicalUrl}
+        languageAlternates={languageAlternates}
+      />
+      <JsonLd
+        // TODO:
+        schema={{
+          '@type': 'Article',
+        }}
+      />
+      <pre>{JSON.stringify(event, null, 2)}</pre>
+    </Fragment>
+  )
+}
+
+type PostPageProps = Exclude<ResourcePageProps, 'resource'> & {
+  resource: PostData
+}
+
+/**
  * Post page.
  */
-export default function PostPage(props: PostPageProps): JSX.Element {
-  const { post, lastUpdatedAt } = props
+function PostPage(props: PostPageProps) {
+  const { resource: post, lastUpdatedAt } = props
   const { metadata, toc } = post.data
 
   const canonicalUrl = useCanonicalUrl()
@@ -137,7 +184,9 @@ export default function PostPage(props: PostPageProps): JSX.Element {
       <PageContent className="grid w-full max-w-screen-lg px-10 py-16 mx-auto space-y-10 2xl:space-y-0 2xl:grid-cols-content 2xl:gap-x-10 2xl:max-w-none">
         <aside
           className="sticky hidden w-full max-w-xs max-h-screen px-10 space-y-10 overflow-y-auto text-sm 2xl:justify-self-end top-24 2xl:block text-neutral-500"
-          style={{ maxHeight: 'calc(100vh - 100px)' }}
+          style={{
+            maxHeight: 'calc(100vh - var(--page-header-height, 100px))',
+          }}
         >
           <CiteAs id={post.id} metadata={metadata} />
           <ReUseConditions />
@@ -147,7 +196,9 @@ export default function PostPage(props: PostPageProps): JSX.Element {
           <Fragment>
             <aside
               className="sticky hidden max-w-xs max-h-screen px-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
-              style={{ maxHeight: 'calc(100vh - 100px)' }}
+              style={{
+                maxHeight: 'calc(100vh - var(--page-header-height, 100px))',
+              }}
             >
               <TableOfContents
                 toc={toc}
@@ -164,7 +215,6 @@ export default function PostPage(props: PostPageProps): JSX.Element {
     </Fragment>
   )
 }
-
 interface CiteAsProps {
   id: PostData['id']
   metadata: PostData['data']['metadata']

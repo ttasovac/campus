@@ -1,5 +1,9 @@
 @import './algolia.css';
 
+:root {
+  --page-header-height: 100px;
+}
+
 body {
   @apply font-sans text-neutral-900 antialiased bg-white;
 }

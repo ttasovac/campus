@@ -7,7 +7,6 @@ import { Fragment, useEffect, useState } from 'react'
 
 import { Svg as CloseIcon } from '@/assets/icons/close.svg'
 import { Svg as MenuIcon } from '@/assets/icons/menu.svg'
-import { Svg as SearchIcon } from '@/assets/icons/search.svg'
 import { AlgoliaAutocomplete } from '@/common/AlgoliaAutocomplete'
 import { Icon } from '@/common/Icon'
 import { Logo } from '@/common/Logo'
@@ -29,6 +28,7 @@ export function PageHeader(): JSX.Element {
         'fixed inset-x-0 z-10 bg-white',
         isShadowVisible && 'shadow',
       )}
+      style={{ minHeight: 'var(--page-header-height)' }}
     >
       <nav className="flex items-center justify-between px-4 py-4 space-x-4 text-neutral-800">
         <div>

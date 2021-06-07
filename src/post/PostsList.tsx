@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import type { FC, SVGProps } from 'react'
 
+import { useFakeMasonry } from './useFakeMasonry'
+
 import type { EventPreview } from '@/api/cms/event'
 import type { PostPreview } from '@/api/cms/post'
 import { Svg as AudioIcon } from '@/assets/icons/audio.svg'
@@ -37,6 +39,28 @@ export interface PostsListProps {
  */
 export function PostsList(props: PostsListProps): JSX.Element {
   const { posts } = props
+
+  const columns = useFakeMasonry(posts)
+
+  if (columns != null) {
+    return (
+      <ul className="space-x-4" style={{ columnCount: columns.length }}>
+        {columns.map((posts, index) => {
+          return (
+            <div key={index} className="space-y-8">
+              {posts.map((post) => {
+                return (
+                  <li key={post.id}>
+                    <PostPreviewCard post={post} />
+                  </li>
+                )
+              })}
+            </div>
+          )
+        })}
+      </ul>
+    )
+  }
 
   return (
     <ul className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
