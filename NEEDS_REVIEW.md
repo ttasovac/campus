@@ -1,0 +1,37 @@
+- Helena Bermúdez Sabel includes special characters.
+- Helena Bermúdez Sabel has either more than one first name or last name
+- Christopher W. Blackwell includes special characters.
+- Christopher W. Blackwell has either more than one first name or last name
+- Mikey Bruun Andersen has either more than one first name or last name
+- Javier de la Rosa has either more than one first name or last name
+- Francesca Dell'Oro includes special characters.
+- Matej Ďurčo includes special characters.
+- Marten Düring includes special characters.
+- Jeanette Falk Olesen has either more than one first name or last name
+- Darja Fišer includes special characters.
+- Fabrice Flückiger includes special characters.
+- Cristina Garcia Martin has either more than one first name or last name
+- Vanessa Hannesschläger includes special characters.
+- Jan Kaßel includes special characters.
+- Ondřej Košarko includes special characters.
+- Delfim Leão includes special characters.
+- Jakob Lenardič includes special characters.
+- Martin Lhoták includes special characters.
+- Moritz Mähr includes special characters.
+- Vojtěch Malínek includes special characters.
+- Adele Valeria Messina has either more than one first name or last name
+- Karlheinz Mörth includes special characters.
+- Kevin O'Connor includes special characters.
+- Maria Cristina Piticco has either more than one first name or last name
+- Kenneth M. Price includes special characters.
+- Kenneth M. Price has either more than one first name or last name
+- Maria Fernanda Rollo has either more than one first name or last name
+- Joachim Schöpfel includes special characters.
+- Nienke Van Shaverbeke has either more than one first name or last name
+- Stéfan Sinclair includes special characters.
+- Rikke Toft Nørgård includes special characters.
+- Rikke Toft Nørgård has either more than one first name or last name
+- Erzsébet Tóth-Czifra includes special characters.
+- Henk van den Heuvel has either more than one first name or last name
+- Dieter Van Uytvanck has either more than one first name or last name
+- Maria Wiederänders includes special characters.

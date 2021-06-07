@@ -209,6 +209,9 @@ function migratePosts() {
   }
 
   const targetPostsFolder = join(targetFolder, 'resources')
+  if (!fs.existsSync(targetPostsFolder)) {
+    fs.mkdirSync(targetPostsFolder, { recursive: true })
+  }
 
   postFolderNames.forEach((folderName) => {
     const filePath = join(postsFolder, folderName, 'index.mdx')
