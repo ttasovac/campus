@@ -10,6 +10,8 @@ import type {
 import Link from 'next/link'
 import { Fragment } from 'react'
 
+import type { Event as EventData } from '@/api/cms/event'
+import { getEventIds, getEventById } from '@/api/cms/event'
 import type { Person } from '@/api/cms/person'
 import type { Post as PostData } from '@/api/cms/post'
 import { getPostById, getPostFilePath, getPostIds } from '@/api/cms/post'
@@ -35,7 +37,7 @@ export interface PostPageParams extends ParsedUrlQuery {
 
 export interface PostPageProps {
   dictionary: Dictionary
-  post: PostData
+  post: PostData | EventData
   lastUpdatedAt: ISODateString | null
 }
 
@@ -50,7 +52,10 @@ export async function getStaticPaths(
   const paths = (
     await Promise.all(
       locales.map(async (locale) => {
-        const ids = await getPostIds(locale)
+        const postIds = await getPostIds(locale)
+        const eventIds = await getEventIds(locale)
+        const ids = [...postIds, ...eventIds]
+
         return ids.map((id) => {
           return {
             params: { id },
@@ -78,7 +83,18 @@ export async function getStaticProps(
   const dictionary = await loadDictionary(locale, ['common'])
 
   const { id } = context.params as PostPageParams
-  const post = await getPostById(id, locale)
+  /**
+   * FIXME: We map both posts and events to `/resource/:id`, which is not great.
+   * It means we could have id clashes, and also requires this conditional
+   * acrobatics (because we cannot pass `type` from `getStaticPaths`).
+   *
+   * Better would be `/resource/:content-type/:id`, which would also make it more clear
+   * where "events" fit into the data-model (currently they are both content-type and category/source).
+   */
+  const post =
+    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
+    (await getPostById(id, locale)) ?? (await getEventById(id, locale))
+
   const lastUpdatedAt = await getLastUpdatedTimestamp(
     getPostFilePath(id, locale),
   )
