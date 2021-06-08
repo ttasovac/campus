@@ -1,9 +1,3 @@
-- Helena Bermúdez Sabel includes special characters.
-- Helena Bermúdez Sabel has either more than one first name or last name
-- Christopher W. Blackwell includes special characters.
-- Christopher W. Blackwell has either more than one first name or last name
-- Mikey Bruun Andersen has either more than one first name or last name
-- Javier de la Rosa has either more than one first name or last name
 - Francesca Dell'Oro includes special characters.
 - Matej Ďurčo includes special characters.
 - Marten Düring includes special characters.
