@@ -17,7 +17,7 @@ export function ResourcePreview(
 ): JSX.Element {
   const entry = useDebouncedState(props.entry, 250)
   const fieldsMetaData = useDebouncedState(props.fieldsMetaData, 250)
-  const [post, setPost] = useState<PostData | null>(null)
+  const [post, setPost] = useState<PostData | null | undefined>(undefined)
 
   useEffect(() => {
     let wasCanceled = false
@@ -103,6 +103,7 @@ export function ResourcePreview(
           await compile(body, {
             outputFormat: 'function-body',
             useDynamicImport: false,
+            // FIXME: plugins like syntax highlighter
           }),
         )
 
@@ -132,7 +133,16 @@ export function ResourcePreview(
 
   return (
     <Preview {...props}>
-      {post === null ? null : (
+      {post == null ? (
+        post === undefined ? null : (
+          <div>
+            <p>Failed to render preview.</p>
+            <p>
+              This usually indicates a syntax error in the Markdown content.
+            </p>
+          </div>
+        )
+      ) : (
         <Post post={post} lastUpdatedAt={null} isPreview />
       )}
     </Preview>

@@ -1,3 +1,4 @@
+import ErrorBoundary, { useError } from '@stefanprobst/next-error-boundary'
 import type { PreviewTemplateComponentProps } from 'netlify-cms-core'
 import type { ReactNode } from 'react'
 import { useEffect } from 'react'
@@ -35,8 +36,31 @@ export function Preview(props: PreviewProps): JSX.Element {
   }, [document])
 
   return (
-    <I18nProvider locale={locale} dictionary={undefined}>
-      <div className="flex flex-col p-8">{props.children}</div>
-    </I18nProvider>
+    <ErrorBoundary fallback={ErrorFallback}>
+      <I18nProvider locale={locale} dictionary={undefined}>
+        <div className="flex flex-col p-8">{props.children}</div>
+      </I18nProvider>
+    </ErrorBoundary>
+  )
+}
+
+/**
+ * Error boundary fallback.
+ */
+function ErrorFallback() {
+  const { error, onReset } = useError()
+
+  return (
+    <div className="grid place-items-center h-96">
+      <div className="text-center space-y-2">
+        <p>An unexpected error has occurred: {error.message}.</p>
+        <button
+          onClick={onReset}
+          className="rounded bg-primary-600 text-white text-sm font-medium px-6 py-2 transition hover:bg-primary-700 focus:outline-none focus-visible:ring focus-visible:ring-primary-600"
+        >
+          Clear errors.
+        </button>
+      </div>
+    </div>
   )
 }

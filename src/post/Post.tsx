@@ -44,12 +44,12 @@ export function Post(props: PostProps): JSX.Element {
                                 src={author.avatar}
                                 alt=""
                                 loading="lazy"
-                                className="w-8 h-8 rounded-full"
+                                className="w-8 h-8 rounded-full object-cover"
                               />
                             ) : (
                               <Icon
                                 icon={AvatarIcon}
-                                className="w-8 h-8 rounded-full"
+                                className="w-8 h-8 rounded-full text-primary-600 object-cover"
                               />
                             )}
                             <Link href={routes.author(author.id)}>

@@ -6,6 +6,7 @@
   --aa-primary-color-rgb: 0, 102, 153;
   --aa-muted-color-rgb: 115, 115, 115;
   --aa-selected-color-rgb: 229, 229, 229;
+  --aa-input-border-color-rgb: 229, 229, 229;
 }
 
 .aa-DetachedSearchButton {

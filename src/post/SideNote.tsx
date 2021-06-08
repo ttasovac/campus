@@ -12,7 +12,9 @@ import type { FC, ReactNode } from 'react'
 import { Icon } from '@/common/Icon'
 import { capitalize } from '@/utils/capitalize'
 
-export type SideNoteType = 'danger' | 'info' | 'note' | 'tip' | 'warning'
+const types = ['danger', 'info', 'note', 'tip', 'warning'] as const
+
+export type SideNoteType = typeof types[number]
 
 export interface SideNoteProps {
   /**
@@ -48,7 +50,9 @@ const icons: Record<SideNoteType, FC<IconProps>> = {
  * SideNote.
  */
 export function SideNote(props: SideNoteProps): JSX.Element {
-  const type = props.type ?? 'note'
+  /** In the CMS preview, props can be anything, so be extra careful. */
+  const type =
+    props.type !== undefined && types.includes(props.type) ? props.type : 'note'
   const title = props.title ?? capitalize(type)
 
   return (

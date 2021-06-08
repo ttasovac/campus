@@ -126,12 +126,12 @@ function PostPreviewCard(props: PostPreviewCardProps): JSX.Element {
                             src={author.avatar}
                             alt=""
                             loading="lazy"
-                            className="w-8 h-8 rounded-full"
+                            className="w-8 h-8 rounded-full object-cover"
                           />
                         ) : (
                           <Icon
                             icon={DefaultAvatar}
-                            className="w-8 h-8 rounded-full text-primary-600"
+                            className="w-8 h-8 rounded-full text-primary-600 object-cover"
                           />
                         )}
                       </li>

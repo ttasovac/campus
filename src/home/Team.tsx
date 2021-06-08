@@ -25,7 +25,7 @@ export function Team(props: TeamProps): JSX.Element {
                 src={person.avatar}
                 alt=""
                 loading="lazy"
-                className="w-24 h-24 mb-2 rounded-full"
+                className="w-24 h-24 mb-2 rounded-full object-cover"
               />
               <h3 className="font-bold">
                 {getFullName(person.firstName, person.lastName)}

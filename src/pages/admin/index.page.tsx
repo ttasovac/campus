@@ -17,10 +17,11 @@ const NetlifyCms = dynamic(
      */
     const { default: Cms } = await import('netlify-cms-app')
     const { nanoid } = await import('nanoid')
+    const { ResourcePreview } = await import('@/cms/previews/ResourcePreview')
     const { ResourceCollectionPreview } = await import(
       '@/cms/previews/ResourceCollectionPreview'
     )
-    const { ResourcePreview } = await import('@/cms/previews/ResourcePreview')
+    const { EventPreview } = await import('@/cms/previews/EventPreview')
 
     Cms.init({ config })
 
@@ -48,6 +49,7 @@ const NetlifyCms = dynamic(
       'resourceCollections',
       ResourceCollectionPreview,
     )
+    Cms.registerPreviewTemplate('events', EventPreview)
 
     return () => null
   },
