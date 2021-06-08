@@ -26,7 +26,7 @@ import { routes } from '@/navigation/routes.config'
 import { PostsList } from '@/post/PostsList'
 import { getFullName } from '@/utils/getFullName'
 
-const pageSize = 10
+const pageSize = 12
 
 export interface AuthorPageParams extends ParsedUrlQuery {
   id: string
@@ -91,7 +91,9 @@ export async function getStaticProps(
 
   const page = Number(context.params?.page)
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const posts = paginate(await getPostPreviewsByAuthorId(id, locale))[page - 1]!
+  const posts = paginate(await getPostPreviewsByAuthorId(id, locale), pageSize)[
+    page - 1
+  ]!
 
   return {
     props: {

@@ -24,7 +24,7 @@ import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
 import { routes } from '@/navigation/routes.config'
 import { CollectionsList } from '@/post/CollectionsList'
 
-const pageSize = 10
+const pageSize = 12
 
 export interface CollectionsPageParams extends ParsedUrlQuery {
   page: string
@@ -76,7 +76,9 @@ export async function getStaticProps(
 
   const page = Number(context.params?.page)
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const collections = paginate(await getCollectionPreviews(locale))[page - 1]!
+  const collections = paginate(await getCollectionPreviews(locale), pageSize)[
+    page - 1
+  ]!
 
   return {
     props: {

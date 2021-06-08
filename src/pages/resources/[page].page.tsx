@@ -39,7 +39,7 @@ import { routes } from '@/navigation/routes.config'
 import { PostsList } from '@/post/PostsList'
 import { TagsList } from '@/post/TagsList'
 
-const pageSize = 10
+const pageSize = 12
 const tagsPageSize = 50
 
 export interface PostsPageParams extends ParsedUrlQuery {
@@ -103,7 +103,7 @@ export async function getStaticProps(
   ].sort((a, b) => (a.date > b.date ? -1 : 1))
 
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const resources = paginate(sortedResources)[page - 1]!
+  const resources = paginate(sortedResources, pageSize)[page - 1]!
 
   const tags = await getTags(locale)
   const tagsWithPostCount = (

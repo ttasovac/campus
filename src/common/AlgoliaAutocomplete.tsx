@@ -98,7 +98,7 @@ function Match(props: MatchProps) {
   const { hit } = props
 
   return (
-    <dl className="flex flex-col space-y-1">
+    <dl className="flex flex-col space-y-1.5 my-1.5">
       <div>
         <dt className="sr-only">Title</dt>
         <dd className="font-medium">{hit.title}</dd>

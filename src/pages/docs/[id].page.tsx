@@ -125,7 +125,8 @@ export default function DocsPage(props: DocsPageProps): JSX.Element {
             <aside
               className="max-w-xs sticky hidden max-h-screen px-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
               style={{
-                maxHeight: 'calc(100vh - var(--page-header-height, 100px))',
+                maxHeight:
+                  'calc(100vh - 12px - var(--page-header-height, 100px))',
               }}
             >
               <TableOfContents

@@ -27,7 +27,7 @@ import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
 import { routes } from '@/navigation/routes.config'
 import { PostsList } from '@/post/PostsList'
 
-const pageSize = 10
+const pageSize = 12
 
 export interface TagPageParams extends ParsedUrlQuery {
   id: string
@@ -102,7 +102,7 @@ export async function getStaticProps(
   ].sort((a, b) => (a.date > b.date ? -1 : 1))
 
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const resources = paginate(sortedResources)[page - 1]!
+  const resources = paginate(sortedResources, pageSize)[page - 1]!
 
   return {
     props: {

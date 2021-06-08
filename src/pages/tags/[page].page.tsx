@@ -77,7 +77,7 @@ export async function getStaticProps(
 
   const page = Number(context.params?.page)
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const tags = paginate(await getTags(locale))[page - 1]!
+  const tags = paginate(await getTags(locale), pageSize)[page - 1]!
   const tagsWithPostCount = (
     await Promise.all(
       tags.items.map(async (tag) => {

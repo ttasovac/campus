@@ -389,7 +389,7 @@ export const collections: Record<string, CmsCollection> = {
       },
       {
         name: 'date',
-        label: 'Publication date',
+        label: 'Date',
         hint: '',
         widget: 'datetime',
         date_format: 'DD/MM/YYYY',
@@ -418,7 +418,7 @@ export const collections: Record<string, CmsCollection> = {
         value_field: '{{slug}}',
         search_fields: ['name'],
         display_fields: ['name'],
-        default: ['event'],
+        default: ['events'],
       },
       {
         name: 'featuredImage',
@@ -430,7 +430,7 @@ export const collections: Record<string, CmsCollection> = {
       {
         name: 'abstract',
         label: 'Abstract',
-        hint: 'Provide one or two sentences to briefly describe your resource',
+        hint: 'Provide one or two sentences to briefly describe the event',
         widget: 'text',
       },
       {
@@ -438,6 +438,12 @@ export const collections: Record<string, CmsCollection> = {
         label: 'Content',
         widget: 'markdown',
         hint: 'You can use `<ExternalResource />`, `<Grid />`, `<Quiz />`,  `<SideNote />`, `<VideoCard />`, `<YouTube />` components. When writing plaing markdown, be aware that `<` characters must be HTML-escaped to `&lt;`.',
+      },
+      {
+        name: 'about',
+        label: 'About',
+        widget: 'markdown',
+        hint: '',
       },
       {
         name: 'type',
@@ -462,23 +468,108 @@ export const collections: Record<string, CmsCollection> = {
         default: 'ccby-4.0',
       },
       {
+        // TODO: do we really want to keep a separate list of partner orgs?
         name: 'partners',
-        label: 'Partners',
+        label: 'Partner organisations',
+        label_singular: 'Partner organisation',
         hint: '',
         required: false,
+        widget: 'list',
+        fields: [
+          {
+            name: 'name',
+            label: 'Name',
+            hint: '',
+          },
+          {
+            name: 'logo',
+            label: 'Logo',
+            hint: '',
+            required: false,
+          },
+          {
+            name: 'url',
+            label: 'URL',
+            hint: '',
+            required: false,
+          },
+        ],
       },
       {
         name: 'social',
         label: 'Social',
         hint: '',
         required: false,
+        widget: 'object',
+        collapsed: true,
+        fields: [
+          {
+            name: 'website',
+            label: 'Website',
+          },
+          {
+            name: 'email',
+            label: 'Email',
+          },
+          {
+            name: 'twitter',
+            label: 'Twitter',
+          },
+        ],
       },
       {
+        // TODO: rename this
         name: 'synthesis',
         label: 'Synthesis',
         hint: '',
         required: false,
         widget: 'file',
+      },
+      {
+        name: 'sessions',
+        label: 'Event sessions',
+        label_singular: 'Event session',
+        hint: '',
+        widget: 'list',
+        min: 1,
+        fields: [
+          {
+            name: 'title',
+            label: 'Title',
+            hint: '',
+          },
+          // {
+          //   name: 'shortTitle',
+          //   label: 'Short title',
+          //   hint: '',
+          //   required: false,
+          // },
+          {
+            name: 'speakers',
+            label: 'Speakers',
+            hint: '',
+            widget: 'relation',
+            collection: 'people',
+            multiple: true,
+            value_field: '{{slug}}',
+            search_fields: ['firstName', 'lastName'],
+            display_fields: ['{{firstName}} {{lastName}}'],
+          },
+          {
+            name: 'body',
+            label: 'Content',
+            hint: '',
+            widget: 'markdown',
+          },
+          {
+            // TODO: rename this
+            name: 'synthesis',
+            label: 'Synthesis',
+            hint: '',
+            required: false,
+            widget: 'file',
+          },
+        ],
       },
     ],
   },

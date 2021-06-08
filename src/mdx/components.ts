@@ -61,6 +61,7 @@ export type ComponentMap = {
  */
 const legacy: ComponentMap = {
   CTA: ExternalResource,
+  Flex: Grid,
   Panel: function Panel(props) {
     return createElement(SideNote, { type: 'info', ...props })
   },

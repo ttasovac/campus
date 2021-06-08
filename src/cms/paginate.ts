@@ -33,5 +33,6 @@ export function getPageRange(
   items: Array<unknown>,
   pageSize = defaultPageSize,
 ): Array<number> {
-  return range(Math.ceil(items.length / pageSize), 1)
+  const pages = Math.ceil(items.length / pageSize)
+  return range(pages, 1)
 }

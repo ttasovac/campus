@@ -25,7 +25,7 @@ import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
 import { routes } from '@/navigation/routes.config'
 import { PostsList } from '@/post/PostsList'
 
-const pageSize = 10
+const pageSize = 12
 
 export interface CategoryPageParams extends ParsedUrlQuery {
   id: string
@@ -90,9 +90,10 @@ export async function getStaticProps(
 
   const page = Number(context.params?.page)
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const posts = paginate(await getPostPreviewsByCategoryId(id, locale))[
-    page - 1
-  ]!
+  const posts = paginate(
+    await getPostPreviewsByCategoryId(id, locale),
+    pageSize,
+  )[page - 1]!
 
   return {
     props: {

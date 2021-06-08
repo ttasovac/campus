@@ -185,7 +185,7 @@ function PostPage(props: PostPageProps) {
         <aside
           className="sticky hidden w-full max-w-xs max-h-screen px-10 space-y-10 overflow-y-auto text-sm 2xl:justify-self-end top-24 2xl:block text-neutral-500"
           style={{
-            maxHeight: 'calc(100vh - var(--page-header-height, 100px))',
+            maxHeight: 'calc(100vh - 12px - var(--page-header-height, 100px))',
           }}
         >
           <CiteAs id={post.id} metadata={metadata} />
@@ -197,7 +197,8 @@ function PostPage(props: PostPageProps) {
             <aside
               className="sticky hidden max-w-xs max-h-screen px-10 overflow-y-auto text-sm top-24 2xl:block text-neutral-500"
               style={{
-                maxHeight: 'calc(100vh - var(--page-header-height, 100px))',
+                maxHeight:
+                  'calc(100vh - 12px - var(--page-header-height, 100px))',
               }}
             >
               <TableOfContents
@@ -315,7 +316,7 @@ function ReUseConditions() {
       </h2>
       <p>
         Resources hosted on DARIAH-Campus are subjects to the{' '}
-        <Link href={routes.docs('dariah-campus-reuse-charter')}>
+        <Link href={routes.docs('reuse-charter')}>
           <a className="transition text-primary-600 hover:text-primary-700">
             DARIAH-Campus Training Materials Reuse Charter
           </a>

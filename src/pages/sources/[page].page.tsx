@@ -24,7 +24,7 @@ import { useAlternateUrls } from '@/metadata/useAlternateUrls'
 import { useCanonicalUrl } from '@/metadata/useCanonicalUrl'
 import { routes } from '@/navigation/routes.config'
 
-const pageSize = 10
+const pageSize = 12
 
 export interface CategoriesPageParams extends ParsedUrlQuery {
   page: string
@@ -76,7 +76,7 @@ export async function getStaticProps(
 
   const page = Number(context.params?.page)
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const categories = paginate(await getCategories(locale))[page - 1]!
+  const categories = paginate(await getCategories(locale), pageSize)[page - 1]!
   const categoriesWithPostCount = (
     await Promise.all(
       categories.items.map(async (category) => {
