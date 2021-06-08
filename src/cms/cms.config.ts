@@ -802,7 +802,7 @@ export const config: CmsConfig = {
     name: 'github',
     repo: 'stefanprobst/campus',
     branch: 'main',
-    // base_url: '',
+    base_url: url,
     auth_endpoint: 'api/auth/github',
     auth_scope: 'repo', // TODO: 'public_repo'
     open_authoring: true,

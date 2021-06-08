@@ -1,7 +1,3 @@
-- Adele Valeria Messina has either more than one first name or last name
-- Maria Cristina Piticco has either more than one first name or last name
-- Kenneth M. Price has either more than one first name or last name
-- Maria Fernanda Rollo has either more than one first name or last name
 - Nienke Van Shaverbeke has either more than one first name or last name
 - Rikke Toft Nørgård includes special characters.
 - Rikke Toft Nørgård has either more than one first name or last name
