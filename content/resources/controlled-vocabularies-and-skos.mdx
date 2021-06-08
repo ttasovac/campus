@@ -22,9 +22,7 @@ abstract: >-
 
 type: training-module
 licence: ccby-4.0
-pid: null
 toc: true
-citeable: true
 targetGroup: Domain researchers
 domain: Social Sciences and Humanities
 version: 1.1.0
@@ -146,7 +144,7 @@ The central element of SKOS is a Concept.
 
 To create a Concept one needs to create a Uniform Resource Identifier (URI) and assign this URI with rdf:type skos:Concept. This is how it is done in RDF syntax:
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -162,7 +160,7 @@ The Concept is defined by a label in natural language. SKOS provides three prope
 - skos:altLabel - alternative labels for a concept, e.g. synonyms, abbreviations and acronyms (can be many);
 - skos:hiddenLabel - misspellings and other variants, this label is accessible for text indexing by applications but not visible for the user.
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -186,7 +184,7 @@ There are two types of relationships between concepts that can be established in
 
 Important to not mix hierarchical and associative relationships: if two concepts are in broader/narrower relationships between each other then they are explicitly in hierarchical relationships, therefore, don’t need to be related via skos:related property. Similarly, if two concepts are related via skos:related property we can infer that they are related in some other distinct hierarchical relationships (e.g. a concept representing a tangible object is related to a concept describing a method that uses that object).
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -200,7 +198,6 @@ ex:cat rdf:type skos:Concept;
 ex:wildcat rdf:type skos:Concept;
   skos:prefLabel “wildcat”@en;
   skos:broader ex:cat.
-
 ```
 
 #### Documenting concepts
@@ -217,7 +214,7 @@ The following properties can be used:
 - skos:editorialNote - administrative information for editors
 - skos:changeNote - changes for the purposes of administration and maintenance
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -230,7 +227,6 @@ ex:cat rdf:type skos:Concept;
   skos:definition “A small carnivorous mammal with soft fur, a short snout, and retractable claws.”@en;
   skos:editorialNote “Review this term after merge.”@en;
   skos:changeNote “Added hidden label.”@en.
-
 ```
 
 #### Concept Scheme
@@ -244,7 +240,7 @@ The following statements define the purpose and usage of Concept Scheme class:
 - skos:hasTopConcept is used to define entry points of a hierarchy.
 - Metadata about Concept Scheme can be expressed using Dublin Core properties such as dct:creator, dct:contributor, dct: title, dct:rightHolder …
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -260,7 +256,6 @@ ex:animals rdf:type skos:Concept;
   skos:prefLabel “Tiere”@de;
   skos:inScheme ex:animalsVocabulary;
   skos:topConceptOf ex:animalsVocabulary.
-
 ```
 
 #### Grouping concepts within one vocabulary
@@ -269,7 +264,7 @@ ex:animals rdf:type skos:Concept;
 - Class skos:Collection/skos:OrderedCollection is used to group concepts into meaningful collections within Concept Scheme.
 - Concepts are added to Collection via skos:member or skos:memberList property.
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -288,7 +283,6 @@ ex:eurasianLynx rdf:type skos:Concept;
 
 ex:iberianLynx rdf:type skos:Concept;
   skos:prefLabel “Iberian lynx”@en.
-
 ```
 
 ### Advanced SKOS
@@ -305,7 +299,7 @@ SKOS provides the following properties to link concepts with external resources:
 - skos:narrowMatch - the local term has a narrower term in an external vocabulary
 - skos:relatedMatch - the related term in an external vocabulary
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -314,7 +308,6 @@ ex:europeanWildcat rdf:type skos:Concept;
     skos:prefLabel "European wildcat"@en;
     skos:exactMatch <https://www.wikidata.org/wiki/Q148833>;
     skos:broadMatch <https://www.wikidata.org/wiki/Q43576>.
-
 ```
 
 ### SKOS-XL
@@ -325,7 +318,7 @@ Sometimes it is required to describe relationships among lexical labels represen
 - The lexical form is stored via skosxl:literalForm property
 - Labels relations are expressed via skosxl:labelRelation
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix ex: <http://www.example.com/> .
@@ -342,7 +335,6 @@ ex:europeanWildcatLabel2 rdf:type skosxl:Label;
   skosxl:literalForm “Felis silvestris”@la.
 
 ex:europeanWildcatLabel1 skosxl:labelRelation ex:europeanWildcatLabel2.
-
 ```
 
 ### SKOS Quiz
@@ -351,7 +343,7 @@ Test your knowledge of the SKOS standard with the quiz. The correct answers are 
 
 **Question 1. Select all triples with <u>correct</u> RDF syntax.** _Please, assume the following prefixes for all options:_
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix ex: <http://www.example.org/cats#> .
 @prefix wikidata: <http://www.wikidata.org/entity/> .
@@ -369,7 +361,7 @@ Test your knowledge of the SKOS standard with the quiz. The correct answers are 
 
 **Question 2. Select all <u>correct</u> SKOS records.** _Please, assume the following prefixes for all options:_
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix ex: <http://www.example.org/cats#> .
 @prefix wikidata: <http://www.wikidata.org/entity/> .
@@ -387,7 +379,7 @@ Test your knowledge of the SKOS standard with the quiz. The correct answers are 
 
 **Question 3. Select all <u>incorrect</u> SKOS records.** _Please, assume the following prefixes for all options:_
 
-```
+```turtle
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix ex: <http://www.example.org/cats#> .
 @prefix wikidata: <http://www.wikidata.org/entity/> .
@@ -603,32 +595,17 @@ The creation of this learning material was supported by the Visegrad Fund Projec
 
 **Question 5.** Answer: 1, 3 and 4
 
-[^1]:
-
-Harpring, Patricia. Introduction to controlled vocabularies: terminology for art, architecture, and other cultural works. Getty Publications, 2010.
-
+[^1]: Harpring, Patricia. Introduction to controlled vocabularies: terminology for art, architecture, and other cultural works. Getty Publications, 2010.
 [^2]: DEFC Thesaurus [https://vocabs.acdh.oeaw.ac.at/defc_thesaurus/en/](https://vocabs.acdh.oeaw.ac.at/defc_thesaurus/en/)
-[^3]:
-
-Berners-Lee, Tim, James Hendler, and Ora Lassila. "The semantic web." Scientific american 284, no. 5 (2001): 28-37.
-
+[^3]: Berners-Lee, Tim, James Hendler, and Ora Lassila. "The semantic web." Scientific american 284, no. 5 (2001): 28-37.
 [^4]: [https://www.w3.org/RDF/](https://www.w3.org/RDF/)
-[^5]:
-
-DariahTeach: Text encoding and the Text Encoding Initiative [https://teach.dariah.eu/course/view.php?id=23](https://teach.dariah.eu/course/view.php?id=23)
-
+[^5]: DariahTeach: Text encoding and the Text Encoding Initiative [https://teach.dariah.eu/course/view.php?id=23](https://teach.dariah.eu/course/view.php?id=23)
 [^6]: [https://wiki.dbpedia.org/](https://wiki.dbpedia.org/)
 [^7]: Backbone Thesaurus [https://www.backbonethesaurus.eu/](https://www.backbonethesaurus.eu/)
-[^8]:
-
-Alistair Miles, Sean Bechhofer . SKOS Reference, W3C Recommendation 18 August 2009, [https://www.w3.org/TR/skos-reference/](https://www.w3.org/TR/skos-reference/)
-
+[^8]: Alistair Miles, Sean Bechhofer . SKOS Reference, W3C Recommendation 18 August 2009, [https://www.w3.org/TR/skos-reference/](https://www.w3.org/TR/skos-reference/)
 [^9]: SKOS Primer [https://www.w3.org/TR/skos-primer/](https://www.w3.org/TR/skos-primer/)
 [^10]: SKOS Reference [https://www.w3.org/TR/skos-reference/](https://www.w3.org/TR/skos-reference/)
-[^11]:
-
-SKOS eXtension for Labels (SKOS-XL) [https://www.w3.org/TR/skos-reference/skos-xl.html](https://www.w3.org/TR/skos-reference/skos-xl.html)
-
+[^11]: SKOS eXtension for Labels (SKOS-XL) [https://www.w3.org/TR/skos-reference/skos-xl.html](https://www.w3.org/TR/skos-reference/skos-xl.html)
 [^12]: [https://www.iron-age-danube.eu/](https://www.iron-age-danube.eu/)
 [^13]: IAD Thesaurus [https://vocabs.acdh.oeaw.ac.at/iad_thesaurus/en/](https://vocabs.acdh.oeaw.ac.at/iad_thesaurus/en/)
 [^14]: [http://skosmos.org/](http://skosmos.org/)
