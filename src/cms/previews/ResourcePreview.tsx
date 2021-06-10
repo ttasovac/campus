@@ -107,6 +107,15 @@ export function ResourcePreview(
           type,
         }
 
+        const { getHighlighter, setCDN, BUNDLED_LANGUAGES } = await import(
+          /* @ts-expect-error Typescript knows nothing about .mjs files. */
+          'shiki/dist/index.browser.mjs'
+        )
+        setCDN('https://unpkg.com/shiki/')
+        // const highlighter = await getHighlighter({
+        //   theme: 'material-palenight',
+        // })
+
         const code = String(
           await compile(body, {
             outputFormat: 'function-body',

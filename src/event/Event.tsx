@@ -294,9 +294,7 @@ function EventNav(props: EventNavProps) {
           <li className="download">
             <a href={synthesis}>
               <FaFilePdf size="0.75em" className="mr-4" />
-              <span>
-                Download the full synthesis (PDF, {synthesis.prettySize})
-              </span>
+              <span>Download the full synthesis (PDF, {synthesis})</span>
             </a>
           </li>
         ) : null}

@@ -9,7 +9,7 @@ import withGitHubMarkdown from 'remark-gfm'
 import type { VFile } from 'vfile'
 import vfile from 'vfile'
 
-import type { Category, CategoryId } from '@/api/cms/category'
+import type { Category } from '@/api/cms/category'
 import { getCategoryById } from '@/api/cms/category'
 import type { ContentType } from '@/api/cms/contentType'
 import { getContentTypeById } from '@/api/cms/contentType'
