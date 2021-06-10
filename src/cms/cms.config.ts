@@ -448,6 +448,18 @@ export const collections: Record<string, CmsCollection> = {
         widget: 'text',
       },
       {
+        name: 'authors',
+        label: 'Event organisers',
+        hint: '',
+        required: false,
+        widget: 'relation',
+        collection: 'people',
+        multiple: true,
+        value_field: '{{slug}}',
+        search_fields: ['firstName', 'lastName'],
+        display_fields: ['{{firstName}} {{lastName}}'],
+      },
+      {
         name: 'body',
         label: 'Short description',
         widget: 'markdown',

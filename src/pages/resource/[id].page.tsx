@@ -19,6 +19,7 @@ import { getLastUpdatedTimestamp } from '@/api/github'
 import { FloatingTableOfContentsButton } from '@/common/FloatingTableOfContentsButton'
 import { PageContent } from '@/common/PageContent'
 import { TableOfContents } from '@/common/TableOfContents'
+import { Event } from '@/event/Event'
 import { getLocale } from '@/i18n/getLocale'
 import type { Dictionary } from '@/i18n/loadDictionary'
 import { loadDictionary } from '@/i18n/loadDictionary'
@@ -94,9 +95,12 @@ export async function getStaticProps(
    * Better would be `/resource/:content-type/:id`, which would also make it more clear
    * where "events" fit into the data-model (currently they are both content-type and category/source).
    */
-  const resource =
-    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
-    (await getPostById(id, locale)) ?? (await getEventById(id, locale))
+  let resource
+  try {
+    resource = await getPostById(id, locale)
+  } catch {
+    resource = await getEventById(id, locale)
+  }
 
   const lastUpdatedAt = await getLastUpdatedTimestamp(
     getPostFilePath(id, locale),
@@ -149,7 +153,7 @@ function EventPage(props: EventPageProps) {
           '@type': 'Article',
         }}
       />
-      <pre>{JSON.stringify(event, null, 2)}</pre>
+      <Event event={event} lastUpdatedAt={lastUpdatedAt} />
     </Fragment>
   )
 }

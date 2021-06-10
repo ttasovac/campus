@@ -1,0 +1,51 @@
+//
+// == GENERIC_CLASSES
+// --------------------------------------------------
+.f-l {
+  float: left !important;
+}
+.f-r {
+  float: right !important;
+}
+
+.txt-r {
+  text-align: right !important;
+}
+.txt-c {
+  text-align: center !important;
+}
+
+.pos-r {
+  position: relative;
+}
+
+// == clearfix
+.clearfix {
+  display: block;
+  zoom: 1; // IE, don’t use conditional comments here
+
+  &:after,
+  &:before {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+// == table layout
+.table {
+  display: table;
+}
+.table-row {
+  display: table-row;
+}
+.table-cell {
+  display: table-cell;
+}
+.table,
+.table-row {
+  width: 100%;
+}

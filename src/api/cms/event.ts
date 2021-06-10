@@ -7,6 +7,7 @@ import withHeadingIds from 'rehype-slug'
 import withFootnotes from 'remark-footnotes'
 import withGitHubMarkdown from 'remark-gfm'
 import type { VFile } from 'vfile'
+import vfile from 'vfile'
 
 import type { Category, CategoryId } from '@/api/cms/category'
 import { getCategoryById } from '@/api/cms/category'
@@ -25,7 +26,7 @@ import withLazyLoadingImages from '@/mdx/plugins/rehype-lazy-loading-images'
 import withNoReferrerLinks from '@/mdx/plugins/rehype-no-referrer-links'
 import { readFile } from '@/mdx/readFile'
 import { readFolder } from '@/mdx/readFolder'
-import type { FilePath, ISODateString } from '@/utils/ts/aliases'
+import type { FilePath, ISODateString, URLString } from '@/utils/ts/aliases'
 
 const eventsFolder = join(process.cwd(), 'content', 'events')
 const eventsExtension = '.mdx'
@@ -41,33 +42,62 @@ export interface EventFrontmatter {
   uuid: string
   title: string
   shortTitle?: string
+  eventType?: string
   lang: 'en' | 'de'
   date: ISODateString
-  // authors: Array<PersonId['id']>
-  // contributors?: Array<PersonId['id']>
-  // editors?: Array<PersonId['id']>
+  authors?: Array<PersonId['id']>
   // version: string
-  // licence: 'ccby-4.0'
+  licence: 'ccby-4.0'
+  logo?: FilePath
   featuredImage?: FilePath
   tags: Array<TagId['id']>
   categories: Array<'event'> //Array<CategoryId['id']>
   abstract: string
-  // ContentTypeId['id']
-  type: // | 'audio'
-  'event'
-  // | 'slides'
-  // | 'training module'
-  // | 'video'
-  // | 'webinar recording'
-  // | 'website'
-  // | 'pathfinder'
+  type: 'event' // ContentTypeId['id']
+
+  about: string
+  prep?: string
+
+  partners?: Array<{ name: string; logo?: FilePath; url?: URLString }>
+  social?: {
+    website?: URLString
+    email?: string
+    twitter?: string
+    flickr?: URLString
+  }
+  synthesis?: FilePath
+  sessions: Array<EventSessionFrontmatter>
+}
+
+export interface EventSessionFrontmatter {
+  title: string
+  // shortTitle?: string
+  speakers: Array<PersonId['id']>
+  body: string
+  synthesis?: FilePath
 }
 
 export interface EventMetadata
-  extends Omit<EventFrontmatter, 'categories' | 'tags' | 'type'> {
+  extends Omit<
+    EventFrontmatter,
+    'authors' | 'categories' | 'tags' | 'type' | 'about' | 'prep' | 'sessions'
+  > {
+  authors: Array<Person>
   categories: Array<Category>
   tags: Array<Tag>
   type: ContentType
+  sessions: Array<EventSessionMetadata>
+
+  about: { code: string }
+  prep: { code: string } | null
+}
+
+export interface EventSessionMetadata {
+  title: string
+  // shortTitle?: string
+  speakers: Array<Person>
+  body: { code: string }
+  synthesis?: FilePath
 }
 
 export interface EventData {
@@ -200,6 +230,13 @@ async function getEventMetadata(
 
   const metadata = {
     ...matter,
+    authors: Array.isArray(matter.authors)
+      ? await Promise.all(
+          matter.authors.map((id) => {
+            return getPersonById(id, locale)
+          }),
+        )
+      : [],
     tags: Array.isArray(matter.tags)
       ? await Promise.all(
           matter.tags.map((id) => {
@@ -215,6 +252,31 @@ async function getEventMetadata(
         )
       : [],
     type: await getContentTypeById(matter.type, locale),
+    sessions: await Promise.all(
+      matter.sessions.map(async (session) => {
+        const speakers = await Promise.all(
+          session.speakers.map((id) => {
+            return getPersonById(id, locale)
+          }),
+        )
+
+        const code = String(await compileMdx(vfile({ contents: session.body })))
+
+        return {
+          ...session,
+          speakers,
+          body: { code },
+        }
+      }),
+    ),
+
+    about: {
+      code: String(await compileMdx(vfile({ contents: matter.about }))),
+    },
+    prep:
+      matter.prep != null
+        ? { code: String(await compileMdx(vfile({ contents: matter.prep }))) }
+        : null,
   }
 
   return metadata

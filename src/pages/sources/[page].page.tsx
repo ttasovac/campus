@@ -11,6 +11,7 @@ import { Fragment } from 'react'
 
 import type { Category } from '@/api/cms/category'
 import { getCategories, getCategoryIds } from '@/api/cms/category'
+import { getEventPreviews } from '@/api/cms/event'
 import { getPostPreviewsByCategoryId } from '@/api/cms/queries/post'
 import type { Page } from '@/cms/paginate'
 import { getPageRange, paginate } from '@/cms/paginate'
@@ -80,13 +81,13 @@ export async function getStaticProps(
   const categoriesWithPostCount = (
     await Promise.all(
       categories.items.map(async (category) => {
-        const postsWithCategory = await getPostPreviewsByCategoryId(
-          category.id,
-          locale,
-        )
+        const resourcecsWithCategory =
+          category.id === 'events'
+            ? await getEventPreviews(locale)
+            : await getPostPreviewsByCategoryId(category.id, locale)
         return {
           ...category,
-          posts: postsWithCategory.length,
+          posts: resourcecsWithCategory.length,
         }
       }),
     )

@@ -10,6 +10,8 @@ import { Fragment } from 'react'
 
 import { getCategoryById, getCategoryIds } from '@/api/cms/category'
 import type { Category as CategoryData } from '@/api/cms/category'
+import type { EventPreview } from '@/api/cms/event'
+import { getEventPreviews } from '@/api/cms/event'
 import type { PostPreview } from '@/api/cms/post'
 import { getPostPreviewsByCategoryId } from '@/api/cms/queries/post'
 import { getPageRange, paginate } from '@/cms/paginate'
@@ -35,7 +37,7 @@ export interface CategoryPageParams extends ParsedUrlQuery {
 export interface CategoryPageProps {
   dictionary: Dictionary
   category: CategoryData
-  posts: Page<PostPreview>
+  posts: Page<PostPreview | EventPreview>
 }
 
 /**
@@ -53,8 +55,12 @@ export async function getStaticPaths(
         return (
           await Promise.all(
             ids.map(async (id) => {
-              const posts = await getPostPreviewsByCategoryId(id, locale)
-              const pages = getPageRange(posts, pageSize)
+              // FIXME:
+              const resources =
+                id === 'events'
+                  ? await getEventPreviews(locale)
+                  : await getPostPreviewsByCategoryId(id, locale)
+              const pages = getPageRange(resources, pageSize)
               return pages.map((page) => {
                 return {
                   params: { id, page: String(page) },
@@ -89,17 +95,20 @@ export async function getStaticProps(
   const category = await getCategoryById(id, locale)
 
   const page = Number(context.params?.page)
+  const resources =
+    id === 'events'
+      ? await getEventPreviews(locale)
+      : await getPostPreviewsByCategoryId(id, locale)
   /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-  const posts = paginate(
-    await getPostPreviewsByCategoryId(id, locale),
-    pageSize,
-  )[page - 1]!
+  const paginated = paginate<PostPreview | EventPreview>(resources, pageSize)[
+    page - 1
+  ]!
 
   return {
     props: {
       dictionary,
       category,
-      posts,
+      posts: paginated,
     },
   }
 }

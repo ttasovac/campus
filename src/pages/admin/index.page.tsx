@@ -31,7 +31,11 @@ const NetlifyCms = dynamic(
         name: 'preSave',
         handler({ entry }) {
           const data = entry.get('data')
-          if (entry.get('collection') !== 'posts') {
+          if (
+            !['resources', 'resourceCollections', 'events'].includes(
+              entry.get('collection'),
+            )
+          ) {
             return data
           }
           if (data.get('uuid') == null) {
