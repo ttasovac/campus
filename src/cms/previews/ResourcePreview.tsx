@@ -1,10 +1,18 @@
+import withSyntaxHighlighting from '@stefanprobst/rehype-shiki'
 import type { PreviewTemplateComponentProps } from 'netlify-cms-core'
 import { useState, useEffect } from 'react'
+import withHeadingIds from 'rehype-slug'
+import withFootnotes from 'remark-footnotes'
+import withGitHubMarkdown from 'remark-gfm'
 import { compile } from 'xdm'
 
 import type { Post as PostData, PostFrontmatter } from '@/api/cms/post'
 import { Preview } from '@/cms/Preview'
 import { useDebouncedState } from '@/common/useDebouncedState'
+import withHeadingLinks from '@/mdx/plugins/rehype-heading-links'
+import withImageCaptions from '@/mdx/plugins/rehype-image-captions'
+import withLazyLoadingImages from '@/mdx/plugins/rehype-lazy-loading-images'
+import withNoReferrerLinks from '@/mdx/plugins/rehype-no-referrer-links'
 import { Post } from '@/post/Post'
 
 /**
@@ -103,7 +111,16 @@ export function ResourcePreview(
           await compile(body, {
             outputFormat: 'function-body',
             useDynamicImport: false,
-            // FIXME: plugins like syntax highlighter
+            remarkPlugins: [withGitHubMarkdown, withFootnotes],
+            rehypePlugins: [
+              [withSyntaxHighlighting, { theme: 'material-palenight' }],
+              withHeadingIds,
+              // withExtractedTableOfContents,
+              withHeadingLinks,
+              withNoReferrerLinks,
+              withLazyLoadingImages,
+              withImageCaptions,
+            ],
           }),
         )
 
