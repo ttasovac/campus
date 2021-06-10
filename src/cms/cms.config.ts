@@ -449,7 +449,7 @@ export const collections: Record<string, CmsCollection> = {
       },
       {
         name: 'authors',
-        label: 'Event organisers',
+        label: 'Persons responsible for the event',
         hint: '',
         required: false,
         widget: 'relation',
