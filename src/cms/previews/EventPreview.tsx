@@ -92,6 +92,7 @@ export function EventPreview(
                       }),
                     )
                   : []
+                // TODO:
                 const body = { code: '' }
                 return { ...session, speakers, body }
               }),

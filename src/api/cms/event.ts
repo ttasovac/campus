@@ -252,31 +252,35 @@ async function getEventMetadata(
         )
       : [],
     type: await getContentTypeById(matter.type, locale),
-    sessions: await Promise.all(
-      matter.sessions.map(async (session) => {
-        const speakers = await Promise.all(
-          session.speakers.map((id) => {
-            return getPersonById(id, locale)
-          }),
-        )
+    // FIXME: needs caching to build
+    // sessions: await Promise.all(
+    //   matter.sessions.map(async (session) => {
+    //     const speakers = await Promise.all(
+    //       session.speakers.map((id) => {
+    //         return getPersonById(id, locale)
+    //       }),
+    //     )
 
-        const code = String(await compileMdx(vfile({ contents: session.body })))
+    //     const code = String(await compileMdx(vfile({ contents: session.body })))
 
-        return {
-          ...session,
-          speakers,
-          body: { code },
-        }
-      }),
-    ),
+    //     return {
+    //       ...session,
+    //       speakers,
+    //       body: { code },
+    //     }
+    //   }),
+    // ),
 
-    about: {
-      code: String(await compileMdx(vfile({ contents: matter.about }))),
-    },
-    prep:
-      matter.prep != null
-        ? { code: String(await compileMdx(vfile({ contents: matter.prep }))) }
-        : null,
+    // about: {
+    //   code: String(await compileMdx(vfile({ contents: matter.about }))),
+    // },
+    // prep:
+    //   matter.prep != null
+    //     ? { code: String(await compileMdx(vfile({ contents: matter.prep }))) }
+    //     : null,
+    sessions: [],
+    about: { code: '' },
+    prep: null,
   }
 
   return metadata

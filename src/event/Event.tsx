@@ -1,4 +1,4 @@
-import '@/event/styles/base.module.scss'
+// import '@/event/styles/base.module.scss'
 import '@reach/dialog/styles.css'
 
 import { DialogContent, DialogOverlay } from '@reach/dialog'
