@@ -1,26 +1,27 @@
 ---
 title: XPath for Dictionary Nerds
+lang: en
 date: 2019-08-26
+version: 1.1.2
 authors:
   - tasovac-toma
-categories:
-  - dariah
 tags:
   - lexicography
   - xpath
   - xml
-abstract: >-
-  XPath (XML Path Language) is a standard query language for selecting nodes from XML documents. In this step-by-step tutorial, you will learn how to write XPath expressions in order to navigate around our XML-encoded dictionaries and select only those bits of data that you are interested in.
-
-
+categories:
+  - dariah
+abstract: XPath (XML Path Language) is a standard query language for selecting
+  nodes from XML documents. In this step-by-step tutorial, you will learn how to
+  write XPath expressions in order to navigate around our XML-encoded
+  dictionaries and select only those bits of data that you are interested in.
 type: training-module
-version: 1.1.2
-toc: true
-uuid: XUDsnt3PCB0WTEr-6EM7w
+licence: ccby-4.0
 remote:
   date: ""
+toc: true
+uuid: XUDsnt3PCB0WTEr-6EM7w
 ---
-
 ## Introduction
 
 ### What is XPath?
@@ -35,35 +36,34 @@ In this tutorial, you will learn how to write XPath expressions in order to navi
 
 You should already be familiar with the fundamentals of the XML tree structure:
 
-- The **root** element forms the basis of the XML tree and all other element nodes, attribute nodes and text nodes reach out like branches and leaves from this topmost element
-- Moreover, various relationships between elements exist. In the **child-parent relationship** one element (the child) is nested inside another element (the parent). In the following example, the element `<orth>` is nested in the element `<form>`. Consequently, `<orth>` is the child of `<form>` and `<form>` the parent of `<orth>`:
+* The **root** element forms the basis of the XML tree and all other element nodes, attribute nodes and text nodes reach out like branches and leaves from this topmost element
+* Moreover, various relationships between elements exist. In the **child-parent relationship** one element (the child) is nested inside another element (the parent). In the following example, the element `<orth>` is nested in the element `<form>`. Consequently, `<orth>` is the child of `<form>` and `<form>` the parent of `<orth>`:
 
 ```xml
 <form type="lemma">
-  <orth>lexicographer</lemma>
-</entry>
+  <orth>lexicographer</orth>
+</form>
 ```
 
-- A **sibling** relationship means that elements (the siblings) have the same parent element. For instance, in the following example, the elements `<form>`, `<gramGrp>` and `<sense>` have the same parent element and are hence siblings to each other:
+* A **sibling** relationship means that elements (the siblings) have the same parent element. For instance, in the following example, the elements `<form>`, `<gramGrp>` and `<sense>` have the same parent element and are hence siblings to each other:
 
   ```xml
   <entry>
     <form type="lemma">
       <orth>lexicographer</orth>
-    </lemma>
+    </form>
     <gramGrp>
       <gram type="pos">noun</gram>
     </gramGrp>
     <sense>
-      <def>A harmless drudge.</definition>
+      <def>A harmless drudge.</def>
       <cit type="example">
         <quote>Some lexicographers are mad!</quote>
       </cit>
     </sense>
   </entry>
   ```
-
-- `<def>` is a child element of `<sense>` and a sibling of `<cit>` etc.
+* `<def>` is a child element of `<sense>` and a sibling of `<cit>` etc.
 
 #### Different ways of representing the tree structure
 
@@ -91,38 +91,38 @@ Yet another way is to think of the tree structure as a bunch of folders on your 
 
 You should already be familiar with the basics of XML notation: ![img](https://i.imgur.com/kOweUG8.png) and different types of nodes in XML:
 
-- **element**
-- **attribute**
-- **text**
-- **namespace**
-- **processing-instruction**
-- **comment**
-- **document**
+* **element**
+* **attribute**
+* **text**
+* **namespace**
+* **processing-instruction**
+* **comment**
+* **document**
 
 ### Another language? Why, oh why?
 
 You may wonder why you need to learn yet another language to query your dictionary data. XML is, after all, a text format. You can open an XML-encoded dictionary in any text editor and search for strings in it using your editor's basic search functions.
 
-The trouble with plain-text searches on XML data is that they are not _context-aware_. In a plain-text search, all strings are considered equal and the edtior will return all the hits containing the search string, regardless of its position in the dictionary hierarchy.
+The trouble with plain-text searches on XML data is that they are not *context-aware*. In a plain-text search, all strings are considered equal and the edtior will return all the hits containing the search string, regardless of its position in the dictionary hierarchy.
 
 This can be ok for quick-and-dirty searches, but it can also produce a lot of noise, if we are looking for something really specific.
 
 Say you have a large, XML-encoded dictionary and you are interested in:
 
-- finding all the entries whose definition starts with or contains a particular word;
-- extracting all the entries that have a particular translation equivalent in the target language;
-- exploring all the polysemous entries in a dictionary;
+* finding all the entries whose definition starts with or contains a particular word;
+* extracting all the entries that have a particular translation equivalent in the target language;
+* exploring all the polysemous entries in a dictionary;
 
 in all of the above cases, succinct XPath expressions will help you get to the specific data that fits your search criteria in a way that plain-text search could never do.
 
-In addition to being useful for studying dictionaries and extracting data from them, XPath is essential to know if you're planning to use XSLT - a language for _transforming_ XML documents. XSLT is applied to XML documents when we want to change them from one format to another (for instance, XML to HTML) or when we want to change something across dictionary (for instance, changing all `entry` elements to `entryFree` etc.)
+In addition to being useful for studying dictionaries and extracting data from them, XPath is essential to know if you're planning to use XSLT - a language for *transforming* XML documents. XSLT is applied to XML documents when we want to change them from one format to another (for instance, XML to HTML) or when we want to change something across dictionary (for instance, changing all `entry` elements to `entryFree` etc.)
 
 ### What do I need to work with XPath?
 
 In order to work with XPath, you will need:
 
-- XML structured data
-- an XPath-aware editor
+* XML structured data
+* an XPath-aware editor
 
 XPath expressions are applied to XML data. So in order to query your dictionaries and get interesting results out of them, you have to have them encoded in XML. And you have to use an editor that lets you work with XPath.
 
@@ -151,8 +151,8 @@ You should be seeing something like this:
 
 ![](https://i.imgur.com/JcTVPVS.png)
 
-1. In the lower part of the oXygen window, you will see the beginning of a list containing all the results that correspond to your query. Clicking on individual rows will select the corresponding result (in this case a dictionary entry) in the main window. _Try it yourself._
-2. On the right-hand side of the main window, you will also see a navigation bar containing visual clues (purple rectangles), each of which represents one match of your XPath query. _Try clicking on different rectangles to see what happens._
+1. In the lower part of the oXygen window, you will see the beginning of a list containing all the results that correspond to your query. Clicking on individual rows will select the corresponding result (in this case a dictionary entry) in the main window. *Try it yourself.*
+2. On the right-hand side of the main window, you will also see a navigation bar containing visual clues (purple rectangles), each of which represents one match of your XPath query. *Try clicking on different rectangles to see what happens.*
 
 ### XPath Builder
 
@@ -191,13 +191,13 @@ TODO: check if ctrl is the META character on Windows.
 
 ## XPath Expressions
 
-XPath uses so-called _path expressions_ to select nodes in a tree by means of a series of steps.
+XPath uses so-called *path expressions* to select nodes in a tree by means of a series of steps.
 
 Each step is defined in terms of:
 
-1. An _axis_, which describes the relationship to be followed in the tree (for instance: selecting child nodes, ancestor nodes, attributes etc.)
-2. A _node test_ which defines what kind of nodes are required
-3. Zero or more _predicates_ which provide the ability to filter the nodes according to various selection criteria.
+1. An *axis*, which describes the relationship to be followed in the tree (for instance: selecting child nodes, ancestor nodes, attributes etc.)
+2. A *node test* which defines what kind of nodes are required
+3. Zero or more *predicates* which provide the ability to filter the nodes according to various selection criteria.
 
 You will get to know all of these as we go through various examples.
 
@@ -218,62 +218,64 @@ In the following examples, we'll be working with the file you downloaded earlier
       </th>
     </tr>
 
-    <tr>
-      <td>
-        <i>
-          nodename
-        </i>
-      </td>
-      <td>
-        Selects all nodes with the name "<i>nodename</i>"
-      </td>
-    </tr>
+```
+<tr>
+  <td>
+    <i>
+      nodename
+    </i>
+  </td>
+  <td>
+    Selects all nodes with the name "<i>nodename</i>"
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        /
-      </td>
-      <td>
-        Selects from the document node
-      </td>
-    </tr>
+<tr>
+  <td>
+    /
+  </td>
+  <td>
+    Selects from the document node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        //
-      </td>
-      <td>
-        Selects nodes in the document from the current node that match the
-        selection no matter where they are
-      </td>
-    </tr>
+<tr>
+  <td>
+    //
+  </td>
+  <td>
+    Selects nodes in the document from the current node that match the
+    selection no matter where they are
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        .
-      </td>
-      <td>
-        Selects the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    .
+  </td>
+  <td>
+    Selects the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        ..
-      </td>
-      <td>
-        Selects the parent of the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    ..
+  </td>
+  <td>
+    Selects the parent of the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        @
-      </td>
-      <td>
-        Selects attributes
-      </td>
-    </tr>
+<tr>
+  <td>
+    @
+  </td>
+  <td>
+    Selects attributes
+  </td>
+</tr>
+```
 
   </tbody>
 </table>
@@ -312,19 +314,19 @@ Double-slash is your friend. `//entry` will select all entry nodes no matter whe
 
 Predicates are your friends. They are used for selecting specific nodes or nodes that contain specific values.
 
-Predicates are always written in _square brackets_.
+Predicates are always written in *square brackets*.
 
-| Expression | Selects |
-| --- | --- |
-| `//body/entry[1]` | first entry |
-| `//body/entry[last()]` | last entry |
-| `//body/entry[last()-1]` | penultimate entry |
-| `//body/entry[position() < 4]` | first three entries |
-| `//body/entry[position() > last() - 3`] | last three entries |
-| `//cit[@type]` | all cit nodes with type attribute |
-| `//cit[not(@type)]` | all cit nodes without type attribute |
-| `//cit[@type='translation']` | all cit nodes of type translation |
-| `//form[orth="competitor"]` | all forms whose orth = competitor |
+| Expression                              | Selects                              |
+| --------------------------------------- | ------------------------------------ |
+| `//body/entry[1]`                       | first entry                          |
+| `//body/entry[last()]`                  | last entry                           |
+| `//body/entry[last()-1]`                | penultimate entry                    |
+| `//body/entry[position() < 4]`          | first three entries                  |
+| `//body/entry[position() > last() - 3`] | last three entries                   |
+| `//cit[@type]`                          | all cit nodes with type attribute    |
+| `//cit[not(@type)]`                     | all cit nodes without type attribute |
+| `//cit[@type='translation']`            | all cit nodes of type translation    |
+| `//form[orth="competitor"]`             | all forms whose orth = competitor    |
 
 Now, as you can see, it's easy to select a node such as `form` whose child (`orth`) is of a particular value. But what if you want to select the entire `entry` whose orthographic form is of a particular value? Let's take this in three steps:
 
@@ -336,7 +338,7 @@ Now, as you can see, it's easy to select a node such as `form` whose child (`ort
 
 As you noticed in `//form[orth="competitor"]`, the first node that you put in the square brackets is always the child of the node before the square brackets. `//entry[orth="competitor"]` would return no results from our document because there is no `entry` that has `orth` as its child: `orth` is the child of `form` and `form` is the child of `entry`, which makes `orth` the descendant of `entry`.
 
-That's why we had to do something else: in `//entry[.//orth="competitor"]`, the dot inside the square brackets represent the "current node", i.e. the child of entry, without specifically naming it. It is followed by double slashes to indicate that we are looking for orth _anywhere_ down the tree starting from the current node.
+That's why we had to do something else: in `//entry[.//orth="competitor"]`, the dot inside the square brackets represent the "current node", i.e. the child of entry, without specifically naming it. It is followed by double slashes to indicate that we are looking for orth *anywhere* down the tree starting from the current node.
 
 Of course, since orth is the child of form, we could have also written `//entry[form/orth="competitor"]` and the result would have been the same.
 
@@ -362,11 +364,11 @@ Write XPath expressions to select:
 
 To select more than one path, we use the or operator (`|`). For instance:
 
-| Expression | Selects |  |
-| --- | --- | --- |
-| `//form/orth` | selects all orths |  |
-| `//form/pron` | selects all prons |  |
-| `//form/orths | //form/pron` | selects all orths and all prons (by selecting either orths or prons) |
+| Expression                   | Selects                                                              |     |
+| ---------------------------- | -------------------------------------------------------------------- | --- |
+| `//form/orth`                | selects all orths                                                    |     |
+| `//form/pron`                | selects all prons                                                    |     |
+| `//form/orths | //form/pron` | selects all orths and all prons (by selecting either orths or prons) |     |
 
 ![](https://i.imgur.com/9SuDvtO.png)
 
@@ -387,127 +389,129 @@ XPath offers numerous ways of selecting axes, i.e. node sets that are in relatio
       </th>
     </tr>
 
-    <tr>
-      <td>
-        ancestor
-      </td>
-      <td>
-        Selects all ancestors (parent, grandparent, etc.) of the current node
-      </td>
-    </tr>
+```
+<tr>
+  <td>
+    ancestor
+  </td>
+  <td>
+    Selects all ancestors (parent, grandparent, etc.) of the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        ancestor-or-self
-      </td>
-      <td>
-        Selects all ancestors (parent, grandparent, etc.) of the current node
-        and the current node itself
-      </td>
-    </tr>
+<tr>
+  <td>
+    ancestor-or-self
+  </td>
+  <td>
+    Selects all ancestors (parent, grandparent, etc.) of the current node
+    and the current node itself
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        attribute
-      </td>
-      <td>
-        Selects all attributes of the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    attribute
+  </td>
+  <td>
+    Selects all attributes of the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        child
-      </td>
-      <td>
-        Selects all children of the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    child
+  </td>
+  <td>
+    Selects all children of the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        descendant
-      </td>
-      <td>
-        Selects all descendants (children, grandchildren, etc.) of the current
-        node
-      </td>
-    </tr>
+<tr>
+  <td>
+    descendant
+  </td>
+  <td>
+    Selects all descendants (children, grandchildren, etc.) of the current
+    node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        descendant-or-self
-      </td>
-      <td>
-        Selects all descendants (children, grandchildren, etc.) of the current
-        node and the current node itself
-      </td>
-    </tr>
+<tr>
+  <td>
+    descendant-or-self
+  </td>
+  <td>
+    Selects all descendants (children, grandchildren, etc.) of the current
+    node and the current node itself
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        following
-      </td>
-      <td>
-        Selects everything in the document after the closing tag of the current
-        node
-      </td>
-    </tr>
+<tr>
+  <td>
+    following
+  </td>
+  <td>
+    Selects everything in the document after the closing tag of the current
+    node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        following-sibling
-      </td>
-      <td>
-        Selects all siblings after the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    following-sibling
+  </td>
+  <td>
+    Selects all siblings after the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        namespace
-      </td>
-      <td>
-        Selects all namespace nodes of the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    namespace
+  </td>
+  <td>
+    Selects all namespace nodes of the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        parent
-      </td>
-      <td>
-        Selects the parent of the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    parent
+  </td>
+  <td>
+    Selects the parent of the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        preceding
-      </td>
-      <td>
-        Selects all nodes that appear before the current node in the document,
-        except ancestors, attribute nodes and namespace nodes
-      </td>
-    </tr>
+<tr>
+  <td>
+    preceding
+  </td>
+  <td>
+    Selects all nodes that appear before the current node in the document,
+    except ancestors, attribute nodes and namespace nodes
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        preceding-sibling
-      </td>
-      <td>
-        Selects all siblings before the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    preceding-sibling
+  </td>
+  <td>
+    Selects all siblings before the current node
+  </td>
+</tr>
 
-    <tr>
-      <td>
-        self
-      </td>
-      <td>
-        Selects the current node
-      </td>
-    </tr>
+<tr>
+  <td>
+    self
+  </td>
+  <td>
+    Selects the current node
+  </td>
+</tr>
+```
 
   </tbody>
 </table>
@@ -526,10 +530,10 @@ Now, the interesting thing about the last expression is that it will also select
 
 ![](https://i.imgur.com/RnffwFe.jpg)
 
-As we learned above, `*` selects any element node, and if you look for `//orth/following-sibling::*` you will also match orths that follow orth. If this is not what you want, you could rewrite the expression in such a way to select any element node which follows orth but which is itself _not_ orth. That would look like this:
+As we learned above, `*` selects any element node, and if you look for `//orth/following-sibling::*` you will also match orths that follow orth. If this is not what you want, you could rewrite the expression in such a way to select any element node which follows orth but which is itself *not* orth. That would look like this:
 
-| Expressions | Selects |
-| --- | --- |
+| Expressions                                    | Selects                            |
+| ---------------------------------------------- | ---------------------------------- |
 | `//orth/following-sibling::*[not(self::orth)]` | non-orth elements that follow orth |
 
 ![](https://i.imgur.com/8SP6Df8.png)
