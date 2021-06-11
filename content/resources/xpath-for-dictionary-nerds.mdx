@@ -39,11 +39,11 @@ You should already be familiar with the fundamentals of the XML tree structure:
 * The **root** element forms the basis of the XML tree and all other element nodes, attribute nodes and text nodes reach out like branches and leaves from this topmost element
 * Moreover, various relationships between elements exist. In the **child-parent relationship** one element (the child) is nested inside another element (the parent). In the following example, the element `<orth>` is nested in the element `<form>`. Consequently, `<orth>` is the child of `<form>` and `<form>` the parent of `<orth>`:
 
-```xml
-<form type="lemma">
-  <orth>lexicographer</orth>
-</form>
-```
+  ```xml
+  <form type="lemma">
+    <orth>lexicographer</orth>
+  </form>
+  ```
 
 * A **sibling** relationship means that elements (the siblings) have the same parent element. For instance, in the following example, the elements `<form>`, `<gramGrp>` and `<sense>` have the same parent element and are hence siblings to each other:
 
